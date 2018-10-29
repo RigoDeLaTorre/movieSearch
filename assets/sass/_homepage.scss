@@ -1,0 +1,16 @@
+#upcoming-movies{
+  max-width:100%;
+
+  ul{
+  display:flex;
+  flex-direction:row;
+    li{
+      .img{
+        max-width:150px;
+        img{
+          max-width:100%;
+        }
+      }
+    }
+  }
+}
