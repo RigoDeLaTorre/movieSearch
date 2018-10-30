@@ -15,7 +15,7 @@ var _axios = __webpack_require__(161);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _config = __webpack_require__(276);
+var _config = __webpack_require__(275);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35,9 +35,9 @@ var fetchGenreMovie = exports.fetchGenreMovie = function fetchGenreMovie() {
   };
 };
 
-var fetchPopularMovies = exports.fetchPopularMovies = function fetchPopularMovies() {
+var fetchPopularMovies = exports.fetchPopularMovies = function fetchPopularMovies(page) {
   return function (dispatch) {
-    _axios2.default.get('https://api.themoviedb.org/3/movie/popular?' + _config.API_KEY).then(function (res) {
+    _axios2.default.get('https://api.themoviedb.org/3/movie/popular?' + _config.API_KEY + '&language=en-US&page=' + page).then(function (res) {
       return dispatch({
         type: FETCH_POPULAR_MOVIES,
         payload: res.data
@@ -61,11 +61,370 @@ var fetchUpcomingtMovies = exports.fetchUpcomingtMovies = function fetchUpcoming
 
 /***/ }),
 
+/***/ 251:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+
 /***/ 252:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(15);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(72);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _movies = __webpack_require__(168);
+
+var _reactRedux = __webpack_require__(82);
+
+var _reactIdSwiper = __webpack_require__(581);
+
+var _reactIdSwiper2 = _interopRequireDefault(_reactIdSwiper);
+
+var _movie = __webpack_require__(276);
+
+var _movie2 = _interopRequireDefault(_movie);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var HomePage = function (_Component) {
+  _inherits(HomePage, _Component);
+
+  function HomePage(props) {
+    _classCallCheck(this, HomePage);
+
+    var _this = _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).call(this, props));
+
+    _this.filterGenre = function (id) {
+      var genre = _this.props.genres.filter(function (item) {
+        return item.id === id[0] || item.id == id[1];
+      }).map(function (item) {
+        return item.name;
+      });
+      return _react2.default.createElement(
+        'h2',
+        null,
+        genre[0],
+        ' / ',
+        genre[1] ? genre[1] : ''
+      );
+    };
+
+    _this.upcomingMovie = function () {
+      return _this.props.upcoming.map(function (movie) {
+        return _react2.default.createElement(_movie2.default, {
+          key: movie.id,
+          img: movie.poster_path,
+          title: movie.title,
+          genre: _this.filterGenre(movie.genre_ids)
+        });
+      });
+    };
+
+    _this.popularMovie = function () {
+      return _this.props.popular.map(function (movie) {
+        return _react2.default.createElement(_movie2.default, {
+          key: movie.id,
+          img: movie.poster_path,
+          title: movie.title,
+          genre: _this.filterGenre(movie.genre_ids)
+        });
+      });
+    };
+
+    _this.handlePopularPage = function () {
+
+      _this.setState(function (prevState) {
+        return {
+          popular: prevState.popular + 1
+        };
+      }, function () {
+        return _this.props.fetchPopularMovies(_this.state.popular);
+      });
+    };
+
+    _this.movieIndex = function () {
+      console.log('clicked');
+      var car = function car() {
+        if (_this.state.movieIndex < _this.props.upcoming.length) {
+          console.log(_this.props.upcoming[_this.state.movieIndex].title);
+          if (_this.state.movieIndex == _this.props.upcoming.length - 1) {
+            _this.setState({
+              movieIndex: 0
+            });
+          } else {
+            _this.setState(function (prevState) {
+              return {
+                movieIndex: prevState.movieIndex + 1
+              };
+            });
+          }
+          setTimeout(function () {
+            console.log('test');
+            car();
+          }, 3000);
+        }
+      };
+      car();
+    };
+
+    _this.movieDetail = function () {
+      //Will call action to get details by passing the state.movieIndex, which will get the data from the upcoming Movies
+      //this.props.upcoming(state.movieIndex).id   ...
+    };
+
+    _this.state = {
+      popular: 2,
+      upcoming: 1,
+      movieIndex: 0
+    };
+    _this.goNext = _this.goNext.bind(_this);
+    _this.goPrev = _this.goPrev.bind(_this);
+    _this.swiper = null;
+    return _this;
+  }
+
+  _createClass(HomePage, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.fetchGenreMovie();
+      this.props.fetchPopularMovies(this.state.popular);
+      this.props.fetchUpcomingtMovies();
+    }
+  }, {
+    key: 'goNext',
+    value: function goNext() {
+      if (this.swiper) this.swiper.slideNext();
+    }
+  }, {
+    key: 'goPrev',
+    value: function goPrev() {
+      if (this.swiper) this.swiper.slidePrev();
+    }
+
+    // compares genre ids to the genre list in state and returns the name associated.
+
+
+    // Renders a movie for each upcmoming movie in state.
+
+
+    // Renders a movie for each popular movie in state.
+
+
+    //
+
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var params = {
+        slidesPerView: 7,
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'bullets',
+          clickable: true
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }
+      };
+      if (!this.props.upcoming) {
+        return _react2.default.createElement(
+          'div',
+          null,
+          'Loading'
+        );
+      }
+      return _react2.default.createElement(
+        'section',
+        { className: 'home-page' },
+        _react2.default.createElement(
+          'button',
+          { onClick: this.movieIndex },
+          'testing'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'main-image', onClick: this.movieDetail },
+          _react2.default.createElement('div', { className: 'img', style: {
+              backgroundImage: 'linear-gradient(0deg, rgb(0, 0, 0) 5%, rgba(0, 0, 0, 0.45) 92%), url(https://image.tmdb.org/t/p/original' + this.props.upcoming[this.state.movieIndex].backdrop_path + ') ',
+              backgroundSize: "cover",
+              backgroundPosition: "center center no-repeat",
+              height: "100%"
+            } }),
+          _react2.default.createElement(
+            'div',
+            { className: 'main-details' },
+            _react2.default.createElement(
+              'h1',
+              null,
+              this.props.upcoming[this.state.movieIndex].title
+            ),
+            this.filterGenre(this.props.upcoming[this.state.movieIndex].genre_ids),
+            _react2.default.createElement(
+              'h3',
+              null,
+              'Rating ***** '
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactIdSwiper2.default,
+          _extends({}, params, { ref: function ref(node) {
+              return node ? _this2.swiper = node.swiper : null;
+            } }),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 1'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 2'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 3'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 4'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 5'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 6'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 7'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 8'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 9'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 10'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 11'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 12'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 13'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 14'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Slide 15'
+          )
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.goNext },
+          'Next'
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.goPrev },
+          'Prev'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'upcoming-movies' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            'Upcoming Movies'
+          ),
+          _react2.default.createElement(
+            'h1',
+            null,
+            'Current Page: ',
+            this.state.popular
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.handlePopularPage },
+            'Next Page'
+          ),
+          _react2.default.createElement(
+            'ul',
+            null,
+            this.upcomingMovie()
+          )
+        )
+      );
+    }
+  }]);
+
+  return HomePage;
+}(_react.Component);
+
+function mapStatetoProps(state) {
+  return {
+    upcoming: state.movies.upComingMovies.results,
+    popular: state.movies.popularMovies.results,
+    genres: state.movies.genreMovies.genres
+  };
+}
+exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchUpcomingtMovies: _movies.fetchUpcomingtMovies, fetchPopularMovies: _movies.fetchPopularMovies, fetchGenreMovie: _movies.fetchGenreMovie })(HomePage);
 
 /***/ }),
 
@@ -79,159 +438,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(16);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(81);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _movies = __webpack_require__(168);
-
-var _reactRedux = __webpack_require__(82);
-
-var _swiper = __webpack_require__(631);
-
-var _swiper2 = _interopRequireDefault(_swiper);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var HomePage = function (_Component) {
-  _inherits(HomePage, _Component);
-
-  function HomePage() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, HomePage);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = HomePage.__proto__ || Object.getPrototypeOf(HomePage)).call.apply(_ref, [this].concat(args))), _this), _this.showGenre = function (movie) {
-      return movie.map(function (id, i) {
-        var genreTitle = 'Sorry..cant find';
-        _this.props.genres.map(function (genre) {
-          if (id == genre.id) {
-            genreTitle = genre.name;
-          }
-        });
-        return _react2.default.createElement(
-          'h2',
-          { key: i },
-          genreTitle
-        );
-      });
-    }, _this.showGen = function (id) {
-      var genre = _this.props.genres.filter(function (item) {
-        if (item.id == id) return item.name;
-      });
-      var genre2 = _this.props.genres.filter(function (item) {
-        return item.id === id[0] || item.id == id[1];
-      });
-      // let newArray = this.props.genres.filter(item=>item.id === id || item.id ===id ? item.name : 'no');
-      console.log(genre2);
-      var name1 = genre2[0] !== undefined ? genre2[0].name : ' ';
-      var name2 = genre2[1] !== undefined ? genre2[1].name : ' ';
-      return name1 + " / " + name2;
-    }, _this.upcomingMovies = function () {
-      return _this.props.upcoming.map(function (movie) {
-        return _react2.default.createElement(
-          'li',
-          { key: movie.id },
-          _react2.default.createElement(
-            'div',
-            { className: 'img' },
-            _react2.default.createElement('img', { src: 'https://image.tmdb.org/t/p/w500' + movie.poster_path })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'info' },
-            _react2.default.createElement(
-              'h1',
-              null,
-              movie.title
-            ),
-            _react2.default.createElement(
-              'h2',
-              null,
-              _this.showGen(movie.genre_ids)
-            )
-          )
-        );
-      });
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  _createClass(HomePage, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      this.props.fetchGenreMovie();
-      this.props.fetchUpcomingtMovies();
-      this.props.fetchPopularMovies();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-
-      if (!this.props.upcoming) {
-        return _react2.default.createElement(
-          'div',
-          null,
-          'Loading'
-        );
-      }
-      return _react2.default.createElement(
-        'section',
-        { className: 'home' },
-        _react2.default.createElement(
-          'section',
-          { id: 'upcoming-movies' },
-          _react2.default.createElement(
-            'ul',
-            null,
-            this.upcomingMovies()
-          )
-        )
-      );
-    }
-  }]);
-
-  return HomePage;
-}(_react.Component);
-
-function mapStatetoProps(state) {
-  return {
-    upcoming: state.movies.upComingMovies.results,
-    genres: state.movies.genreMovies.genres
-  };
-}
-exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchUpcomingtMovies: _movies.fetchUpcomingtMovies, fetchPopularMovies: _movies.fetchPopularMovies, fetchGenreMovie: _movies.fetchGenreMovie })(HomePage);
-
-/***/ }),
-
-/***/ 254:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _redux = __webpack_require__(72);
+var _redux = __webpack_require__(73);
 
 var _movieReducer = __webpack_require__(278);
 
@@ -247,7 +454,7 @@ exports.default = rootReducer;
 
 /***/ }),
 
-/***/ 276:
+/***/ 275:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -260,31 +467,79 @@ var API_KEY = exports.API_KEY = 'api_key=198b9ddcfd3755ac7a132d98b8f8fda2';
 
 /***/ }),
 
+/***/ 276:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(15);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Movie = function Movie(_ref) {
+  var id = _ref.id,
+      img = _ref.img,
+      title = _ref.title,
+      genre = _ref.genre;
+
+
+  return _react2.default.createElement(
+    "li",
+    null,
+    _react2.default.createElement(
+      "div",
+      { className: "img" },
+      _react2.default.createElement("img", { src: "https://image.tmdb.org/t/p/w500" + img })
+    ),
+    _react2.default.createElement(
+      "div",
+      { className: "info" },
+      _react2.default.createElement(
+        "h1",
+        null,
+        title
+      ),
+      genre
+    )
+  );
+};
+
+exports.default = Movie;
+
+/***/ }),
+
 /***/ 277:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _react = __webpack_require__(16);
+var _react = __webpack_require__(15);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(81);
+var _reactDom = __webpack_require__(72);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRedux = __webpack_require__(82);
 
-var _redux = __webpack_require__(72);
+var _redux = __webpack_require__(73);
 
-var _reduxThunk = __webpack_require__(257);
+var _reduxThunk = __webpack_require__(256);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reactRouterDom = __webpack_require__(256);
+var _reactRouterDom = __webpack_require__(255);
 
-var _reducers = __webpack_require__(254);
+var _reducers = __webpack_require__(253);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -292,11 +547,11 @@ var _axios = __webpack_require__(161);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _HomePage = __webpack_require__(253);
+var _HomePage = __webpack_require__(252);
 
 var _HomePage2 = _interopRequireDefault(_HomePage);
 
-var _Nav = __webpack_require__(252);
+var _Nav = __webpack_require__(251);
 
 var _Nav2 = _interopRequireDefault(_Nav);
 

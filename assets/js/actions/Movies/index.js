@@ -13,8 +13,8 @@ export const fetchGenreMovie = () => dispatch =>{
   }))
 }
 
-export const fetchPopularMovies = () => dispatch =>{
-  axios.get(`https://api.themoviedb.org/3/movie/popular?${API_KEY}`)
+export const fetchPopularMovies = (page) => dispatch =>{
+  axios.get(`https://api.themoviedb.org/3/movie/popular?${API_KEY}&language=en-US&page=${page}`)
   .then(res => dispatch({
     type:FETCH_POPULAR_MOVIES,
     payload:res.data
