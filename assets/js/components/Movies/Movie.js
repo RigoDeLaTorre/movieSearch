@@ -1,10 +1,9 @@
 import React from 'react';
 
-const Movie = ({ id, img, title, genre})=>{
+const Movie = ({ id, img, title, genre, selectedItem})=>{
 
   return(
-
-    <li>
+    <div className ="swiper-slide" onClick={()=>selectedItem(id)}>
       <div className="img">
         <img src ={`https://image.tmdb.org/t/p/w500${img}`} />
       </div>
@@ -12,7 +11,7 @@ const Movie = ({ id, img, title, genre})=>{
         <h1>{title}</h1>
         {genre}
       </div>
-    </li>
+    </div>
 
   )
 }

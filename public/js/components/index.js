@@ -9,7 +9,7 @@ webpackJsonp([0],{
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchUpcomingtMovies = exports.fetchPopularMovies = exports.fetchGenreMovie = exports.FETCH_UPCOMING_MOVIES = exports.FETCH_POPULAR_MOVIES = exports.FETCH_GENRE_MOVIES = undefined;
+exports.fetchMovieDetails = exports.fetchUpcomingtMovies = exports.fetchPopularMovies = exports.fetchGenreMovie = exports.FETCH_MOVIE_DETAILS = exports.FETCH_UPCOMING_MOVIES = exports.FETCH_POPULAR_MOVIES = exports.FETCH_GENRE_MOVIES = undefined;
 
 var _axios = __webpack_require__(161);
 
@@ -22,6 +22,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var FETCH_GENRE_MOVIES = exports.FETCH_GENRE_MOVIES = 'fetch_genre_movies';
 var FETCH_POPULAR_MOVIES = exports.FETCH_POPULAR_MOVIES = 'fetch_popular_movies';
 var FETCH_UPCOMING_MOVIES = exports.FETCH_UPCOMING_MOVIES = 'fetch_upcoming_movies';
+var FETCH_MOVIE_DETAILS = exports.FETCH_MOVIE_DETAILS = 'fetch_movie_details';
 
 var fetchGenreMovie = exports.fetchGenreMovie = function fetchGenreMovie() {
   return function (dispatch) {
@@ -54,6 +55,17 @@ var fetchUpcomingtMovies = exports.fetchUpcomingtMovies = function fetchUpcoming
         type: FETCH_UPCOMING_MOVIES,
         payload: res.data
 
+      });
+    });
+  };
+};
+
+var fetchMovieDetails = exports.fetchMovieDetails = function fetchMovieDetails(id) {
+  return function (dispatch) {
+    _axios2.default.get('https://api.themoviedb.org/3/movie/' + id + '?' + _config.API_KEY).then(function (res) {
+      return dispatch({
+        type: FETCH_MOVIE_DETAILS,
+        payload: res.data
       });
     });
   };
@@ -138,10 +150,11 @@ var HomePage = function (_Component) {
       return _this.props.upcoming.map(function (movie) {
         return _react2.default.createElement(_movie2.default, {
           key: movie.id,
+          id: movie.id,
           img: movie.poster_path,
           title: movie.title,
-          genre: _this.filterGenre(movie.genre_ids)
-        });
+          genre: _this.filterGenre(movie.genre_ids),
+          selectedItem: _this.selectedItem });
       });
     };
 
@@ -151,13 +164,11 @@ var HomePage = function (_Component) {
           key: movie.id,
           img: movie.poster_path,
           title: movie.title,
-          genre: _this.filterGenre(movie.genre_ids)
-        });
+          genre: _this.filterGenre(movie.genre_ids) });
       });
     };
 
     _this.handlePopularPage = function () {
-
       _this.setState(function (prevState) {
         return {
           popular: prevState.popular + 1
@@ -167,34 +178,9 @@ var HomePage = function (_Component) {
       });
     };
 
-    _this.movieIndex = function () {
-      console.log('clicked');
-      var car = function car() {
-        if (_this.state.movieIndex < _this.props.upcoming.length) {
-          console.log(_this.props.upcoming[_this.state.movieIndex].title);
-          if (_this.state.movieIndex == _this.props.upcoming.length - 1) {
-            _this.setState({
-              movieIndex: 0
-            });
-          } else {
-            _this.setState(function (prevState) {
-              return {
-                movieIndex: prevState.movieIndex + 1
-              };
-            });
-          }
-          setTimeout(function () {
-            console.log('test');
-            car();
-          }, 3000);
-        }
-      };
-      car();
-    };
-
-    _this.movieDetail = function () {
-      //Will call action to get details by passing the state.movieIndex, which will get the data from the upcoming Movies
-      //this.props.upcoming(state.movieIndex).id   ...
+    _this.selectedItem = function (id) {
+      console.log(id);
+      _this.props.fetchMovieDetails(id);
     };
 
     _this.state = {
@@ -215,11 +201,16 @@ var HomePage = function (_Component) {
       this.props.fetchPopularMovies(this.state.popular);
       this.props.fetchUpcomingtMovies();
     }
+
+    // Navigation for movies/tv
+
   }, {
     key: 'goNext',
     value: function goNext() {
       if (this.swiper) this.swiper.slideNext();
     }
+    // Navigation for movies/tv
+
   }, {
     key: 'goPrev',
     value: function goPrev() {
@@ -231,11 +222,13 @@ var HomePage = function (_Component) {
 
     // Renders a movie for each upcmoming movie in state.
 
+    /* Renders a movie for each popular movie in state.  */
 
-    // Renders a movie for each popular movie in state.
+
+    //TESTING THIS, not yet complete.....eventually I want to fetch a new page when the user swipes to the end of page 1.
 
 
-    //
+    // Fetches Movie Details by passing in the id, then dispatching the method to retrieve the details by movie id.
 
   }, {
     key: 'render',
@@ -243,32 +236,35 @@ var HomePage = function (_Component) {
       var _this2 = this;
 
       var params = {
+        setWrapperSize: true,
+        init: true,
         slidesPerView: 7,
+        loop: true,
+        spaceBetween: 15,
+        observer: true,
+        direction: 'horizontal',
         pagination: {
-          el: '.swiper-pagination',
           type: 'bullets',
-          clickable: true
-        },
+          clickable: true },
         navigation: {
           nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
-        }
-      };
+          prevEl: '.swiper-button-prev' },
+        breakpoints: {
+          1145: { slidesPerView: 5 },
+          699: { slidesPerView: 3 }
+        } };
+
       if (!this.props.upcoming) {
         return _react2.default.createElement(
           'div',
-          null,
+          { className: !this.props.upcoming ? 'loading-screen' : 'gone' },
           'Loading'
         );
       }
+
       return _react2.default.createElement(
         'section',
         { className: 'home-page' },
-        _react2.default.createElement(
-          'button',
-          { onClick: this.movieIndex },
-          'testing'
-        ),
         _react2.default.createElement(
           'div',
           { className: 'main-image', onClick: this.movieDetail },
@@ -276,8 +272,7 @@ var HomePage = function (_Component) {
               backgroundImage: 'linear-gradient(0deg, rgb(0, 0, 0) 5%, rgba(0, 0, 0, 0.45) 92%), url(https://image.tmdb.org/t/p/original' + this.props.upcoming[this.state.movieIndex].backdrop_path + ') ',
               backgroundSize: "cover",
               backgroundPosition: "center center no-repeat",
-              height: "100%"
-            } }),
+              height: "100%" } }),
           _react2.default.createElement(
             'div',
             { className: 'main-details' },
@@ -295,119 +290,53 @@ var HomePage = function (_Component) {
           )
         ),
         _react2.default.createElement(
-          _reactIdSwiper2.default,
-          _extends({}, params, { ref: function ref(node) {
-              return node ? _this2.swiper = node.swiper : null;
-            } }),
+          'div',
+          { className: 'section-title-header' },
           _react2.default.createElement(
-            'div',
+            'h1',
             null,
-            'Slide 1'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Slide 2'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Slide 3'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Slide 4'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Slide 5'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Slide 6'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Slide 7'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Slide 8'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Slide 9'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Slide 10'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Slide 11'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Slide 12'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Slide 13'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Slide 14'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Slide 15'
+            'Movies'
           )
         ),
         _react2.default.createElement(
-          'button',
-          { onClick: this.goNext },
-          'Next'
+          'div',
+          { className: 'title-sub-header' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            'Upcoming'
+          )
         ),
         _react2.default.createElement(
-          'button',
-          { onClick: this.goPrev },
-          'Prev'
+          _reactIdSwiper2.default,
+          _extends({}, params, { ref: function ref(node) {
+              return _this2.swiper = node.swiper;
+            } }),
+          this.upcomingMovie()
         ),
         _react2.default.createElement(
           'div',
-          { className: 'upcoming-movies' },
+          { className: 'title-sub-header' },
           _react2.default.createElement(
             'h1',
             null,
-            'Upcoming Movies'
-          ),
+            'Popular'
+          )
+        ),
+        _react2.default.createElement(
+          _reactIdSwiper2.default,
+          _extends({}, params, { ref: function ref(node) {
+              return _this2.swiper = node.swiper;
+            } }),
+          this.popularMovie()
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'section-title-header' },
           _react2.default.createElement(
             'h1',
             null,
-            'Current Page: ',
-            this.state.popular
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: this.handlePopularPage },
-            'Next Page'
-          ),
-          _react2.default.createElement(
-            'ul',
-            null,
-            this.upcomingMovie()
+            'TV Shows'
           )
         )
       );
@@ -424,7 +353,7 @@ function mapStatetoProps(state) {
     genres: state.movies.genreMovies.genres
   };
 }
-exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchUpcomingtMovies: _movies.fetchUpcomingtMovies, fetchPopularMovies: _movies.fetchPopularMovies, fetchGenreMovie: _movies.fetchGenreMovie })(HomePage);
+exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchUpcomingtMovies: _movies.fetchUpcomingtMovies, fetchPopularMovies: _movies.fetchPopularMovies, fetchGenreMovie: _movies.fetchGenreMovie, fetchMovieDetails: _movies.fetchMovieDetails })(HomePage);
 
 /***/ }),
 
@@ -487,12 +416,15 @@ var Movie = function Movie(_ref) {
   var id = _ref.id,
       img = _ref.img,
       title = _ref.title,
-      genre = _ref.genre;
+      genre = _ref.genre,
+      selectedItem = _ref.selectedItem;
 
 
   return _react2.default.createElement(
-    "li",
-    null,
+    "div",
+    { className: "swiper-slide", onClick: function onClick() {
+        return selectedItem(id);
+      } },
     _react2.default.createElement(
       "div",
       { className: "img" },
@@ -610,6 +542,10 @@ exports.default = function () {
     case _movies.FETCH_GENRE_MOVIES:
       return _extends({}, state, {
         genreMovies: action.payload
+      });
+    case _movies.FETCH_MOVIE_DETAILS:
+      return _extends({}, state, {
+        selectedMovie: action.payload
       });
     default:
       return state;

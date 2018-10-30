@@ -3,6 +3,7 @@ import {API_KEY } from '../config.js'
 export const FETCH_GENRE_MOVIES ='fetch_genre_movies'
 export const FETCH_POPULAR_MOVIES ='fetch_popular_movies'
 export const FETCH_UPCOMING_MOVIES ='fetch_upcoming_movies'
+export const FETCH_MOVIE_DETAILS ='fetch_movie_details'
 
 export const fetchGenreMovie = () => dispatch =>{
   axios.get(`https://api.themoviedb.org/3/genre/movie/list?${API_KEY}`)
@@ -28,5 +29,13 @@ export const fetchUpcomingtMovies = () => dispatch =>{
     type:FETCH_UPCOMING_MOVIES,
     payload:res.data
 
+  }))
+}
+
+export const fetchMovieDetails = (id) => dispatch =>{
+  axios.get(`https://api.themoviedb.org/3/movie/${id}?${API_KEY}`)
+  .then(res => dispatch({
+    type:FETCH_MOVIE_DETAILS,
+    payload:res.data
   }))
 }

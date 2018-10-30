@@ -1,4 +1,4 @@
-import { FETCH_UPCOMING_MOVIES, FETCH_POPULAR_MOVIES, FETCH_GENRE_MOVIES } from '../actions/movies';
+import { FETCH_UPCOMING_MOVIES, FETCH_POPULAR_MOVIES, FETCH_GENRE_MOVIES, FETCH_MOVIE_DETAILS } from '../actions/movies';
 
 const initialState={
   selectedMovie:{},
@@ -24,6 +24,11 @@ export default function(state=initialState, action){
             ...state,
             genreMovies:action.payload
           };
+          case FETCH_MOVIE_DETAILS :
+            return {
+              ...state,
+              selectedMovie:action.payload
+            };
       default:
       return state;
 
