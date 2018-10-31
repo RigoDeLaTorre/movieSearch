@@ -1,13 +1,14 @@
-@import url( 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
-@import "reset";
-@import "homepage";
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
+@import 'reset';
+@import 'homepage';
+@import 'moviedetails';
 
 body {
-  font-family: 'Roboto', sans-serif;
-  // background: purple;
+	font-family: 'Roboto', sans-serif;
+	// background: purple;
 }
 
 h1 {
-  font-weight: 100;
-  font-size: 50px;
+	font-weight: 100;
+	font-size: 50px;
 }
