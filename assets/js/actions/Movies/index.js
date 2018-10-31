@@ -51,6 +51,7 @@ export const fetchMovieDetails = id => dispatch => {
 	)
 	dispatch(fetchMovieCredits(id))
 	dispatch(fetchMovieTrailers(id))
+		
 }
 
 export const fetchMovieCredits = id => dispatch => {

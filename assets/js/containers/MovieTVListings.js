@@ -11,7 +11,8 @@ import { connect } from 'react-redux'
 import Swiper from 'react-id-swiper'
 import Movie from '../components/movies/movie.js'
 import MovieDetails from '../components/movies/movieDetails.js'
-class HomePage extends Component {
+
+class MovieTVListings extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -61,7 +62,6 @@ class HomePage extends Component {
 					title={movie.title}
 					genre={this.filterGenre(movie.genre_ids)}
 					selectedItem={this.selectedItem}
-					
 				/>
 			)
 		})
@@ -95,7 +95,6 @@ class HomePage extends Component {
 	selectedItem = id => {
 		console.log(id)
 		this.props.fetchMovieDetails(id)
-		this.props.history.push('/moviedetails')
 	}
 	render() {
 		const params = {
@@ -130,32 +129,11 @@ class HomePage extends Component {
 
 		return (
 			<section className="home-page">
-			<button onClick={() => this.props.history.push('/moviedetails')}>history push test to movie details </button>
-			  <Link to="/moviedetails">Testing React Router to movie link</Link>
-				<div className="main-image" onClick={this.movieDetail}>
-					<div
-						className="img"
-						style={{
-							backgroundImage: `linear-gradient(0deg, rgba(255, 165, 0, 0.62) 5%, rgba(0, 0, 0, 0) 55%), url(https://image.tmdb.org/t/p/original${
-								this.props.upcoming[this.state.movieIndex].backdrop_path
-							}) `,
-							backgroundSize: 'cover',
-							backgroundPosition: 'center center no-repeat',
-							height: '100%'
-						}}
-					/>
-					<div className="main-details">
-						<h1>{this.props.upcoming[this.state.movieIndex].title}</h1>
-						{this.filterGenre(
-							this.props.upcoming[this.state.movieIndex].genre_ids
-						)}
-						<h3>Rating ***** </h3>
-					</div>
-				</div>
+
+			 
 				<div className="section-title-header">
 					<h1>Movies</h1>
 				</div>
-				// Upcoming Movie swiping section
 				<div className="title-sub-header">
 					<h1>Upcoming</h1>
 				</div>
@@ -191,4 +169,4 @@ export default connect(
 		fetchGenreMovie,
 		fetchMovieDetails
 	}
-)(HomePage)
+)(MovieTVListings)

@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
+
+import { BrowserRouter as Router, Route, Switch,Link } from "react-router-dom";
+
 import rootReducer from './reducers'
 import axios from 'axios'
 import HomePage from './containers/HomePage.js'
+import MovieTVListings from './containers/MovieTVListings.js'
 import Nav from './components/Nav.js'
 import MovieDetails from './components/Movies/MovieDetails.js'
 
@@ -24,14 +27,15 @@ const store = createStore(
 
 ReactDOM.render(
 	<Provider store={store}>
-		<BrowserRouter>
+		<Router>
 			<div id="home">
 				<MovieDetails />
 				<Switch>
-					<Route path="/" component={HomePage} />
+					<Route path="/moviedetails" component={MovieDetails} />
 				</Switch>
+				<MovieTVListings />
 			</div>
-		</BrowserRouter>
+		</Router>
 	</Provider>,
 	document.getElementById('app')
 )

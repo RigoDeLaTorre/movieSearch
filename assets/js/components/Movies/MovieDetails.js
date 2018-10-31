@@ -3,6 +3,7 @@ import ReactDom from 'react-dom'
 import { connect } from 'react-redux'
 
 class MovieDetails extends Component {
+
 	render() {
 		if (this.props.movie === undefined) {
 			return <h1>loading</h1>
@@ -11,38 +12,47 @@ class MovieDetails extends Component {
 			<section
 				id="movie-details"
 				style={{
-					backgroundImage: `linear-gradient(0deg, rgb(2,2,2) 35%, rgba(0, 0, 0, 0) 55%), url(https://image.tmdb.org/t/p/original/VuukZLgaCrho2Ar8Scl9HtV3yD.jpg) `,
+					backgroundImage: `linear-gradient(0deg, rgb(2,2,2) 35%, rgba(0, 0, 0, 0) 55%), url(https://image.tmdb.org/t/p/original${this.props.movie.backdrop_path}) `,
 					backgroundSize: 'cover',
 					backgroundPosition: 'center center no-repeat'
 				}}>
 				<div className="movie-container">
-					<div className="trailer">
-						<img src="https://image.tmdb.org/t/p/w154/wrFpXMNBRj2PBiN4Z5kix51XaIZ.jpg" />
-						<div className="watch-trailer">
-							<img src="./img/play-button.svg" />
-							<h5>Watch Trailer</h5>
-						</div>
-					</div>
+
+					<iframe src={`http://www.youtube.com/embed/${this.props.movie.results ? this.props.movie.results[0].key : ''}`}
+        allowFullScreen="allowFullScreen"
+        mozallowFullScreen="mozallowFullScreen"
+        msallowFullScreen="msallowFullScreen"
+        oallowFullScreen="oallowFullScreen"
+        webkitallowFullScreen="webkitallowFullScreen"
+				frameBorder="0"
+				width="420"
+				height ="320"></iframe>
 					<div className="movie-info">
-						<h1>Guardians of the Galaxy Vol 1</h1>
+						<h1>{this.props.movie.title}</h1>
 						<div className="details">
-							<h2>****** 4.6/ 5</h2>
+							<div className="rating">
+								<h2>Rating {this.props.movie.vote_average}</h2>
+								<span className={`fa fa-star ${this.props.movie.vote_average >0? 'checked' : ''} `}></span>
+								<span className={`fa fa-star ${this.props.movie.vote_average >1? 'checked' : ''} `}></span>
+								<span className={`fa fa-star ${this.props.movie.vote_average >2? 'checked' : ''} `}></span>
+								<span className={`fa fa-star ${this.props.movie.vote_average >3? 'checked' : ''} `}></span>
+								<span className={`fa fa-star ${this.props.movie.vote_average >4? 'checked' : ''} `}></span>
+								<span className={`fa fa-star ${this.props.movie.vote_average >5? 'checked' : ''} `}></span>
+								<span className={`fa fa-star ${this.props.movie.vote_average >6? 'checked' : ''} `}></span>
+								<span className={`fa fa-star ${this.props.movie.vote_average >7? 'checked' : ''} `}></span>
+								<span className={`fa fa-star ${this.props.movie.vote_average >8? 'checked' : ''} `}></span>
+								<span className={`fa fa-star ${this.props.movie.vote_average >9? 'checked' : ''} `}></span>
+							</div>
+
+
 							<div className="runtime">
-								<h2>Drama / Action -</h2>
-								<h2>2h 4min 2005</h2>
-								<h2>Release Date</h2>
+								<h2>{this.props.movie.genres ? this.props.movie.genres[0].name : ''}</h2>
+								<h2>{this.props.movie.runtime} min</h2>
+								<h2>{this.props.movie.release_date}</h2>
 							</div>
 						</div>
-						<p>
-							Disaster strikes when a criminal mastermind reveals the identities
-							of all active undercover agents in Britain. The secret service can
-							now rely on only one man—Johnny English. Currently teaching at a
-							minor prep school, Johnny springs back into action to find the
-							mysterious hacker. For this mission to succeed, he’ll need all of
-							his skills—what few he has—as the man with yesterday’s analogue
-							methods faces off against tomorrow’s digital technology."
-						</p>
-						<div className="cast" />
+						<p>{this.props.movie.overview}</p>
+						<div className="cast"></div>
 					</div>
 				</div>
 			</section>
