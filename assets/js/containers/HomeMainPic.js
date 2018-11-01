@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDom from 'react-dom'
 import { Link } from 'react-router-dom'
 import {
-	fetchUpcomingtMovies,
+	fetchUpcomingMovies,
 	fetchGenreMovie,
 	fetchMovieDetails
 } from '../actions/movies'
@@ -16,10 +16,7 @@ class HomeMainPic extends Component {
 		this.goPrev = this.goPrev.bind(this)
 		this.swiper = null
 	}
-	componentWillMount() {
-		this.props.fetchGenreMovie()
-		this.props.fetchUpcomingtMovies()
-	}
+
 
 	// Navigation for movies/tv
 	goNext() {
@@ -125,8 +122,7 @@ function mapStatetoProps(state) {
 export default connect(
 	mapStatetoProps,
 	{
-		fetchUpcomingtMovies,
-		fetchGenreMovie,
+
 		fetchMovieDetails
 	}
 )(HomeMainPic)

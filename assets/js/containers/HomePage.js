@@ -2,22 +2,24 @@ import React, { Component } from 'react'
 import ReactDom from 'react-dom'
 import { Link } from 'react-router-dom'
 import {
-	fetchUpcomingtMovies,
+	fetchUpcomingMovies,
 	fetchPopularMovies,
+	fetchNowPlayingMovies,
+	fetchTopRatedMovies,
 	fetchGenreMovie,
-	fetchMovieDetails
+	fetchMovieDetails,
 } from '../actions/movies'
-import { connect } from 'react-redux'
 
-import UpcomingMovies from './upcomingMovies.js'
-import PopularMovies from './popularMovies.js'
+import { connect } from 'react-redux'
 import HomeMainPic from './homemainpic.js'
+import Carousel from './carousel.js'
+
 
 class HomePage extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			popular: 2,
+			popular: 1,
 			upcoming: 1,
 			movieIndex: 0
 		}
@@ -25,7 +27,10 @@ class HomePage extends Component {
 	componentWillMount() {
 		this.props.fetchGenreMovie()
 		this.props.fetchPopularMovies(this.state.popular)
-		this.props.fetchUpcomingtMovies()
+		this.props.fetchUpcomingMovies()
+		this.props.fetchNowPlayingMovies()
+		this.props.fetchTopRatedMovies()
+
 	}
 
 	filterGenre = id => {
@@ -75,13 +80,20 @@ class HomePage extends Component {
 						<h3>Rating ***** </h3>
 					</div>
 				</div>
-
+				<Link to="/tv">tv section</Link>
 				<div className="video-container">
 					<div className="section-title-header">
-						<h1>Movies</h1>
+						<div className = "mid-navigation">
+						<h1 style={{border: "1px solid orange"}}>Movies</h1>
+						<h1>TV Shows</h1>
+						</div>
+
 					</div>
-					<UpcomingMovies selectedItem={this.selectedItem} />
-					<PopularMovies />
+					<Carousel selectedItem={this.selectedItem} movie={this.props.upcoming} title="Upcoming "/>
+					<Carousel selectedItem={this.selectedItem} movie={this.props.popular} title="Popular "/>
+					<Carousel selectedItem={this.selectedItem} movie={this.props.nowplaying} title="Now Playing "/>
+					<Carousel selectedItem={this.selectedItem} movie={this.props.toprated} title="Top Rated "/>
+
 				</div>
 				<div className="section-title-header">
 					<h1>TV Shows</h1>
@@ -95,14 +107,19 @@ function mapStatetoProps(state) {
 	return {
 		upcoming: state.movies.upComingMovies.results,
 		popular: state.movies.popularMovies.results,
+		toprated:state.movies.topRatedMovies.results,
+		nowplaying:state.movies.nowPlayingMovies.results,
 		genres: state.movies.genreMovies.genres
 	}
 }
 export default connect(
 	mapStatetoProps,
 	{
-		fetchUpcomingtMovies,
+		fetchUpcomingMovies,
 		fetchPopularMovies,
+		fetchNowPlayingMovies,
+		fetchTopRatedMovies,
+
 		fetchGenreMovie,
 		fetchMovieDetails
 	}

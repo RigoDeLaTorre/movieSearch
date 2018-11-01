@@ -6,16 +6,14 @@ import { connect } from 'react-redux'
 import Swiper from 'react-id-swiper'
 import Movie from '../components/movies/movie.js'
 
-class UpcomingMovies extends Component {
+class Carousel extends Component {
 	constructor(props) {
 		super(props)
 		this.goNext = this.goNext.bind(this)
 		this.goPrev = this.goPrev.bind(this)
 		this.swiper = null
 	}
-	gotoDetails = () => {
-		this.props.history.push('/moviedetails')
-	}
+
 	// Navigation for movies/tv
 	goNext() {
 		if (this.swiper) this.swiper.slideNext()
@@ -38,14 +36,14 @@ class UpcomingMovies extends Component {
 	}
 
 	// Renders a movie for each upcmoming movie in state.
-	upcomingMovie = () => {
-		return this.props.upcoming.map(movie => {
+	renderVideos = () => {
+		return this.props.movie.map(movie => {
 			return (
 				<Movie
 					key={movie.id}
 					id={movie.id}
 					img={movie.poster_path}
-					title={movie.title}
+					title={movie.title ? movie.title : movie.name}
 					genre={this.filterGenre(movie.genre_ids)}
 					selectedItem={this.props.selectedItem}
 				/>
@@ -56,7 +54,7 @@ class UpcomingMovies extends Component {
 	// Fetches Movie Details by passing in the id, then dispatching the method to retrieve the details by movie id.
 
 	selectedItem = id => {
-		console.log(id)
+
 		this.props.fetchMovieDetails(id)
 		this.props.history.push('/moviedetails')
 	}
@@ -84,9 +82,9 @@ class UpcomingMovies extends Component {
 			}
 		}
 
-		if (!this.props.upcoming) {
+		if (!this.props.movie) {
 			return (
-				<div className={!this.props.upcoming ? 'loading-screen' : 'gone'}>
+				<div className={!this.props.movie ? 'loading-screen' : 'gone'}>
 					Loading
 				</div>
 			)
@@ -95,9 +93,9 @@ class UpcomingMovies extends Component {
 		return (
 			<section className="movie-selections">
 				<div className="title-sub-header">
-					<h2>Upcoming Movies</h2>
+					<h2>{this.props.title}</h2>
 				</div>
-				<Swiper {...params}>{this.upcomingMovie()}</Swiper>
+				<Swiper {...params}>{this.renderVideos()}</Swiper>
 			</section>
 		)
 	}
@@ -105,7 +103,6 @@ class UpcomingMovies extends Component {
 
 function mapStatetoProps(state) {
 	return {
-		upcoming: state.movies.upComingMovies.results,
 		genres: state.movies.genreMovies.genres
 	}
 }
@@ -114,4 +111,4 @@ export default connect(
 	{
 		fetchMovieDetails
 	}
-)(UpcomingMovies)
+)(Carousel)

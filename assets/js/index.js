@@ -8,11 +8,11 @@ import rootReducer from './reducers'
 import axios from 'axios'
 
 import HomePage from './containers/HomePage.js'
+import TvPage from './containers/TvPage.js'
+
 import Nav from './components/Nav.js'
 import MovieDetails from './containers/MovieDetails'
-import UpcomingMovies from './containers/upcomingMovies'
-import PopularMovies from './containers/popularMovies'
-import HomeMainPic from './containers/homemainpic'
+
 
 const initialState = {}
 const middleware = [thunk]
@@ -31,9 +31,9 @@ ReactDOM.render(
 		<Router>
 			<div id="home">
 				<Switch>
-					<Route exact path="/" component={HomePage} />
-					<Route path="/moviedetails" component={MovieDetails} />
-					<Route path="/dfgdfg" component={HomePage} />
+				<Route path="/moviedetails" component={MovieDetails} />
+				<Route path="/tv" component={TvPage} />
+				<Route exact path="/" component={HomePage} />
 				</Switch>
 			</div>
 		</Router>

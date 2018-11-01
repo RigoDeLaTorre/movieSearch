@@ -15,6 +15,9 @@
 
 			.movie-info {
 				margin-left: 5rem;
+				display:flex;
+				flex-direction:column;
+
 				h1 {
 					font-size: 3rem;
 					font-weight: 700;
@@ -44,6 +47,29 @@
 					color: #d4d0d0;
 					font-size: 1rem;
 					line-height: 1.4;
+				}
+				.cast{
+					display:flex;
+					justify-content: space-between;
+					margin-top:1rem;
+					.member{
+						display:flex;
+						flex-direction:column;
+						max-height:100px;
+						margin-right:10px;
+						align-items: center;
+
+						img{
+							height:100%;
+							width:100%;
+							border-radius:5px;
+							margin-bottom:.5rem;
+
+						}
+						h3{
+							font-size:.7rem;
+						}
+					}
 				}
 			}
 		}

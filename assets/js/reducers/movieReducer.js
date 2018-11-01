@@ -1,6 +1,8 @@
 import {
 	FETCH_UPCOMING_MOVIES,
 	FETCH_POPULAR_MOVIES,
+	FETCH_TOPRATED_MOVIES,
+	FETCH_NOWPLAYING_MOVIES,
 	FETCH_GENRE_MOVIES,
 	FETCH_MOVIE_DETAILS,
 	FETCH_MOVIE_CREDITS,
@@ -11,6 +13,8 @@ const initialState = {
 	selectedMovie: {},
 	popularMovies: [],
 	upComingMovies: [],
+	nowPlayingMovies: [],
+	topRatedMovies: [],
 	genreMovies: []
 }
 
@@ -26,6 +30,16 @@ export default function(state = initialState, action) {
 				...state,
 				popularMovies: action.payload
 			}
+			case FETCH_NOWPLAYING_MOVIES:
+				return {
+					...state,
+					nowPlayingMovies: action.payload
+				}
+				case FETCH_TOPRATED_MOVIES:
+					return {
+						...state,
+						topRatedMovies: action.payload
+					}
 		case FETCH_GENRE_MOVIES:
 			return {
 				...state,
