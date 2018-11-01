@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDom from 'react-dom'
-import {Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 import {
 	fetchUpcomingtMovies,
 	fetchPopularMovies,
@@ -8,9 +8,11 @@ import {
 	fetchMovieDetails
 } from '../actions/movies'
 import { connect } from 'react-redux'
-import Swiper from 'react-id-swiper'
-import Movie from '../components/movies/movie.js'
-import MovieDetails from '../components/movies/movieDetails.js'
+
+import UpcomingMovies from './upcomingMovies.js'
+import PopularMovies from './popularMovies.js'
+import HomeMainPic from './homemainpic.js'
+
 class HomePage extends Component {
 	constructor(props) {
 		super(props)
@@ -19,9 +21,6 @@ class HomePage extends Component {
 			upcoming: 1,
 			movieIndex: 0
 		}
-		this.goNext = this.goNext.bind(this)
-		this.goPrev = this.goPrev.bind(this)
-		this.swiper = null
 	}
 	componentWillMount() {
 		this.props.fetchGenreMovie()
@@ -29,16 +28,6 @@ class HomePage extends Component {
 		this.props.fetchUpcomingtMovies()
 	}
 
-	// Navigation for movies/tv
-	goNext() {
-		if (this.swiper) this.swiper.slideNext()
-	}
-	// Navigation for movies/tv
-	goPrev() {
-		if (this.swiper) this.swiper.slidePrev()
-	}
-
-	// compares genre ids to the genre list in state and returns the name associated.
 	filterGenre = id => {
 		let genre = this.props.genres
 			.filter(item => item.id === id[0] || item.id == id[1])
@@ -50,36 +39,6 @@ class HomePage extends Component {
 		)
 	}
 
-	// Renders a movie for each upcmoming movie in state.
-	upcomingMovie = () => {
-		return this.props.upcoming.map(movie => {
-			return (
-				<Movie
-					key={movie.id}
-					id={movie.id}
-					img={movie.poster_path}
-					title={movie.title}
-					genre={this.filterGenre(movie.genre_ids)}
-					selectedItem={this.selectedItem}
-					
-				/>
-			)
-		})
-	}
-	/* Renders a movie for each popular movie in state.  */
-	popularMovie = () => {
-		return this.props.popular.map(movie => {
-			return (
-				<Movie
-					key={movie.id}
-					img={movie.poster_path}
-					title={movie.title}
-					genre={this.filterGenre(movie.genre_ids)}
-				/>
-			)
-		})
-	}
-
 	//TESTING THIS, not yet complete.....eventually I want to fetch a new page when the user swipes to the end of page 1.
 	handlePopularPage = () => {
 		this.setState(
@@ -89,37 +48,13 @@ class HomePage extends Component {
 			() => this.props.fetchPopularMovies(this.state.popular)
 		)
 	}
-
-	// Fetches Movie Details by passing in the id, then dispatching the method to retrieve the details by movie id.
-
 	selectedItem = id => {
 		console.log(id)
 		this.props.fetchMovieDetails(id)
 		this.props.history.push('/moviedetails')
 	}
-	render() {
-		const params = {
-			setWrapperSize: true,
-			init: true,
-			slidesPerView: 7,
-			loop: true,
-			spaceBetween: 15,
-			observer: true,
-			direction: 'horizontal',
-			pagination: {
-				type: 'bullets',
-				clickable: true
-			},
-			navigation: {
-				nextEl: '.swiper-button-next',
-				prevEl: '.swiper-button-prev'
-			},
-			breakpoints: {
-				1145: { slidesPerView: 5 },
-				699: { slidesPerView: 3 }
-			}
-		}
 
+	render() {
 		if (!this.props.upcoming) {
 			return (
 				<div className={!this.props.upcoming ? 'loading-screen' : 'gone'}>
@@ -130,20 +65,8 @@ class HomePage extends Component {
 
 		return (
 			<section className="home-page">
-			<button onClick={() => this.props.history.push('/moviedetails')}>history push test to movie details </button>
-			  <Link to="/moviedetails">Testing React Router to movie link</Link>
-				<div className="main-image" onClick={this.movieDetail}>
-					<div
-						className="img"
-						style={{
-							backgroundImage: `linear-gradient(0deg, rgba(255, 165, 0, 0.62) 5%, rgba(0, 0, 0, 0) 55%), url(https://image.tmdb.org/t/p/original${
-								this.props.upcoming[this.state.movieIndex].backdrop_path
-							}) `,
-							backgroundSize: 'cover',
-							backgroundPosition: 'center center no-repeat',
-							height: '100%'
-						}}
-					/>
+				<div className="main-image">
+					<HomeMainPic selectedItem={this.selectedItem} />
 					<div className="main-details">
 						<h1>{this.props.upcoming[this.state.movieIndex].title}</h1>
 						{this.filterGenre(
@@ -152,22 +75,14 @@ class HomePage extends Component {
 						<h3>Rating ***** </h3>
 					</div>
 				</div>
-				<div className="section-title-header">
-					<h1>Movies</h1>
+
+				<div className="video-container">
+					<div className="section-title-header">
+						<h1>Movies</h1>
+					</div>
+					<UpcomingMovies selectedItem={this.selectedItem} />
+					<PopularMovies />
 				</div>
-				// Upcoming Movie swiping section
-				<div className="title-sub-header">
-					<h1>Upcoming</h1>
-				</div>
-				<Swiper {...params} >
-					{this.upcomingMovie()}
-				</Swiper>
-				<div className="title-sub-header">
-					<h1>Popular</h1>
-				</div>
-				<Swiper {...params}>
-					{this.popularMovie()}
-				</Swiper>
 				<div className="section-title-header">
 					<h1>TV Shows</h1>
 				</div>

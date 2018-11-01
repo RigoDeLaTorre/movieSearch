@@ -1,32 +1,23 @@
 import React, { Component } from 'react'
 import ReactDom from 'react-dom'
-import {Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 import {
 	fetchUpcomingtMovies,
-	fetchPopularMovies,
 	fetchGenreMovie,
 	fetchMovieDetails
 } from '../actions/movies'
 import { connect } from 'react-redux'
 import Swiper from 'react-id-swiper'
-import Movie from '../components/movies/movie.js'
-import MovieDetails from '../components/movies/movieDetails.js'
 
-class MovieTVListings extends Component {
+class HomeMainPic extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			popular: 2,
-			upcoming: 1,
-			movieIndex: 0
-		}
 		this.goNext = this.goNext.bind(this)
 		this.goPrev = this.goPrev.bind(this)
 		this.swiper = null
 	}
 	componentWillMount() {
 		this.props.fetchGenreMovie()
-		this.props.fetchPopularMovies(this.state.popular)
 		this.props.fetchUpcomingtMovies()
 	}
 
@@ -46,7 +37,7 @@ class MovieTVListings extends Component {
 			.map(item => item.name)
 		return (
 			<h2>
-				{genre[0]} / {genre[1] ? genre[1] : ''}
+				{genre[0]} {genre[1] ? '/' + genre[1] : ''}
 			</h2>
 		)
 	}
@@ -55,39 +46,29 @@ class MovieTVListings extends Component {
 	upcomingMovie = () => {
 		return this.props.upcoming.map(movie => {
 			return (
-				<Movie
+				<div
 					key={movie.id}
-					id={movie.id}
-					img={movie.poster_path}
-					title={movie.title}
-					genre={this.filterGenre(movie.genre_ids)}
-					selectedItem={this.selectedItem}
-				/>
+					className="swiper-slide"
+					onClick={() => this.props.selectedItem(movie.id)}>
+					<div
+						className="img"
+						style={{
+							backgroundImage: `linear-gradient(0deg, rgb(0, 0, 0) 5%, rgba(0, 0, 0, 0) 55%), url(https://image.tmdb.org/t/p/original${
+								movie.backdrop_path
+							}) `,
+							backgroundSize: 'cover',
+							backgroundPosition: 'center ',
+							height: '100%',
+							width: '100%'
+						}}
+					/>
+					<div className="info">
+						<h1>{movie.title}</h1>
+						{this.filterGenre(movie.genre_ids)}
+					</div>
+				</div>
 			)
 		})
-	}
-	/* Renders a movie for each popular movie in state.  */
-	popularMovie = () => {
-		return this.props.popular.map(movie => {
-			return (
-				<Movie
-					key={movie.id}
-					img={movie.poster_path}
-					title={movie.title}
-					genre={this.filterGenre(movie.genre_ids)}
-				/>
-			)
-		})
-	}
-
-	//TESTING THIS, not yet complete.....eventually I want to fetch a new page when the user swipes to the end of page 1.
-	handlePopularPage = () => {
-		this.setState(
-			prevState => ({
-				popular: prevState.popular + 1
-			}),
-			() => this.props.fetchPopularMovies(this.state.popular)
-		)
 	}
 
 	// Fetches Movie Details by passing in the id, then dispatching the method to retrieve the details by movie id.
@@ -95,14 +76,18 @@ class MovieTVListings extends Component {
 	selectedItem = id => {
 		console.log(id)
 		this.props.fetchMovieDetails(id)
+		this.props.history.push('/moviedetails')
 	}
 	render() {
 		const params = {
+			autoplay: {
+				delay: 5000
+			},
 			setWrapperSize: true,
 			init: true,
-			slidesPerView: 7,
+			slidesPerView: 1,
 			loop: true,
-			spaceBetween: 15,
+			spaceBetween: 0,
 			observer: true,
 			direction: 'horizontal',
 			pagination: {
@@ -112,10 +97,6 @@ class MovieTVListings extends Component {
 			navigation: {
 				nextEl: '.swiper-button-next',
 				prevEl: '.swiper-button-prev'
-			},
-			breakpoints: {
-				1145: { slidesPerView: 5 },
-				699: { slidesPerView: 3 }
 			}
 		}
 
@@ -128,27 +109,8 @@ class MovieTVListings extends Component {
 		}
 
 		return (
-			<section className="home-page">
-
-			 
-				<div className="section-title-header">
-					<h1>Movies</h1>
-				</div>
-				<div className="title-sub-header">
-					<h1>Upcoming</h1>
-				</div>
-				<Swiper {...params} >
-					{this.upcomingMovie()}
-				</Swiper>
-				<div className="title-sub-header">
-					<h1>Popular</h1>
-				</div>
-				<Swiper {...params}>
-					{this.popularMovie()}
-				</Swiper>
-				<div className="section-title-header">
-					<h1>TV Shows</h1>
-				</div>
+			<section id="home-mainpic">
+				<Swiper {...params}>{this.upcomingMovie()}</Swiper>
 			</section>
 		)
 	}
@@ -157,7 +119,6 @@ class MovieTVListings extends Component {
 function mapStatetoProps(state) {
 	return {
 		upcoming: state.movies.upComingMovies.results,
-		popular: state.movies.popularMovies.results,
 		genres: state.movies.genreMovies.genres
 	}
 }
@@ -165,8 +126,7 @@ export default connect(
 	mapStatetoProps,
 	{
 		fetchUpcomingtMovies,
-		fetchPopularMovies,
 		fetchGenreMovie,
 		fetchMovieDetails
 	}
-)(MovieTVListings)
+)(HomeMainPic)

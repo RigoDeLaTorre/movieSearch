@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
 @import 'reset';
 @import 'homepage';
+@import 'homepic';
 @import 'moviedetails';
+@import 'movieSelections';
 
 body {
 	font-family: 'Roboto', sans-serif;
@@ -11,4 +13,21 @@ body {
 h1 {
 	font-weight: 100;
 	font-size: 50px;
+}
+#home {
+	.video-container {
+		padding-top: 5rem;
+		background: linear-gradient(135deg, #280684 0%, #21bdb8 100%);
+		.section-title-header {
+			padding: 2rem 0;
+			h1 {
+				text-align: center;
+				font-size: 3rem;
+				letter-spacing: 2px;
+				color: orange;
+				font-weight: 900;
+				text-shadow: 4px 4px 22px rgb(20, 20, 20);
+			}
+		}
+	}
 }
