@@ -1,19 +1,16 @@
 import {
 	FETCH_GENRE_TV,
 	FETCH_POPULAR_TV,
-	FETCH_LATEST_TV,
 	FETCH_TOPRATED_TV,
 	FETCH_AIRINGTODAY_TV,
 	FETCH_THISWEEK_TV,
 	FETCH_TV_DETAILS,
 	FETCH_TV_CREDITS,
-
 } from '../actions/tv'
 
 const initialState = {
 	selectedTv:{},
 	popularTv: [],
-	latestTv: [],
 	topRatedTv: [],
 	airingTodayTv: [],
 	airingThisWeekTv: [],
@@ -31,11 +28,6 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				popularTv: action.payload
-			}
-		case FETCH_LATEST_TV:
-			return {
-				...state,
-				latestTv: action.payload
 			}
 			case FETCH_TOPRATED_TV:
 				return {

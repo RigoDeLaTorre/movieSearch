@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import ReactDom from 'react-dom'
 import { Link } from 'react-router-dom'
 import {
-	fetchUpcomingMovies,
-	fetchGenreMovie,
 	fetchMovieDetails
 } from '../actions/movies'
 import { connect } from 'react-redux'
@@ -16,8 +14,6 @@ class HomeMainPic extends Component {
 		this.goPrev = this.goPrev.bind(this)
 		this.swiper = null
 	}
-
-
 	// Navigation for movies/tv
 	goNext() {
 		if (this.swiper) this.swiper.slideNext()
@@ -40,18 +36,18 @@ class HomeMainPic extends Component {
 	}
 
 	// Renders a movie for each upcmoming movie in state.
-	upcomingMovie = () => {
-		return this.props.upcoming.map(movie => {
+	getVideos = () => {
+		return this.props.data.map(item => {
 			return (
 				<div
-					key={movie.id}
+					key={item.id}
 					className="swiper-slide"
-					onClick={() => this.props.selectedItem(movie.id)}>
+					onClick={() => this.props.selectedItem(item.id)}>
 					<div
 						className="img"
 						style={{
 							backgroundImage: `linear-gradient(0deg, rgb(0, 0, 0) 5%, rgba(0, 0, 0, 0) 55%), url(https://image.tmdb.org/t/p/original${
-								movie.backdrop_path
+								item.backdrop_path
 							}) `,
 							backgroundSize: 'cover',
 							backgroundPosition: 'center ',
@@ -60,8 +56,8 @@ class HomeMainPic extends Component {
 						}}
 					/>
 					<div className="info">
-						<h1>{movie.title}</h1>
-						{this.filterGenre(movie.genre_ids)}
+						<h1>{item.title ? item.title : item.name}</h1>
+						{this.filterGenre(item.genre_ids)}
 					</div>
 				</div>
 			)
@@ -97,9 +93,9 @@ class HomeMainPic extends Component {
 			}
 		}
 
-		if (!this.props.upcoming) {
+		if (!this.props.data) {
 			return (
-				<div className={!this.props.upcoming ? 'loading-screen' : 'gone'}>
+				<div className={!this.props.data ? 'loading-screen' : 'gone'}>
 					Loading
 				</div>
 			)
@@ -107,7 +103,7 @@ class HomeMainPic extends Component {
 
 		return (
 			<section id="home-mainpic">
-				<Swiper {...params}>{this.upcomingMovie()}</Swiper>
+				<Swiper {...params}>{this.getVideos()}</Swiper>
 			</section>
 		)
 	}
@@ -115,14 +111,12 @@ class HomeMainPic extends Component {
 
 function mapStatetoProps(state) {
 	return {
-		upcoming: state.movies.upComingMovies.results,
 		genres: state.movies.genreMovies.genres
 	}
 }
 export default connect(
 	mapStatetoProps,
 	{
-
 		fetchMovieDetails
 	}
 )(HomeMainPic)

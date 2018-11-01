@@ -71,7 +71,7 @@ class HomePage extends Component {
 		return (
 			<section className="home-page">
 				<div className="main-image">
-					<HomeMainPic selectedItem={this.selectedItem} />
+					<HomeMainPic selectedItem={this.selectedItem} data={this.props.upcoming}/>
 					<div className="main-details">
 						<h1>{this.props.upcoming[this.state.movieIndex].title}</h1>
 						{this.filterGenre(
@@ -80,12 +80,12 @@ class HomePage extends Component {
 						<h3>Rating ***** </h3>
 					</div>
 				</div>
-				<Link to="/tv">tv section</Link>
+
 				<div className="video-container">
 					<div className="section-title-header">
 						<div className = "mid-navigation">
 						<h1 style={{border: "1px solid orange"}}>Movies</h1>
-						<h1>TV Shows</h1>
+							<Link to="/tv"><h1>TV Shows</h1></Link>
 						</div>
 
 					</div>
@@ -119,7 +119,6 @@ export default connect(
 		fetchPopularMovies,
 		fetchNowPlayingMovies,
 		fetchTopRatedMovies,
-
 		fetchGenreMovie,
 		fetchMovieDetails
 	}
