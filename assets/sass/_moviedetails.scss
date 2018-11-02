@@ -1,77 +1,79 @@
 #movie-details {
-	.movie-container {
-		height: 100vh;
+  .movie-container {
+    height: 100vh;
+    max-width: 100%;
+    color: white;
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: 0.5px;
+    .movie-container {
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      max-width: 50%;
+      padding-bottom: 10rem;
+      .youtube-section {
+        max-width: 100%;
+      }
 
-		color: white;
-		display: flex;
-		align-items: flex-end;
-		letter-spacing: 0.5px;
-		.movie-container {
-			margin: 0 auto;
-			display: flex;
-			justify-content: center;
-			max-width: 50%;
-			padding-bottom: 10rem;
+      .movie-info {
+        margin-left: 5rem;
+        display: flex;
+        flex-direction: column;
 
-			.movie-info {
-				margin-left: 5rem;
-				display:flex;
-				flex-direction:column;
+        h1 {
+          font-size: 3rem;
+          font-weight: 700;
+          color: white;
+          margin-bottom: 2rem;
+        }
+        .details {
+          display: flex;
+          justify-content: space-between;
+          font-size: 1rem;
+          color: #d0c3ab;
+          .rating {
+            .checked {
+              color: orange;
+            }
+          }
+          .runtime {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            h2 {
+              padding: 0 1rem;
+            }
+          }
+        }
+        p {
+          color: #d4d0d0;
+          font-size: 1rem;
+          line-height: 1.4;
+        }
+        .cast {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 1rem;
+          width: 100%;
+          .member {
+            display: flex;
+            flex-direction: column;
+            max-height: 100px;
+            margin-right: 10px;
+            align-items: center;
 
-				h1 {
-					font-size: 3rem;
-					font-weight: 700;
-					color: white;
-					margin-bottom: 2rem;
-				}
-				.details {
-					display: flex;
-					justify-content: space-between;
-					font-size: 1rem;
-					color: #d0c3ab;
-					.rating {
-						.checked {
-							color: orange;
-						}
-					}
-					.runtime {
-						font-size: 1rem;
-						margin-bottom: 2rem;
-						display: flex;
-						h2 {
-							padding: 0 1rem;
-						}
-					}
-				}
-				p {
-					color: #d4d0d0;
-					font-size: 1rem;
-					line-height: 1.4;
-				}
-				.cast{
-					display:flex;
-					justify-content: space-between;
-					margin-top:1rem;
-					.member{
-						display:flex;
-						flex-direction:column;
-						max-height:100px;
-						margin-right:10px;
-						align-items: center;
-
-						img{
-							height:100%;
-							width:100%;
-							border-radius:5px;
-							margin-bottom:.5rem;
-
-						}
-						h3{
-							font-size:.7rem;
-						}
-					}
-				}
-			}
-		}
-	}
+            img {
+              height: 100%;
+              border-radius: 5px;
+              margin-bottom: 0.5rem;
+            }
+            h3 {
+              font-size: 0.7rem;
+            }
+          }
+        }
+      }
+    }
+  }
 }

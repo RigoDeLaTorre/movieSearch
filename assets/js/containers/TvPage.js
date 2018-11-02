@@ -6,10 +6,9 @@ import {
   fetchTopRatedTv,
   fetchAiringToday,
   fetchTvThisWeek,
-  fetchGenreTv,
-  fetchTvDetails,
-  fetchTvCredits
+  fetchGenreTv
 } from "../actions/tv";
+import { fetchTvDetails } from "../actions/selected";
 
 import { connect } from "react-redux";
 import HomeMainPic from "./homemainpic.js";
@@ -33,6 +32,9 @@ class TvPage extends Component {
   }
 
   filterGenre = id => {
+    if (!this.props.genres) {
+      return <h2>' '</h2>;
+    }
     let genre = this.props.genres
       .filter(item => item.id === id[0] || item.id == id[1])
       .map(item => item.name);
@@ -46,7 +48,7 @@ class TvPage extends Component {
   selectedItem = id => {
     console.log(id);
     this.props.fetchTvDetails(id);
-    this.props.history.push("/tv");
+    this.props.history.push("/tvdetails");
   };
 
   render() {
@@ -114,6 +116,7 @@ class TvPage extends Component {
 
 function mapStatetoProps(state) {
   return {
+    movie: state.selectedItem,
     popular: state.tv.popularTv.results,
     toprated: state.tv.topRatedTv.results,
     airingtoday: state.tv.airingTodayTv.results,
@@ -129,7 +132,6 @@ export default connect(
     fetchAiringToday,
     fetchTvThisWeek,
     fetchGenreTv,
-    fetchTvCredits,
     fetchTvDetails
   }
 )(TvPage);

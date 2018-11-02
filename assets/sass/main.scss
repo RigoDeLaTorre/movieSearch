@@ -1,55 +1,75 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
-@import 'reset';
-@import 'homepage';
-@import 'homepic';
-@import 'moviedetails';
-@import 'movieSelections';
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700");
+@import "reset";
+@import "homepage";
+@import "homepic";
+@import "moviedetails";
+@import "movieSelections";
+@import "searchResults";
 
 body {
-	font-family: 'Roboto', sans-serif;
-	// background: purple;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  background: black;
 }
 
 h1 {
-	font-weight: 100;
-	font-size: 50px;
+  font-weight: 100;
+  font-size: 50px;
 }
-a{
-	text-decoration: none;
+a {
+  text-decoration: none;
 }
+form {
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  input[type="text"] {
+    width: 450px;
+    text-align: center;
+    border: none;
+    margin-right: 0.5rem;
+    border-radius: 5px;
+  }
+  input[type="submit"] {
+    width: 100px;
+    color: black;
+    font-weight: 500;
+    background: #f7a503;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      background: #fab834;
+    }
+  }
+}
+
 #home {
-	.video-container {
-		padding-top: 5rem;
-		background: linear-gradient(135deg, #280684 0%, #21bdb8 100%);
-		.section-title-header {
-			padding: 2rem 0;
-			.mid-navigation{
-				display:flex;
-				justify-content: center;
-				h1 {
-					text-align: center;
-			font-size: 3rem;
-			letter-spacing: 2px;
-			color: orange;
-			font-weight: 900;
-			text-shadow: 4px 4px 22px #141414;
-			margin-right: 10rem;
-			border: 1px solid white;
-			padding: 20px;
-			cursor:pointer;
-			&:hover{
-					box-shadow:0px 0px 25px -1px rgba(232, 226, 226, 0.75);
-			}
-				}
-			}
-		}
-	}
-
-
-
-
-
-
-
-
+  .video-container {
+    padding-top: 5rem;
+    background: linear-gradient(135deg, #280684 0%, #21bdb8 100%);
+    .section-title-header {
+      padding: 2rem 0;
+      .mid-navigation {
+        display: flex;
+        justify-content: center;
+        h1 {
+          text-align: center;
+          font-size: 1rem;
+          letter-spacing: 2px;
+          color: orange;
+          font-weight: 900;
+          text-shadow: 4px 4px 22px #141414;
+          margin-right: 2em;
+          border: 1px solid white;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          &:hover {
+            box-shadow: 0px 0px 25px -1px rgba(232, 226, 226, 0.75);
+          }
+        }
+      }
+    }
+  }
 }

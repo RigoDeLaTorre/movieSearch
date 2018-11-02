@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import ReactDom from "react-dom";
-import { fetchMovieDetails } from "../actions/selected";
+import { fetchTvDetails } from "../actions/selected";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Carousel from "./carousel.js";
 
-class MovieDetails extends Component {
+class TvDetails extends Component {
   componentDidUpdate() {
     window.scrollTo(0, 0);
   }
   selectedItem = id => {
-    this.props.fetchMovieDetails(id);
-    this.props.history.push("/moviedetails");
+    this.props.fetchTvDetails(id);
+    this.props.history.push("/tvdetails");
   };
 
   renderCast = () => {
@@ -157,23 +157,23 @@ class MovieDetails extends Component {
           </div>
           <Carousel
             selectedItem={this.selectedItem}
-            movie={this.props.upcoming}
-            title="Upcoming "
-          />
-          <Carousel
-            selectedItem={this.selectedItem}
             movie={this.props.popular}
-            title="Popular "
-          />
-          <Carousel
-            selectedItem={this.selectedItem}
-            movie={this.props.nowplaying}
-            title="Now Playing "
+            title="popular"
           />
           <Carousel
             selectedItem={this.selectedItem}
             movie={this.props.toprated}
-            title="Top Rated "
+            title="top rated"
+          />
+          <Carousel
+            selectedItem={this.selectedItem}
+            movie={this.props.airingtoday}
+            title="airing today"
+          />
+          <Carousel
+            selectedItem={this.selectedItem}
+            movie={this.props.thisweek}
+            title="airing this week "
           />
         </div>
       </section>
@@ -184,14 +184,14 @@ class MovieDetails extends Component {
 function mapStatetoProps(state) {
   return {
     movie: state.selectedItem,
-    upcoming: state.movies.upComingMovies.results,
-    popular: state.movies.popularMovies.results,
-    toprated: state.movies.topRatedMovies.results,
-    nowplaying: state.movies.nowPlayingMovies.results,
-    genres: state.movies.genreMovies.genres
+    popular: state.tv.popularTv.results,
+    toprated: state.tv.topRatedTv.results,
+    airingtoday: state.tv.airingTodayTv.results,
+    thisweek: state.tv.airingThisWeekTv.results,
+    genres: state.tv.genreTv.genres
   };
 }
 export default connect(
   mapStatetoProps,
-  { fetchMovieDetails }
-)(MovieDetails);
+  { fetchTvDetails }
+)(TvDetails);
