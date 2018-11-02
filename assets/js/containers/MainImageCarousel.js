@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import ReactDom from "react-dom";
 import { Link } from "react-router-dom";
-import { fetchMovieDetails } from "../actions/selected";
 import { connect } from "react-redux";
 import Swiper from "react-id-swiper";
 
-class HomeMainPic extends Component {
+export default class MainImageCarousel extends Component {
   constructor(props) {
     super(props);
     this.goNext = this.goNext.bind(this);
@@ -21,20 +20,9 @@ class HomeMainPic extends Component {
     if (this.swiper) this.swiper.slidePrev();
   }
 
-  // compares genre ids to the genre list in state and returns the name associated.
-  filterGenre = id => {
-    let genre = this.props.genres
-      .filter(item => item.id === id[0] || item.id == id[1])
-      .map(item => item.name);
-    return (
-      <h2>
-        {genre[0]} {genre[1] ? "/" + genre[1] : ""}
-      </h2>
-    );
-  };
-
   // Renders a movie for each upcmoming movie in state.
   getVideos = () => {
+    console.log(this.props.type);
     return this.props.data.map(item => {
       return (
         <div
@@ -55,21 +43,14 @@ class HomeMainPic extends Component {
             }}
           />
           <div className="info">
-            <h1>{this.props.params == "tvdetails" ? "tv" : "movie"}</h1>
-            {this.filterGenre(item.genre_ids)}
+            <h1>{this.props.type == "/tv" ? item.name : item.title}</h1>
+            {this.props.filterGenre(item.genre_ids)}
           </div>
         </div>
       );
     });
   };
 
-  // Fetches Movie Details by passing in the id, then dispatching the method to retrieve the details by movie id.
-
-  selectedItem = id => {
-    console.log(id);
-    this.props.fetchMovieDetails(id);
-    this.props.history.push("/moviedetails");
-  };
   render() {
     const params = {
       autoplay: {
@@ -107,15 +88,3 @@ class HomeMainPic extends Component {
     );
   }
 }
-
-function mapStatetoProps(state) {
-  return {
-    genres: state.movies.genreMovies.genres
-  };
-}
-export default connect(
-  mapStatetoProps,
-  {
-    fetchMovieDetails
-  }
-)(HomeMainPic);

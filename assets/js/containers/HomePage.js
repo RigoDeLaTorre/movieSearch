@@ -15,12 +15,11 @@ import {
   fetchTvThisWeek,
   fetchGenreTv
 } from "../actions/tv";
-
-import { fetchMovieDetails } from "../actions/selected";
+import { fetchSearchDetails } from "../actions/selected";
 import { fetchSearchAll } from "../actions/search";
-
 import { connect } from "react-redux";
-import HomeMainPic from "./homemainpic.js";
+import MainImageCarousel from "./MainImageCarousel.js";
+import SearchField from "../components/searchfield.js";
 import Carousel from "./carousel.js";
 
 class HomePage extends Component {
@@ -67,19 +66,8 @@ class HomePage extends Component {
     );
   };
   selectedItem = id => {
-    console.log(id);
-    this.props.fetchMovieDetails(id);
+    this.props.fetchSearchDetails(id, "movie");
     this.props.history.push("/moviedetails");
-  };
-
-  handleChange = event => {
-    this.setState({ searchTerm: event.target.value });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    this.props.fetchSearchAll(this.state.searchTerm);
-    this.props.history.push("/searchResults");
   };
 
   render() {
@@ -94,9 +82,12 @@ class HomePage extends Component {
     return (
       <section className="home-page">
         <div className="main-image">
-          <HomeMainPic
+          <MainImageCarousel
             selectedItem={this.selectedItem}
             data={this.props.upcoming}
+            genres={this.props.genres}
+            filterGenre={this.filterGenre}
+            type={this.props.match.url}
           />
           <div className="main-details">
             <h1>{this.props.upcoming[this.state.movieIndex].title}</h1>
@@ -114,16 +105,7 @@ class HomePage extends Component {
               <Link to="/tv">
                 <h1>TV Shows</h1>
               </Link>
-              <form onSubmit={this.handleSubmit}>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Search your favorite Movie, TV Show, or Actor"
-                  value={this.state.searchTerm}
-                  onChange={this.handleChange}
-                />
-                <input type="submit" value="Submit" />
-              </form>
+              <SearchField history={this.props.history} />
             </div>
           </div>
           <Carousel
@@ -172,7 +154,7 @@ export default connect(
     fetchNowPlayingMovies,
     fetchTopRatedMovies,
     fetchGenreMovie,
-    fetchMovieDetails,
+    fetchSearchDetails,
     fetchSearchAll,
     fetchPopularTv,
     fetchTopRatedTv,

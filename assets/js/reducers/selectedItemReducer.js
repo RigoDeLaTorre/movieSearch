@@ -17,6 +17,7 @@ export default function(state = initialState, action) {
 
     case FETCH_TV_CREDITS:
       return { ...state, ...action.payload };
+
     case FETCH_TV_TRAILERS:
       return { ...state, ...action.payload };
 

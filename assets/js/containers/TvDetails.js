@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import ReactDom from "react-dom";
-import { fetchTvDetails } from "../actions/selected";
+import { fetchSearchDetails } from "../actions/selected";
+import { fetchSearchAll } from "../actions/search";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-
+import SearchField from "../components/searchfield.js";
 import Carousel from "./carousel.js";
 
 class TvDetails extends Component {
@@ -11,7 +12,7 @@ class TvDetails extends Component {
     window.scrollTo(0, 0);
   }
   selectedItem = id => {
-    this.props.fetchTvDetails(id);
+    this.props.fetchSearchDetails(id, "tv");
     this.props.history.push("/tvdetails");
   };
 
@@ -33,6 +34,25 @@ class TvDetails extends Component {
       });
     }
   };
+  showYoutubeClip = () => {
+    if (
+      this.props.movie.results == undefined ||
+      this.props.movie.results[0] === null ||
+      this.props.movie.results[0] === undefined
+    ) {
+      return <h2>Cant find the clip</h2>;
+    } else {
+      return (
+        <iframe
+          src={`http://www.youtube.com/embed/${
+            this.props.movie.results[0].key
+          }`}
+          allowFullScreen="allowFullScreen"
+          frameBorder="0"
+        />
+      );
+    }
+  };
 
   render() {
     if (this.props === undefined) {
@@ -52,24 +72,14 @@ class TvDetails extends Component {
           }}
         >
           <div className="movie-container">
-            <div className="youtube-section">
-              {this.props.movie.results ? (
-                <iframe
-                  src={`http://www.youtube.com/embed/${
-                    this.props.movie.results
-                      ? this.props.movie.results[0].key
-                      : ""
-                  }`}
-                  allowFullScreen="allowFullScreen"
-                  frameBorder="0"
-                />
-              ) : (
-                <h2>Cant find clip :(</h2>
-              )}
-            </div>
-
+            <div className="youtube-section" />
+            {this.showYoutubeClip()}
             <div className="movie-info">
-              <h1>{this.props.movie.title}</h1>
+              <h1>
+                {this.props.match.url == "/tvdetails"
+                  ? this.props.movie.name
+                  : this.props.movie.title}
+              </h1>
               <div className="details">
                 <div className="rating">
                   <h2>Rating {this.props.movie.vote_average}</h2>
@@ -132,7 +142,9 @@ class TvDetails extends Component {
                       : ""}
                   </h2>
                   <h2>
-                    {this.props.movie.runtime ? this.props.movie.runtime : ""}
+                    {this.props.match.url == "/tvdetails"
+                      ? this.props.movie.episode_run_time
+                      : this.props.movie.runtime}
                     min
                   </h2>
                   <h2>{this.props.movie.release_date}</h2>
@@ -148,11 +160,12 @@ class TvDetails extends Component {
           <div className="section-title-header">
             <div className="mid-navigation">
               <Link to="/">
-                <h1 style={{ border: "1px solid orange" }}>Movies</h1>
+                <h1>Movies</h1>
               </Link>
               <Link to="/tv">
-                <h1>TV Shows</h1>
+                <h1 style={{ border: "1px solid orange" }}>TV Shows</h1>
               </Link>
+              <SearchField history={this.props.history} />
             </div>
           </div>
           <Carousel
@@ -193,5 +206,5 @@ function mapStatetoProps(state) {
 }
 export default connect(
   mapStatetoProps,
-  { fetchTvDetails }
+  { fetchSearchDetails, fetchSearchAll }
 )(TvDetails);

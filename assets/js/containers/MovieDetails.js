@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import ReactDom from "react-dom";
-import { fetchMovieDetails } from "../actions/selected";
+import { fetchSearchDetails } from "../actions/selected";
+import { fetchSearchAll } from "../actions/search";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-
+import SearchField from "../components/searchfield.js";
 import Carousel from "./carousel.js";
 
 class MovieDetails extends Component {
@@ -11,11 +12,11 @@ class MovieDetails extends Component {
     window.scrollTo(0, 0);
   }
   selectedItem = id => {
-    this.props.fetchMovieDetails(id);
+    this.props.fetchSearchDetails(id, "movie");
     this.props.history.push("/moviedetails");
   };
 
-  renderCast = () => {
+  renderCastMembers = () => {
     if (!this.props.movie.cast) {
       return "loading";
     } else {
@@ -31,6 +32,26 @@ class MovieDetails extends Component {
           );
         }
       });
+    }
+  };
+
+  showYoutubeClip = () => {
+    if (
+      this.props.movie.results == undefined ||
+      this.props.movie.results[0] === null ||
+      this.props.movie.results[0] === undefined
+    ) {
+      return <h2>Cant find the clip</h2>;
+    } else {
+      return (
+        <iframe
+          src={`http://www.youtube.com/embed/${
+            this.props.movie.results[0].key
+          }`}
+          allowFullScreen="allowFullScreen"
+          frameBorder="0"
+        />
+      );
     }
   };
 
@@ -52,21 +73,7 @@ class MovieDetails extends Component {
           }}
         >
           <div className="movie-container">
-            <div className="youtube-section">
-              {this.props.movie.results ? (
-                <iframe
-                  src={`http://www.youtube.com/embed/${
-                    this.props.movie.results
-                      ? this.props.movie.results[0].key
-                      : ""
-                  }`}
-                  allowFullScreen="allowFullScreen"
-                  frameBorder="0"
-                />
-              ) : (
-                <h2>Cant find clip :(</h2>
-              )}
-            </div>
+            <div className="youtube-section">{this.showYoutubeClip()}</div>
 
             <div className="movie-info">
               <h1>{this.props.movie.title}</h1>
@@ -139,7 +146,7 @@ class MovieDetails extends Component {
                 </div>
               </div>
               <p>{this.props.movie.overview}</p>
-              <div className="cast">{this.renderCast()}</div>
+              <div className="cast">{this.renderCastMembers()}</div>
             </div>
           </div>
         </div>
@@ -153,6 +160,7 @@ class MovieDetails extends Component {
               <Link to="/tv">
                 <h1>TV Shows</h1>
               </Link>
+              <SearchField history={this.props.history} />
             </div>
           </div>
           <Carousel
@@ -193,5 +201,5 @@ function mapStatetoProps(state) {
 }
 export default connect(
   mapStatetoProps,
-  { fetchMovieDetails }
+  { fetchSearchDetails, fetchSearchAll }
 )(MovieDetails);

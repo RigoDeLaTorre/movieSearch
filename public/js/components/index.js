@@ -1,40 +1,127 @@
 webpackJsonp([0],{
 
-/***/ 117:
+/***/ 174:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
-exports.fetchSearchAll = exports.FETCH_SEARCH_ALL = undefined;
+exports.fetchMovieTrailers = exports.fetchMovieCredits = exports.fetchMovieDetails = exports.fetchNowPlayingMovies = exports.fetchTopRatedMovies = exports.fetchUpcomingMovies = exports.fetchPopularMovies = exports.fetchGenreMovie = exports.FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_CREDITS = exports.FETCH_MOVIE_DETAILS = exports.FETCH_TOPRATED_MOVIES = exports.FETCH_NOWPLAYING_MOVIES = exports.FETCH_UPCOMING_MOVIES = exports.FETCH_POPULAR_MOVIES = exports.FETCH_GENRE_MOVIES = undefined;
 
-var _axios = __webpack_require__(76);
+var _axios = __webpack_require__(77);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _config = __webpack_require__(86);
+var _config = __webpack_require__(88);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var FETCH_SEARCH_ALL = exports.FETCH_SEARCH_ALL = "fetch_search_all";
+var FETCH_GENRE_MOVIES = exports.FETCH_GENRE_MOVIES = 'fetch_genre_movies';
+var FETCH_POPULAR_MOVIES = exports.FETCH_POPULAR_MOVIES = 'fetch_popular_movies';
+var FETCH_UPCOMING_MOVIES = exports.FETCH_UPCOMING_MOVIES = 'fetch_upcoming_movies';
+var FETCH_NOWPLAYING_MOVIES = exports.FETCH_NOWPLAYING_MOVIES = 'fetch_nowplaying_movies';
+var FETCH_TOPRATED_MOVIES = exports.FETCH_TOPRATED_MOVIES = 'fetch_toprated_movies';
+var FETCH_MOVIE_DETAILS = exports.FETCH_MOVIE_DETAILS = 'fetch_movie_details';
+var FETCH_MOVIE_CREDITS = exports.FETCH_MOVIE_CREDITS = 'fetch_movie_credits';
+var FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_TRAILERS = 'fetch_movie_trailers';
 
-var fetchSearchAll = exports.fetchSearchAll = function fetchSearchAll(searchTerm) {
-  return function (dispatch) {
-    _axios2.default.get("https://api.themoviedb.org/3/search/multi?" + _config.API_KEY + "&query=" + searchTerm).then(function (res) {
-      return dispatch({
-        type: FETCH_SEARCH_ALL,
-        payload: res.data
-      });
-    });
-  };
+var fetchGenreMovie = exports.fetchGenreMovie = function fetchGenreMovie() {
+	return function (dispatch) {
+		_axios2.default.get('https://api.themoviedb.org/3/genre/movie/list?' + _config.API_KEY).then(function (res) {
+			return dispatch({
+				type: FETCH_GENRE_MOVIES,
+				payload: res.data
+			});
+		});
+	};
+};
+
+var fetchPopularMovies = exports.fetchPopularMovies = function fetchPopularMovies(page) {
+	return function (dispatch) {
+		_axios2.default.get('https://api.themoviedb.org/3/movie/popular?' + _config.API_KEY + '&language=en-US&page=' + page).then(function (res) {
+			return dispatch({
+				type: FETCH_POPULAR_MOVIES,
+				payload: res.data
+			});
+		});
+	};
+};
+
+var fetchUpcomingMovies = exports.fetchUpcomingMovies = function fetchUpcomingMovies() {
+	return function (dispatch) {
+		_axios2.default.get('https://api.themoviedb.org/3/movie/upcoming?' + _config.API_KEY).then(function (res) {
+			return dispatch({
+				type: FETCH_UPCOMING_MOVIES,
+				payload: res.data
+			});
+		});
+	};
+};
+var fetchTopRatedMovies = exports.fetchTopRatedMovies = function fetchTopRatedMovies() {
+	return function (dispatch) {
+		_axios2.default.get('https://api.themoviedb.org/3/movie/top_rated?' + _config.API_KEY).then(function (res) {
+			return dispatch({
+				type: FETCH_TOPRATED_MOVIES,
+				payload: res.data
+			});
+		});
+	};
+};
+
+var fetchNowPlayingMovies = exports.fetchNowPlayingMovies = function fetchNowPlayingMovies() {
+	return function (dispatch) {
+		_axios2.default.get('https://api.themoviedb.org/3/movie/now_playing?' + _config.API_KEY).then(function (res) {
+			return dispatch({
+				type: FETCH_NOWPLAYING_MOVIES,
+				payload: res.data
+			});
+		});
+	};
+};
+
+var fetchMovieDetails = exports.fetchMovieDetails = function fetchMovieDetails(id) {
+	return function (dispatch) {
+		_axios2.default.get('https://api.themoviedb.org/3/movie/' + id + '?' + _config.API_KEY).then(function (res) {
+			return dispatch({
+				type: FETCH_MOVIE_DETAILS,
+				payload: res.data
+			});
+		});
+		dispatch(fetchMovieCredits(id));
+		dispatch(fetchMovieTrailers(id));
+	};
+};
+
+var fetchMovieCredits = exports.fetchMovieCredits = function fetchMovieCredits(id) {
+	return function (dispatch) {
+		console.log('clicked movie credis');
+		_axios2.default.get('https://api.themoviedb.org/3/movie/' + id + '/credits?' + _config.API_KEY).then(function (res) {
+			return dispatch({
+				type: FETCH_MOVIE_CREDITS,
+				payload: res.data
+			});
+		});
+	};
+};
+
+var fetchMovieTrailers = exports.fetchMovieTrailers = function fetchMovieTrailers(id) {
+	return function (dispatch) {
+		console.log('clicked movie credis');
+		_axios2.default.get('https://api.themoviedb.org/3/movie/' + id + '/videos?' + _config.API_KEY).then(function (res) {
+			return dispatch({
+				type: FETCH_MOVIE_TRAILERS,
+				payload: res.data
+			});
+		});
+	};
 };
 
 /***/ }),
 
-/***/ 118:
+/***/ 175:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45,11 +132,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchTvTrailers = exports.fetchTvCredits = exports.fetchTvDetails = exports.fetchTvThisWeek = exports.fetchAiringToday = exports.fetchTopRatedTv = exports.fetchLatestTv = exports.fetchPopularTv = exports.fetchGenreTv = exports.FETCH_TV_TRAILERS = exports.FETCH_TV_DETAILS = exports.FETCH_TV_CREDITS = exports.FETCH_THISWEEK_TV = exports.FETCH_AIRINGTODAY_TV = exports.FETCH_TOPRATED_TV = exports.FETCH_LATEST_TV = exports.FETCH_POPULAR_TV = exports.FETCH_GENRE_TV = undefined;
 
-var _axios = __webpack_require__(76);
+var _axios = __webpack_require__(77);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _config = __webpack_require__(86);
+var _config = __webpack_require__(88);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -165,128 +252,7 @@ var fetchTvTrailers = exports.fetchTvTrailers = function fetchTvTrailers(id) {
 
 /***/ }),
 
-/***/ 174:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.fetchMovieTrailers = exports.fetchMovieCredits = exports.fetchMovieDetails = exports.fetchNowPlayingMovies = exports.fetchTopRatedMovies = exports.fetchUpcomingMovies = exports.fetchPopularMovies = exports.fetchGenreMovie = exports.FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_CREDITS = exports.FETCH_MOVIE_DETAILS = exports.FETCH_TOPRATED_MOVIES = exports.FETCH_NOWPLAYING_MOVIES = exports.FETCH_UPCOMING_MOVIES = exports.FETCH_POPULAR_MOVIES = exports.FETCH_GENRE_MOVIES = undefined;
-
-var _axios = __webpack_require__(76);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _config = __webpack_require__(86);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var FETCH_GENRE_MOVIES = exports.FETCH_GENRE_MOVIES = 'fetch_genre_movies';
-var FETCH_POPULAR_MOVIES = exports.FETCH_POPULAR_MOVIES = 'fetch_popular_movies';
-var FETCH_UPCOMING_MOVIES = exports.FETCH_UPCOMING_MOVIES = 'fetch_upcoming_movies';
-var FETCH_NOWPLAYING_MOVIES = exports.FETCH_NOWPLAYING_MOVIES = 'fetch_nowplaying_movies';
-var FETCH_TOPRATED_MOVIES = exports.FETCH_TOPRATED_MOVIES = 'fetch_toprated_movies';
-var FETCH_MOVIE_DETAILS = exports.FETCH_MOVIE_DETAILS = 'fetch_movie_details';
-var FETCH_MOVIE_CREDITS = exports.FETCH_MOVIE_CREDITS = 'fetch_movie_credits';
-var FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_TRAILERS = 'fetch_movie_trailers';
-
-var fetchGenreMovie = exports.fetchGenreMovie = function fetchGenreMovie() {
-	return function (dispatch) {
-		_axios2.default.get('https://api.themoviedb.org/3/genre/movie/list?' + _config.API_KEY).then(function (res) {
-			return dispatch({
-				type: FETCH_GENRE_MOVIES,
-				payload: res.data
-			});
-		});
-	};
-};
-
-var fetchPopularMovies = exports.fetchPopularMovies = function fetchPopularMovies(page) {
-	return function (dispatch) {
-		_axios2.default.get('https://api.themoviedb.org/3/movie/popular?' + _config.API_KEY + '&language=en-US&page=' + page).then(function (res) {
-			return dispatch({
-				type: FETCH_POPULAR_MOVIES,
-				payload: res.data
-			});
-		});
-	};
-};
-
-var fetchUpcomingMovies = exports.fetchUpcomingMovies = function fetchUpcomingMovies() {
-	return function (dispatch) {
-		_axios2.default.get('https://api.themoviedb.org/3/movie/upcoming?' + _config.API_KEY).then(function (res) {
-			return dispatch({
-				type: FETCH_UPCOMING_MOVIES,
-				payload: res.data
-			});
-		});
-	};
-};
-var fetchTopRatedMovies = exports.fetchTopRatedMovies = function fetchTopRatedMovies() {
-	return function (dispatch) {
-		_axios2.default.get('https://api.themoviedb.org/3/movie/top_rated?' + _config.API_KEY).then(function (res) {
-			return dispatch({
-				type: FETCH_TOPRATED_MOVIES,
-				payload: res.data
-			});
-		});
-	};
-};
-
-var fetchNowPlayingMovies = exports.fetchNowPlayingMovies = function fetchNowPlayingMovies() {
-	return function (dispatch) {
-		_axios2.default.get('https://api.themoviedb.org/3/movie/now_playing?' + _config.API_KEY).then(function (res) {
-			return dispatch({
-				type: FETCH_NOWPLAYING_MOVIES,
-				payload: res.data
-			});
-		});
-	};
-};
-
-var fetchMovieDetails = exports.fetchMovieDetails = function fetchMovieDetails(id) {
-	return function (dispatch) {
-		_axios2.default.get('https://api.themoviedb.org/3/movie/' + id + '?' + _config.API_KEY).then(function (res) {
-			return dispatch({
-				type: FETCH_MOVIE_DETAILS,
-				payload: res.data
-			});
-		});
-		dispatch(fetchMovieCredits(id));
-		dispatch(fetchMovieTrailers(id));
-	};
-};
-
-var fetchMovieCredits = exports.fetchMovieCredits = function fetchMovieCredits(id) {
-	return function (dispatch) {
-		console.log('clicked movie credis');
-		_axios2.default.get('https://api.themoviedb.org/3/movie/' + id + '/credits?' + _config.API_KEY).then(function (res) {
-			return dispatch({
-				type: FETCH_MOVIE_CREDITS,
-				payload: res.data
-			});
-		});
-	};
-};
-
-var fetchMovieTrailers = exports.fetchMovieTrailers = function fetchMovieTrailers(id) {
-	return function (dispatch) {
-		console.log('clicked movie credis');
-		_axios2.default.get('https://api.themoviedb.org/3/movie/' + id + '/videos?' + _config.API_KEY).then(function (res) {
-			return dispatch({
-				type: FETCH_MOVIE_TRAILERS,
-				payload: res.data
-			});
-		});
-	};
-};
-
-/***/ }),
-
-/***/ 175:
+/***/ 176:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -302,17 +268,15 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRouterDom = __webpack_require__(36);
 
-var _selected = __webpack_require__(49);
+var _reactRedux = __webpack_require__(31);
 
-var _reactRedux = __webpack_require__(35);
-
-var _reactIdSwiper = __webpack_require__(241);
+var _reactIdSwiper = __webpack_require__(242);
 
 var _reactIdSwiper2 = _interopRequireDefault(_reactIdSwiper);
 
@@ -324,30 +288,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var HomeMainPic = function (_Component) {
-  _inherits(HomeMainPic, _Component);
+var MainImageCarousel = function (_Component) {
+  _inherits(MainImageCarousel, _Component);
 
-  function HomeMainPic(props) {
-    _classCallCheck(this, HomeMainPic);
+  function MainImageCarousel(props) {
+    _classCallCheck(this, MainImageCarousel);
 
-    var _this = _possibleConstructorReturn(this, (HomeMainPic.__proto__ || Object.getPrototypeOf(HomeMainPic)).call(this, props));
-
-    _this.filterGenre = function (id) {
-      var genre = _this.props.genres.filter(function (item) {
-        return item.id === id[0] || item.id == id[1];
-      }).map(function (item) {
-        return item.name;
-      });
-      return _react2.default.createElement(
-        "h2",
-        null,
-        genre[0],
-        " ",
-        genre[1] ? "/" + genre[1] : ""
-      );
-    };
+    var _this = _possibleConstructorReturn(this, (MainImageCarousel.__proto__ || Object.getPrototypeOf(MainImageCarousel)).call(this, props));
 
     _this.getVideos = function () {
+      console.log(_this.props.type);
       return _this.props.data.map(function (item) {
         return _react2.default.createElement(
           "div",
@@ -374,18 +324,12 @@ var HomeMainPic = function (_Component) {
             _react2.default.createElement(
               "h1",
               null,
-              item.title ? item.title : item.name
+              _this.props.type == "/tv" ? item.name : item.title
             ),
-            _this.filterGenre(item.genre_ids)
+            _this.props.filterGenre(item.genre_ids)
           )
         );
       });
-    };
-
-    _this.selectedItem = function (id) {
-      console.log(id);
-      _this.props.fetchMovieDetails(id);
-      _this.props.history.push("/moviedetails");
     };
 
     _this.goNext = _this.goNext.bind(_this);
@@ -396,7 +340,7 @@ var HomeMainPic = function (_Component) {
   // Navigation for movies/tv
 
 
-  _createClass(HomeMainPic, [{
+  _createClass(MainImageCarousel, [{
     key: "goNext",
     value: function goNext() {
       if (this.swiper) this.swiper.slideNext();
@@ -409,13 +353,7 @@ var HomeMainPic = function (_Component) {
       if (this.swiper) this.swiper.slidePrev();
     }
 
-    // compares genre ids to the genre list in state and returns the name associated.
-
-
     // Renders a movie for each upcmoming movie in state.
-
-
-    // Fetches Movie Details by passing in the id, then dispatching the method to retrieve the details by movie id.
 
   }, {
     key: "render",
@@ -461,21 +399,14 @@ var HomeMainPic = function (_Component) {
     }
   }]);
 
-  return HomeMainPic;
+  return MainImageCarousel;
 }(_react.Component);
 
-function mapStatetoProps(state) {
-  return {
-    genres: state.movies.genreMovies.genres
-  };
-}
-exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
-  fetchMovieDetails: _selected.fetchMovieDetails
-})(HomeMainPic);
+exports.default = MainImageCarousel;
 
 /***/ }),
 
-/***/ 259:
+/***/ 260:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -483,7 +414,7 @@ exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
 
 /***/ }),
 
-/***/ 260:
+/***/ 261:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -499,27 +430,31 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRouterDom = __webpack_require__(36);
 
 var _movies = __webpack_require__(174);
 
-var _tv = __webpack_require__(118);
+var _tv = __webpack_require__(175);
 
-var _selected = __webpack_require__(49);
+var _selected = __webpack_require__(55);
 
-var _search = __webpack_require__(117);
+var _search = __webpack_require__(54);
 
-var _reactRedux = __webpack_require__(35);
+var _reactRedux = __webpack_require__(31);
 
-var _homemainpic = __webpack_require__(175);
+var _MainImageCarousel = __webpack_require__(176);
 
-var _homemainpic2 = _interopRequireDefault(_homemainpic);
+var _MainImageCarousel2 = _interopRequireDefault(_MainImageCarousel);
 
-var _carousel = __webpack_require__(87);
+var _searchfield = __webpack_require__(79);
+
+var _searchfield2 = _interopRequireDefault(_searchfield);
+
+var _carousel = __webpack_require__(89);
 
 var _carousel2 = _interopRequireDefault(_carousel);
 
@@ -565,19 +500,8 @@ var HomePage = function (_Component) {
     };
 
     _this.selectedItem = function (id) {
-      console.log(id);
-      _this.props.fetchMovieDetails(id);
+      _this.props.fetchSearchDetails(id, "movie");
       _this.props.history.push("/moviedetails");
-    };
-
-    _this.handleChange = function (event) {
-      _this.setState({ searchTerm: event.target.value });
-    };
-
-    _this.handleSubmit = function (event) {
-      event.preventDefault();
-      _this.props.fetchSearchAll(_this.state.searchTerm);
-      _this.props.history.push("/searchResults");
     };
 
     _this.state = {
@@ -623,9 +547,12 @@ var HomePage = function (_Component) {
         _react2.default.createElement(
           "div",
           { className: "main-image" },
-          _react2.default.createElement(_homemainpic2.default, {
+          _react2.default.createElement(_MainImageCarousel2.default, {
             selectedItem: this.selectedItem,
-            data: this.props.upcoming
+            data: this.props.upcoming,
+            genres: this.props.genres,
+            filterGenre: this.filterGenre,
+            type: this.props.match.url
           }),
           _react2.default.createElement(
             "div",
@@ -666,18 +593,7 @@ var HomePage = function (_Component) {
                   "TV Shows"
                 )
               ),
-              _react2.default.createElement(
-                "form",
-                { onSubmit: this.handleSubmit },
-                _react2.default.createElement("input", {
-                  type: "text",
-                  name: "name",
-                  placeholder: "Search your favorite Movie, TV Show, or Actor",
-                  value: this.state.searchTerm,
-                  onChange: this.handleChange
-                }),
-                _react2.default.createElement("input", { type: "submit", value: "Submit" })
-              )
+              _react2.default.createElement(_searchfield2.default, { history: this.props.history })
             )
           ),
           _react2.default.createElement(_carousel2.default, {
@@ -732,7 +648,7 @@ exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
   fetchNowPlayingMovies: _movies.fetchNowPlayingMovies,
   fetchTopRatedMovies: _movies.fetchTopRatedMovies,
   fetchGenreMovie: _movies.fetchGenreMovie,
-  fetchMovieDetails: _selected.fetchMovieDetails,
+  fetchSearchDetails: _selected.fetchSearchDetails,
   fetchSearchAll: _search.fetchSearchAll,
   fetchPopularTv: _tv.fetchPopularTv,
   fetchTopRatedTv: _tv.fetchTopRatedTv,
@@ -743,7 +659,7 @@ exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
 
 /***/ }),
 
-/***/ 261:
+/***/ 262:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -759,17 +675,23 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _selected = __webpack_require__(49);
+var _selected = __webpack_require__(55);
 
-var _reactRedux = __webpack_require__(35);
+var _search = __webpack_require__(54);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRedux = __webpack_require__(31);
 
-var _carousel = __webpack_require__(87);
+var _reactRouterDom = __webpack_require__(36);
+
+var _searchfield = __webpack_require__(79);
+
+var _searchfield2 = _interopRequireDefault(_searchfield);
+
+var _carousel = __webpack_require__(89);
 
 var _carousel2 = _interopRequireDefault(_carousel);
 
@@ -796,9 +718,9 @@ var MovieDetails = function (_Component) {
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = MovieDetails.__proto__ || Object.getPrototypeOf(MovieDetails)).call.apply(_ref, [this].concat(args))), _this), _this.selectedItem = function (id) {
-      _this.props.fetchMovieDetails(id);
+      _this.props.fetchSearchDetails(id, "movie");
       _this.props.history.push("/moviedetails");
-    }, _this.renderCast = function () {
+    }, _this.renderCastMembers = function () {
       if (!_this.props.movie.cast) {
         return "loading";
       } else {
@@ -817,6 +739,20 @@ var MovieDetails = function (_Component) {
               )
             );
           }
+        });
+      }
+    }, _this.showYoutubeClip = function () {
+      if (_this.props.movie.results == undefined || _this.props.movie.results[0] === null || _this.props.movie.results[0] === undefined) {
+        return _react2.default.createElement(
+          "h2",
+          null,
+          "Cant find the clip"
+        );
+      } else {
+        return _react2.default.createElement("iframe", {
+          src: "http://www.youtube.com/embed/" + _this.props.movie.results[0].key,
+          allowFullScreen: "allowFullScreen",
+          frameBorder: "0"
         });
       }
     }, _temp), _possibleConstructorReturn(_this, _ret);
@@ -857,15 +793,7 @@ var MovieDetails = function (_Component) {
             _react2.default.createElement(
               "div",
               { className: "youtube-section" },
-              this.props.movie.results ? _react2.default.createElement("iframe", {
-                src: "http://www.youtube.com/embed/" + (this.props.movie.results ? this.props.movie.results[0].key : ""),
-                allowFullScreen: "allowFullScreen",
-                frameBorder: "0"
-              }) : _react2.default.createElement(
-                "h2",
-                null,
-                "Cant find clip :("
-              )
+              this.showYoutubeClip()
             ),
             _react2.default.createElement(
               "div",
@@ -947,7 +875,7 @@ var MovieDetails = function (_Component) {
               _react2.default.createElement(
                 "div",
                 { className: "cast" },
-                this.renderCast()
+                this.renderCastMembers()
               )
             )
           )
@@ -978,7 +906,8 @@ var MovieDetails = function (_Component) {
                   null,
                   "TV Shows"
                 )
-              )
+              ),
+              _react2.default.createElement(_searchfield2.default, { history: this.props.history })
             )
           ),
           _react2.default.createElement(_carousel2.default, {
@@ -1019,11 +948,11 @@ function mapStatetoProps(state) {
     genres: state.movies.genreMovies.genres
   };
 }
-exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchMovieDetails: _selected.fetchMovieDetails })(MovieDetails);
+exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchSearchDetails: _selected.fetchSearchDetails, fetchSearchAll: _search.fetchSearchAll })(MovieDetails);
 
 /***/ }),
 
-/***/ 262:
+/***/ 263:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1039,17 +968,23 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _selected = __webpack_require__(49);
+var _selected = __webpack_require__(55);
 
-var _reactRedux = __webpack_require__(35);
+var _search = __webpack_require__(54);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRedux = __webpack_require__(31);
 
-var _carousel = __webpack_require__(87);
+var _reactRouterDom = __webpack_require__(36);
+
+var _searchfield = __webpack_require__(79);
+
+var _searchfield2 = _interopRequireDefault(_searchfield);
+
+var _carousel = __webpack_require__(89);
 
 var _carousel2 = _interopRequireDefault(_carousel);
 
@@ -1076,7 +1011,7 @@ var TvDetails = function (_Component) {
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TvDetails.__proto__ || Object.getPrototypeOf(TvDetails)).call.apply(_ref, [this].concat(args))), _this), _this.selectedItem = function (id) {
-      _this.props.fetchTvDetails(id);
+      _this.props.fetchSearchDetails(id, "tv");
       _this.props.history.push("/tvdetails");
     }, _this.renderCast = function () {
       if (!_this.props.movie.cast) {
@@ -1097,6 +1032,20 @@ var TvDetails = function (_Component) {
               )
             );
           }
+        });
+      }
+    }, _this.showYoutubeClip = function () {
+      if (_this.props.movie.results == undefined || _this.props.movie.results[0] === null || _this.props.movie.results[0] === undefined) {
+        return _react2.default.createElement(
+          "h2",
+          null,
+          "Cant find the clip"
+        );
+      } else {
+        return _react2.default.createElement("iframe", {
+          src: "http://www.youtube.com/embed/" + _this.props.movie.results[0].key,
+          allowFullScreen: "allowFullScreen",
+          frameBorder: "0"
         });
       }
     }, _temp), _possibleConstructorReturn(_this, _ret);
@@ -1134,26 +1083,15 @@ var TvDetails = function (_Component) {
           _react2.default.createElement(
             "div",
             { className: "movie-container" },
-            _react2.default.createElement(
-              "div",
-              { className: "youtube-section" },
-              this.props.movie.results ? _react2.default.createElement("iframe", {
-                src: "http://www.youtube.com/embed/" + (this.props.movie.results ? this.props.movie.results[0].key : ""),
-                allowFullScreen: "allowFullScreen",
-                frameBorder: "0"
-              }) : _react2.default.createElement(
-                "h2",
-                null,
-                "Cant find clip :("
-              )
-            ),
+            _react2.default.createElement("div", { className: "youtube-section" }),
+            this.showYoutubeClip(),
             _react2.default.createElement(
               "div",
               { className: "movie-info" },
               _react2.default.createElement(
                 "h1",
                 null,
-                this.props.movie.title
+                this.props.match.url == "/tvdetails" ? this.props.movie.name : this.props.movie.title
               ),
               _react2.default.createElement(
                 "div",
@@ -1209,7 +1147,7 @@ var TvDetails = function (_Component) {
                   _react2.default.createElement(
                     "h2",
                     null,
-                    this.props.movie.runtime ? this.props.movie.runtime : "",
+                    this.props.match.url == "/tvdetails" ? this.props.movie.episode_run_time : this.props.movie.runtime,
                     "min"
                   ),
                   _react2.default.createElement(
@@ -1246,7 +1184,7 @@ var TvDetails = function (_Component) {
                 { to: "/" },
                 _react2.default.createElement(
                   "h1",
-                  { style: { border: "1px solid orange" } },
+                  null,
                   "Movies"
                 )
               ),
@@ -1255,10 +1193,11 @@ var TvDetails = function (_Component) {
                 { to: "/tv" },
                 _react2.default.createElement(
                   "h1",
-                  null,
+                  { style: { border: "1px solid orange" } },
                   "TV Shows"
                 )
-              )
+              ),
+              _react2.default.createElement(_searchfield2.default, { history: this.props.history })
             )
           ),
           _react2.default.createElement(_carousel2.default, {
@@ -1299,11 +1238,11 @@ function mapStatetoProps(state) {
     genres: state.tv.genreTv.genres
   };
 }
-exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchTvDetails: _selected.fetchTvDetails })(TvDetails);
+exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchSearchDetails: _selected.fetchSearchDetails, fetchSearchAll: _search.fetchSearchAll })(TvDetails);
 
 /***/ }),
 
-/***/ 263:
+/***/ 264:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1319,23 +1258,27 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRouterDom = __webpack_require__(36);
 
-var _tv = __webpack_require__(118);
+var _selected = __webpack_require__(55);
 
-var _selected = __webpack_require__(49);
+var _search = __webpack_require__(54);
 
-var _reactRedux = __webpack_require__(35);
+var _reactRedux = __webpack_require__(31);
 
-var _homemainpic = __webpack_require__(175);
+var _MainImageCarousel = __webpack_require__(176);
 
-var _homemainpic2 = _interopRequireDefault(_homemainpic);
+var _MainImageCarousel2 = _interopRequireDefault(_MainImageCarousel);
 
-var _carousel = __webpack_require__(87);
+var _searchfield = __webpack_require__(79);
+
+var _searchfield2 = _interopRequireDefault(_searchfield);
+
+var _carousel = __webpack_require__(89);
 
 var _carousel2 = _interopRequireDefault(_carousel);
 
@@ -1378,8 +1321,7 @@ var TvPage = function (_Component) {
     };
 
     _this.selectedItem = function (id) {
-      console.log(id);
-      _this.props.fetchTvDetails(id);
+      _this.props.fetchSearchDetails(id, "tv");
       _this.props.history.push("/tvdetails");
     };
 
@@ -1392,15 +1334,6 @@ var TvPage = function (_Component) {
   }
 
   _createClass(TvPage, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      this.props.fetchPopularTv();
-      this.props.fetchTopRatedTv();
-      this.props.fetchAiringToday();
-      this.props.fetchTvThisWeek();
-      this.props.fetchGenreTv();
-    }
-  }, {
     key: "render",
     value: function render() {
       if (!this.props.popular) {
@@ -1417,9 +1350,12 @@ var TvPage = function (_Component) {
         _react2.default.createElement(
           "div",
           { className: "main-image" },
-          _react2.default.createElement(_homemainpic2.default, {
+          _react2.default.createElement(_MainImageCarousel2.default, {
             selectedItem: this.selectedItem,
-            data: this.props.popular
+            data: this.props.popular,
+            genres: this.props.genres,
+            filterGenre: this.filterGenre,
+            type: this.props.match.url
           }),
           _react2.default.createElement(
             "div",
@@ -1456,10 +1392,15 @@ var TvPage = function (_Component) {
                 )
               ),
               _react2.default.createElement(
-                "h1",
-                { style: { border: "1px solid orange" } },
-                "TV Shows"
-              )
+                _reactRouterDom.Link,
+                { to: "/tv" },
+                _react2.default.createElement(
+                  "h1",
+                  { style: { border: "1px solid orange" } },
+                  "TV Shows"
+                )
+              ),
+              _react2.default.createElement(_searchfield2.default, { history: this.props.history })
             )
           ),
           _react2.default.createElement(_carousel2.default, {
@@ -1510,17 +1451,13 @@ function mapStatetoProps(state) {
   };
 }
 exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
-  fetchPopularTv: _tv.fetchPopularTv,
-  fetchTopRatedTv: _tv.fetchTopRatedTv,
-  fetchAiringToday: _tv.fetchAiringToday,
-  fetchTvThisWeek: _tv.fetchTvThisWeek,
-  fetchGenreTv: _tv.fetchGenreTv,
-  fetchTvDetails: _selected.fetchTvDetails
+  fetchSearchDetails: _selected.fetchSearchDetails,
+  fetchSearchAll: _search.fetchSearchAll
 })(TvPage);
 
 /***/ }),
 
-/***/ 264:
+/***/ 265:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1536,17 +1473,21 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _search = __webpack_require__(117);
+var _searchfield = __webpack_require__(79);
 
-var _selected = __webpack_require__(49);
+var _searchfield2 = _interopRequireDefault(_searchfield);
 
-var _reactRedux = __webpack_require__(35);
+var _search = __webpack_require__(54);
 
-var _reactRouterDom = __webpack_require__(45);
+var _selected = __webpack_require__(55);
+
+var _reactRedux = __webpack_require__(31);
+
+var _reactRouterDom = __webpack_require__(36);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1633,6 +1574,29 @@ var SearchResults = function (_Component) {
         { id: "search-results" },
         _react2.default.createElement(
           "div",
+          { className: "section-title-header" },
+          _react2.default.createElement(
+            "div",
+            { className: "mid-navigation" },
+            _react2.default.createElement(
+              "h1",
+              { style: { border: "1px solid orange" } },
+              "Movies"
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: "/tv" },
+              _react2.default.createElement(
+                "h1",
+                null,
+                "TV Shows"
+              )
+            ),
+            _react2.default.createElement(_searchfield2.default, { history: this.props.history })
+          )
+        ),
+        _react2.default.createElement(
+          "div",
           { className: "search-container" },
           this.showResults()
         )
@@ -1652,7 +1616,7 @@ exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchSearchAll: _s
 
 /***/ }),
 
-/***/ 265:
+/***/ 266:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1662,21 +1626,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(77);
+var _redux = __webpack_require__(78);
 
-var _movieReducer = __webpack_require__(288);
+var _movieReducer = __webpack_require__(289);
 
 var _movieReducer2 = _interopRequireDefault(_movieReducer);
 
-var _tvReducer = __webpack_require__(291);
+var _tvReducer = __webpack_require__(292);
 
 var _tvReducer2 = _interopRequireDefault(_tvReducer);
 
-var _selectedItemReducer = __webpack_require__(290);
+var _selectedItemReducer = __webpack_require__(291);
 
 var _selectedItemReducer2 = _interopRequireDefault(_selectedItemReducer);
 
-var _searchReducer = __webpack_require__(289);
+var _searchReducer = __webpack_require__(290);
 
 var _searchReducer2 = _interopRequireDefault(_searchReducer);
 
@@ -1693,7 +1657,7 @@ exports.default = rootReducer;
 
 /***/ }),
 
-/***/ 286:
+/***/ 287:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1707,7 +1671,7 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRouterDom = __webpack_require__(36);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1745,7 +1709,7 @@ exports.default = Movie;
 
 /***/ }),
 
-/***/ 287:
+/***/ 288:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1755,49 +1719,49 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRedux = __webpack_require__(35);
+var _reactRedux = __webpack_require__(31);
 
-var _redux = __webpack_require__(77);
+var _redux = __webpack_require__(78);
 
-var _reduxThunk = __webpack_require__(267);
+var _reduxThunk = __webpack_require__(268);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRouterDom = __webpack_require__(36);
 
-var _reducers = __webpack_require__(265);
+var _reducers = __webpack_require__(266);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _axios = __webpack_require__(76);
+var _axios = __webpack_require__(77);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _HomePage = __webpack_require__(260);
+var _HomePage = __webpack_require__(261);
 
 var _HomePage2 = _interopRequireDefault(_HomePage);
 
-var _TvPage = __webpack_require__(263);
+var _TvPage = __webpack_require__(264);
 
 var _TvPage2 = _interopRequireDefault(_TvPage);
 
-var _Nav = __webpack_require__(259);
+var _Nav = __webpack_require__(260);
 
 var _Nav2 = _interopRequireDefault(_Nav);
 
-var _MovieDetails = __webpack_require__(261);
+var _MovieDetails = __webpack_require__(262);
 
 var _MovieDetails2 = _interopRequireDefault(_MovieDetails);
 
-var _TvDetails = __webpack_require__(262);
+var _TvDetails = __webpack_require__(263);
 
 var _TvDetails2 = _interopRequireDefault(_TvDetails);
 
-var _searchresults = __webpack_require__(264);
+var _searchresults = __webpack_require__(265);
 
 var _searchresults2 = _interopRequireDefault(_searchresults);
 
@@ -1822,84 +1786,72 @@ _reactDom2.default.render(_react2.default.createElement(
         null,
         _react2.default.createElement(_reactRouterDom.Route, { path: "/tvdetails", component: _TvDetails2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: "/moviedetails", component: _MovieDetails2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { path: "/tv", component: _TvPage2.default })
-      ),
-      _react2.default.createElement(_reactRouterDom.Route, { path: "/searchResults", component: _searchresults2.default }),
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _HomePage2.default })
+        _react2.default.createElement(_reactRouterDom.Route, { path: "/tv", component: _TvPage2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: "/searchResults", component: _searchresults2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _HomePage2.default })
+      )
     )
   )
 ), document.getElementById("app"));
 
 /***/ }),
 
-/***/ 288:
+/***/ 289:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 exports.default = function () {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-	var action = arguments[1];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
 
-	switch (action.type) {
-		case _movies.FETCH_UPCOMING_MOVIES:
-			return _extends({}, state, {
-				upComingMovies: action.payload
-			});
-		case _movies.FETCH_POPULAR_MOVIES:
-			return _extends({}, state, {
-				popularMovies: action.payload
-			});
-		case _movies.FETCH_NOWPLAYING_MOVIES:
-			return _extends({}, state, {
-				nowPlayingMovies: action.payload
-			});
-		case _movies.FETCH_TOPRATED_MOVIES:
-			return _extends({}, state, {
-				topRatedMovies: action.payload
-			});
-		case _movies.FETCH_GENRE_MOVIES:
-			return _extends({}, state, {
-				genreMovies: action.payload
-			});
-		case _movies.FETCH_MOVIE_DETAILS:
-			return _extends({}, state, {
-				selectedMovie: _extends({}, state.selectedMovie, action.payload)
-			});
-		case _movies.FETCH_MOVIE_CREDITS:
-			return _extends({}, state, {
-				selectedMovie: _extends({}, state.selectedMovie, action.payload)
-			});
-		case _movies.FETCH_MOVIE_TRAILERS:
-			return _extends({}, state, {
-				selectedMovie: _extends({}, state.selectedMovie, action.payload)
-			});
-		default:
-			return state;
-	}
+  switch (action.type) {
+    case _movies.FETCH_UPCOMING_MOVIES:
+      return _extends({}, state, {
+        upComingMovies: action.payload
+      });
+    case _movies.FETCH_POPULAR_MOVIES:
+      return _extends({}, state, {
+        popularMovies: action.payload
+      });
+    case _movies.FETCH_NOWPLAYING_MOVIES:
+      return _extends({}, state, {
+        nowPlayingMovies: action.payload
+      });
+    case _movies.FETCH_TOPRATED_MOVIES:
+      return _extends({}, state, {
+        topRatedMovies: action.payload
+      });
+    case _movies.FETCH_GENRE_MOVIES:
+      return _extends({}, state, {
+        genreMovies: action.payload
+      });
+
+    default:
+      return state;
+  }
 };
 
 var _movies = __webpack_require__(174);
 
 var initialState = {
-	selectedMovie: {},
-	popularMovies: [],
-	upComingMovies: [],
-	nowPlayingMovies: [],
-	topRatedMovies: [],
-	genreMovies: []
+  popularMovies: [],
+  upComingMovies: [],
+  nowPlayingMovies: [],
+  topRatedMovies: [],
+  genreMovies: []
 };
 
 /***/ }),
 
-/***/ 289:
+/***/ 290:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1921,7 +1873,7 @@ exports.default = function () {
   }
 };
 
-var _search = __webpack_require__(117);
+var _search = __webpack_require__(54);
 
 var initialState = {
   searchResults: {}
@@ -1929,7 +1881,7 @@ var initialState = {
 
 /***/ }),
 
-/***/ 290:
+/***/ 291:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1951,6 +1903,7 @@ exports.default = function () {
 
     case _selected.FETCH_TV_CREDITS:
       return _extends({}, state, action.payload);
+
     case _selected.FETCH_TV_TRAILERS:
       return _extends({}, state, action.payload);
 
@@ -1965,7 +1918,7 @@ exports.default = function () {
   }
 };
 
-var _selected = __webpack_require__(49);
+var _selected = __webpack_require__(55);
 
 var initialState = {
   selectedItem: {}
@@ -1973,7 +1926,7 @@ var initialState = {
 
 /***/ }),
 
-/***/ 291:
+/***/ 292:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2010,29 +1963,15 @@ exports.default = function () {
       return _extends({}, state, {
         airingThisWeekTv: action.payload
       });
-    case _tv.FETCH_TV_DETAILS:
-      return _extends({}, state, {
-        selectedTv: _extends({}, state.selectedTv, action.payload)
-      });
-
-    case _tv.FETCH_TV_CREDITS:
-      return _extends({}, state, {
-        selectedTv: _extends({}, state.selectedTv, action.payload)
-      });
-    case _tv.FETCH_TV_TRAILERS:
-      return _extends({}, state, {
-        selectedTv: _extends({}, state.selectedTv, action.payload)
-      });
 
     default:
       return state;
   }
 };
 
-var _tv = __webpack_require__(118);
+var _tv = __webpack_require__(175);
 
 var initialState = {
-  selectedTv: {},
   popularTv: [],
   topRatedTv: [],
   airingTodayTv: [],
@@ -2042,7 +1981,7 @@ var initialState = {
 
 /***/ }),
 
-/***/ 49:
+/***/ 54:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2051,13 +1990,47 @@ var initialState = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchMovieTrailers = exports.fetchMovieCredits = exports.fetchTvTrailers = exports.fetchTvCredits = exports.fetchMovieDetails = exports.fetchTvDetails = exports.fetchSearchDetails = exports.FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_CREDITS = exports.FETCH_TV_TRAILERS = exports.FETCH_TV_CREDITS = exports.FETCH_SELECTED_DETAILS = undefined;
+exports.fetchSearchAll = exports.FETCH_SEARCH_ALL = undefined;
 
-var _axios = __webpack_require__(76);
+var _axios = __webpack_require__(77);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _config = __webpack_require__(86);
+var _config = __webpack_require__(88);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FETCH_SEARCH_ALL = exports.FETCH_SEARCH_ALL = "fetch_search_all";
+
+var fetchSearchAll = exports.fetchSearchAll = function fetchSearchAll(searchTerm) {
+  return function (dispatch) {
+    _axios2.default.get("https://api.themoviedb.org/3/search/multi?" + _config.API_KEY + "&query=" + searchTerm).then(function (res) {
+      return dispatch({
+        type: FETCH_SEARCH_ALL,
+        payload: res.data
+      });
+    });
+  };
+};
+
+/***/ }),
+
+/***/ 55:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchMovieTrailers = exports.fetchMovieCredits = exports.fetchTvTrailers = exports.fetchTvCredits = exports.fetchSearchDetails = exports.FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_CREDITS = exports.FETCH_TV_TRAILERS = exports.FETCH_TV_CREDITS = exports.FETCH_SELECTED_DETAILS = undefined;
+
+var _axios = __webpack_require__(77);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _config = __webpack_require__(88);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2076,40 +2049,15 @@ var fetchSearchDetails = exports.fetchSearchDetails = function fetchSearchDetail
         type: FETCH_SELECTED_DETAILS,
         payload: res.data
       });
+    }).then(function () {
+      if (type == "tv") {
+        dispatch(fetchTvCredits(id));
+        dispatch(fetchTvTrailers(id));
+      } else {
+        dispatch(fetchMovieCredits(id));
+        dispatch(fetchMovieTrailers(id));
+      }
     });
-    if (type == "tv") {
-      dispatch(fetchTvCredits(id));
-      dispatch(fetchTvTrailers(id));
-    } else {
-      dispatch(fetchMovieCredits(id));
-      dispatch(fetchMovieTrailers(id));
-    }
-  };
-};
-
-var fetchTvDetails = exports.fetchTvDetails = function fetchTvDetails(id) {
-  return function (dispatch) {
-    _axios2.default.get("https://api.themoviedb.org/3/tv/" + id + "?" + _config.API_KEY).then(function (res) {
-      return dispatch({
-        type: FETCH_SELECTED_DETAILS,
-        payload: res.data
-      });
-    });
-    dispatch(fetchTvCredits(id));
-    dispatch(fetchTvTrailers(id));
-  };
-};
-
-var fetchMovieDetails = exports.fetchMovieDetails = function fetchMovieDetails(id) {
-  return function (dispatch) {
-    _axios2.default.get("https://api.themoviedb.org/3/movie/" + id + "?" + _config.API_KEY).then(function (res) {
-      return dispatch({
-        type: FETCH_SELECTED_DETAILS,
-        payload: res.data
-      });
-    });
-    dispatch(fetchMovieCredits(id));
-    dispatch(fetchMovieTrailers(id));
   };
 };
 
@@ -2161,20 +2109,7 @@ var fetchMovieTrailers = exports.fetchMovieTrailers = function fetchMovieTrailer
 
 /***/ }),
 
-/***/ 86:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var API_KEY = exports.API_KEY = 'api_key=198b9ddcfd3755ac7a132d98b8f8fda2';
-
-/***/ }),
-
-/***/ 87:
+/***/ 79:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2190,21 +2125,117 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRedux = __webpack_require__(31);
 
-var _selected = __webpack_require__(49);
+var _reactRouterDom = __webpack_require__(36);
 
-var _reactRedux = __webpack_require__(35);
+var _search = __webpack_require__(54);
 
-var _reactIdSwiper = __webpack_require__(241);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SearchField = function (_Component) {
+  _inherits(SearchField, _Component);
+
+  function SearchField(props) {
+    _classCallCheck(this, SearchField);
+
+    var _this = _possibleConstructorReturn(this, (SearchField.__proto__ || Object.getPrototypeOf(SearchField)).call(this, props));
+
+    _this.handleChange = function (event) {
+      _this.setState({ searchTerm: event.target.value });
+    };
+
+    _this.handleSubmit = function (event) {
+      event.preventDefault();
+      _this.props.fetchSearchAll(_this.state.searchTerm);
+      _this.props.history.push("/searchResults");
+    };
+
+    _this.state = {
+      searchTerm: ""
+    };
+    return _this;
+  }
+
+  _createClass(SearchField, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "form",
+        { onSubmit: this.handleSubmit },
+        _react2.default.createElement("input", {
+          type: "text",
+          name: "name",
+          placeholder: "Search your favorite Movie, TV Show, or Actor",
+          value: this.state.searchTerm,
+          onChange: this.handleChange
+        }),
+        _react2.default.createElement("input", { type: "submit", value: "Submit" })
+      );
+    }
+  }]);
+
+  return SearchField;
+}(_react.Component);
+
+exports.default = (0, _reactRedux.connect)(null, { fetchSearchAll: _search.fetchSearchAll })(SearchField);
+
+/***/ }),
+
+/***/ 88:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var API_KEY = exports.API_KEY = 'api_key=198b9ddcfd3755ac7a132d98b8f8fda2';
+
+/***/ }),
+
+/***/ 89:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(9);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(24);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactRouterDom = __webpack_require__(36);
+
+var _selected = __webpack_require__(55);
+
+var _reactRedux = __webpack_require__(31);
+
+var _reactIdSwiper = __webpack_require__(242);
 
 var _reactIdSwiper2 = _interopRequireDefault(_reactIdSwiper);
 
-var _movie = __webpack_require__(286);
+var _movie = __webpack_require__(287);
 
 var _movie2 = _interopRequireDefault(_movie);
 
@@ -2355,4 +2386,4 @@ exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
 
 /***/ })
 
-},[287]);
+},[288]);

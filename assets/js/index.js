@@ -35,9 +35,9 @@ ReactDOM.render(
           <Route path="/tvdetails" component={TvDetails} />
           <Route path="/moviedetails" component={MovieDetails} />
           <Route path="/tv" component={TvPage} />
+          <Route path="/searchResults" component={SearchResults} />
+          <Route exact path="/" component={HomePage} />
         </Switch>
-        <Route path="/searchResults" component={SearchResults} />
-        <Route exact path="/" component={HomePage} />
       </div>
     </Router>
   </Provider>,

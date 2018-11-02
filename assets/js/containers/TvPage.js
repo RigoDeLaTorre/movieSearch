@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 import ReactDom from "react-dom";
 import { Link } from "react-router-dom";
-import {
-  fetchPopularTv,
-  fetchTopRatedTv,
-  fetchAiringToday,
-  fetchTvThisWeek,
-  fetchGenreTv
-} from "../actions/tv";
-import { fetchTvDetails } from "../actions/selected";
-
+import { fetchSearchDetails } from "../actions/selected";
+import { fetchSearchAll } from "../actions/search";
 import { connect } from "react-redux";
-import HomeMainPic from "./homemainpic.js";
+import MainImageCarousel from "./MainImageCarousel.js";
+import SearchField from "../components/searchfield.js";
 import Carousel from "./carousel.js";
 
 class TvPage extends Component {
@@ -23,14 +17,6 @@ class TvPage extends Component {
       movieIndex: 0
     };
   }
-  componentWillMount() {
-    this.props.fetchPopularTv();
-    this.props.fetchTopRatedTv();
-    this.props.fetchAiringToday();
-    this.props.fetchTvThisWeek();
-    this.props.fetchGenreTv();
-  }
-
   filterGenre = id => {
     if (!this.props.genres) {
       return <h2>' '</h2>;
@@ -46,8 +32,7 @@ class TvPage extends Component {
   };
 
   selectedItem = id => {
-    console.log(id);
-    this.props.fetchTvDetails(id);
+    this.props.fetchSearchDetails(id, "tv");
     this.props.history.push("/tvdetails");
   };
 
@@ -63,9 +48,12 @@ class TvPage extends Component {
     return (
       <section className="home-page">
         <div className="main-image">
-          <HomeMainPic
+          <MainImageCarousel
             selectedItem={this.selectedItem}
             data={this.props.popular}
+            genres={this.props.genres}
+            filterGenre={this.filterGenre}
+            type={this.props.match.url}
           />
           <div className="main-details">
             <h1>{this.props.popular[this.state.movieIndex].name}</h1>
@@ -82,7 +70,10 @@ class TvPage extends Component {
               <Link to="/">
                 <h1>Movies</h1>
               </Link>
-              <h1 style={{ border: "1px solid orange" }}>TV Shows</h1>
+              <Link to="/tv">
+                <h1 style={{ border: "1px solid orange" }}>TV Shows</h1>
+              </Link>
+              <SearchField history={this.props.history} />
             </div>
           </div>
           <Carousel
@@ -127,11 +118,7 @@ function mapStatetoProps(state) {
 export default connect(
   mapStatetoProps,
   {
-    fetchPopularTv,
-    fetchTopRatedTv,
-    fetchAiringToday,
-    fetchTvThisWeek,
-    fetchGenreTv,
-    fetchTvDetails
+    fetchSearchDetails,
+    fetchSearchAll
   }
 )(TvPage);

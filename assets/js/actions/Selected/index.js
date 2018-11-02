@@ -10,41 +10,23 @@ export const FETCH_MOVIE_CREDITS = "fetch_credits_movies";
 export const FETCH_MOVIE_TRAILERS = "fetch_trailers_movies";
 
 export const fetchSearchDetails = (id, type) => dispatch => {
-  axios.get(`https://api.themoviedb.org/3/${type}/${id}?${API_KEY}`).then(res =>
-    dispatch({
-      type: FETCH_SELECTED_DETAILS,
-      payload: res.data
-    })
-  );
-  if (type == "tv") {
-    dispatch(fetchTvCredits(id));
-    dispatch(fetchTvTrailers(id));
-  } else {
-    dispatch(fetchMovieCredits(id));
-    dispatch(fetchMovieTrailers(id));
-  }
-};
-
-export const fetchTvDetails = id => dispatch => {
-  axios.get(`https://api.themoviedb.org/3/tv/${id}?${API_KEY}`).then(res =>
-    dispatch({
-      type: FETCH_SELECTED_DETAILS,
-      payload: res.data
-    })
-  );
-  dispatch(fetchTvCredits(id));
-  dispatch(fetchTvTrailers(id));
-};
-
-export const fetchMovieDetails = id => dispatch => {
-  axios.get(`https://api.themoviedb.org/3/movie/${id}?${API_KEY}`).then(res =>
-    dispatch({
-      type: FETCH_SELECTED_DETAILS,
-      payload: res.data
-    })
-  );
-  dispatch(fetchMovieCredits(id));
-  dispatch(fetchMovieTrailers(id));
+  axios
+    .get(`https://api.themoviedb.org/3/${type}/${id}?${API_KEY}`)
+    .then(res =>
+      dispatch({
+        type: FETCH_SELECTED_DETAILS,
+        payload: res.data
+      })
+    )
+    .then(() => {
+      if (type == "tv") {
+        dispatch(fetchTvCredits(id));
+        dispatch(fetchTvTrailers(id));
+      } else {
+        dispatch(fetchMovieCredits(id));
+        dispatch(fetchMovieTrailers(id));
+      }
+    });
 };
 
 export const fetchTvCredits = id => dispatch => {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDom from "react-dom";
+import SearchField from "../components/searchfield.js";
 import { fetchSearchAll } from "../actions/search";
 import { fetchSearchDetails } from "../actions/selected";
 import { connect } from "react-redux";
@@ -54,6 +55,15 @@ class SearchResults extends Component {
 
     return (
       <section id="search-results">
+        <div className="section-title-header">
+          <div className="mid-navigation">
+            <h1 style={{ border: "1px solid orange" }}>Movies</h1>
+            <Link to="/tv">
+              <h1>TV Shows</h1>
+            </Link>
+            <SearchField history={this.props.history} />
+          </div>
+        </div>
         <div className="search-container">{this.showResults()}</div>
       </section>
     );
