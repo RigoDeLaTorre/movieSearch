@@ -17,6 +17,9 @@ class TvPage extends Component {
       movieIndex: 0
     };
   }
+  componentWillMount() {
+    window.scrollTo(0, 0);
+  }
   filterGenre = id => {
     if (!this.props.genres) {
       return <h2>' '</h2>;

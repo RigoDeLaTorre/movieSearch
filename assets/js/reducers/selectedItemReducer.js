@@ -13,7 +13,7 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case FETCH_SELECTED_DETAILS:
-      return { ...state, ...action.payload };
+      return action.payload;
 
     case FETCH_TV_CREDITS:
       return { ...state, ...action.payload };

@@ -3,17 +3,21 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+  Link
+} from "react-router-dom";
 import rootReducer from "./reducers";
 import axios from "axios";
 
 import HomePage from "./containers/HomePage.js";
 import TvPage from "./containers/TvPage.js";
 
-import Nav from "./components/Nav.js";
-import MovieDetails from "./containers/MovieDetails";
-import TvDetails from "./containers/TvDetails";
 import SearchResults from "./containers/searchresults";
+import SelectionDetails from "./containers/SelectionDetails";
 
 const initialState = {};
 const middleware = [thunk];
@@ -32,11 +36,11 @@ ReactDOM.render(
     <Router>
       <div id="home">
         <Switch>
-          <Route path="/tvdetails" component={TvDetails} />
-          <Route path="/moviedetails" component={MovieDetails} />
+          <Route path="/tvdetails" component={SelectionDetails} />
+          <Route path="/moviedetails" component={SelectionDetails} />
           <Route path="/tv" component={TvPage} />
           <Route path="/searchResults" component={SearchResults} />
-          <Route exact path="/" component={HomePage} />
+          <Route path="/" component={HomePage} />
         </Switch>
       </div>
     </Router>

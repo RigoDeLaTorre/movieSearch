@@ -44,6 +44,9 @@ class HomePage extends Component {
     this.props.fetchTvThisWeek();
     this.props.fetchGenreTv();
   }
+  componentDidUpdate() {
+    window.scrollTo(0, 0);
+  }
 
   filterGenre = id => {
     let genre = this.props.genres
@@ -71,6 +74,7 @@ class HomePage extends Component {
   };
 
   render() {
+    console.log(this.props.match);
     if (!this.props.upcoming) {
       return (
         <div className={!this.props.upcoming ? "loading-screen" : "gone"}>
@@ -89,13 +93,6 @@ class HomePage extends Component {
             filterGenre={this.filterGenre}
             type={this.props.match.url}
           />
-          <div className="main-details">
-            <h1>{this.props.upcoming[this.state.movieIndex].title}</h1>
-            {this.filterGenre(
-              this.props.upcoming[this.state.movieIndex].genre_ids
-            )}
-            <h3>Rating ***** </h3>
-          </div>
         </div>
 
         <div className="video-container">
@@ -108,6 +105,7 @@ class HomePage extends Component {
               <SearchField history={this.props.history} />
             </div>
           </div>
+
           <Carousel
             selectedItem={this.selectedItem}
             movie={this.props.upcoming}
@@ -128,9 +126,6 @@ class HomePage extends Component {
             movie={this.props.toprated}
             title="Top Rated "
           />
-        </div>
-        <div className="section-title-header">
-          <h1>TV Shows</h1>
         </div>
       </section>
     );

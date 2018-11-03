@@ -16,10 +16,10 @@ class SearchResults extends Component {
     let type = item.media_type;
     this.props.fetchSearchDetails(id, type);
     if (type == "tv") {
-      this.props.history.push("/Tvdetails");
+      this.props.history.push("/tvdetails");
     }
     if (type == "movie") {
-      this.props.history.push("/Moviedetails");
+      this.props.history.push("/moviedetails");
     }
   };
 

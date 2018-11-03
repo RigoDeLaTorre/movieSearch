@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { fetchMovieDetails } from "../actions/selected";
 import { connect } from "react-redux";
 import Swiper from "react-id-swiper";
-import Movie from "../components/movies/movie.js";
+import VideoForCarousel from "../components/VideoForCarousel.js";
 
 class Carousel extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class Carousel extends Component {
     console.log(this.props.movie);
     return this.props.movie.map(movie => {
       return (
-        <Movie
+        <VideoForCarousel
           key={movie.id}
           id={movie.id}
           img={movie.poster_path}
@@ -90,7 +90,7 @@ class Carousel extends Component {
     }
 
     return (
-      <section className="movie-selections">
+      <section id="carousel">
         <div className="title-sub-header">
           <h2>{this.props.title}</h2>
         </div>

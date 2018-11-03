@@ -7,16 +7,22 @@ import { Link } from "react-router-dom";
 import SearchField from "../components/searchfield.js";
 import Carousel from "./carousel.js";
 
-class MovieDetails extends Component {
+class SelectionDetails extends Component {
   componentDidUpdate() {
     window.scrollTo(0, 0);
   }
   selectedItem = id => {
-    this.props.fetchSearchDetails(id, "movie");
-    this.props.history.push("/moviedetails");
+    let url = this.props.match.url;
+    if (url === "/tvdetails" || url === "tv/") {
+      this.props.fetchSearchDetails(id, "tv");
+      this.props.history.push("/tvdetails");
+    } else {
+      this.props.fetchSearchDetails(id, "movie");
+      this.props.history.push("/moviedetails");
+    }
   };
 
-  renderCastMembers = () => {
+  renderCast = () => {
     if (!this.props.movie.cast) {
       return "loading";
     } else {
@@ -34,7 +40,6 @@ class MovieDetails extends Component {
       });
     }
   };
-
   showYoutubeClip = () => {
     if (
       this.props.movie.results == undefined ||
@@ -55,28 +60,112 @@ class MovieDetails extends Component {
     }
   };
 
+  videoSelection = () => {
+    let url = this.props.match.url;
+    if (url === "/tvdetails" || url === "tv/") {
+      return (
+        <div className="video-container">
+          <div className="section-title-header">
+            <div className="mid-navigation">
+              <Link to="/">
+                <h1>Movies</h1>
+              </Link>
+              <Link to="/tv">
+                <h1 style={{ border: "1px solid orange" }}>TV Shows</h1>
+              </Link>
+              <SearchField history={this.props.history} />
+            </div>
+          </div>
+          <Carousel
+            selectedItem={this.selectedItem}
+            movie={this.props.popularTv}
+            title="popular"
+          />
+          <Carousel
+            selectedItem={this.selectedItem}
+            movie={this.props.topratedTv}
+            title="top rated"
+          />
+          <Carousel
+            selectedItem={this.selectedItem}
+            movie={this.props.airingtodayTv}
+            title="airing today"
+          />
+          <Carousel
+            selectedItem={this.selectedItem}
+            movie={this.props.thisweekTv}
+            title="airing this week "
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className="video-container">
+          <div className="section-title-header">
+            <div className="mid-navigation">
+              <Link to="/">
+                <h1 style={{ border: "1px solid orange" }}>Movies</h1>
+              </Link>
+              <Link to="/tv">
+                <h1>TV Shows</h1>
+              </Link>
+              <SearchField history={this.props.history} />
+            </div>
+          </div>
+          <Carousel
+            selectedItem={this.selectedItem}
+            movie={this.props.upcoming}
+            title="Upcoming "
+          />
+          <Carousel
+            selectedItem={this.selectedItem}
+            movie={this.props.popular}
+            title="Popular "
+          />
+          <Carousel
+            selectedItem={this.selectedItem}
+            movie={this.props.nowplaying}
+            title="Now Playing "
+          />
+          <Carousel
+            selectedItem={this.selectedItem}
+            movie={this.props.toprated}
+            title="Top Rated "
+          />
+        </div>
+      );
+    }
+  };
+
   render() {
+    console.log(this.props.match.url);
     if (this.props === undefined) {
       return <h1>loading</h1>;
     }
 
     return (
-      <section id="movie-details">
+      <section id="selection-details-page">
         <div
           className="movie-container"
           style={{
-            backgroundImage: `linear-gradient(0deg, rgb(2,2,2) 35%, rgba(0, 0, 0, 0) 55%), url(https://image.tmdb.org/t/p/original${
+            backgroundImage: `linear-gradient(0deg, rgb(0, 0, 0) 5%, rgba(0, 0, 0, 0) 55%), url(https://image.tmdb.org/t/p/original${
               this.props.movie.backdrop_path
-            })`,
+                ? this.props.movie.backdrop_path
+                : this.props.movie.poster_path
+            }) `,
             backgroundSize: "cover",
             backgroundPosition: "center center no-repeat"
           }}
         >
           <div className="movie-container">
-            <div className="youtube-section">{this.showYoutubeClip()}</div>
-
+            <div className="youtube-section" />
+            {this.showYoutubeClip()}
             <div className="movie-info">
-              <h1>{this.props.movie.title}</h1>
+              <h1>
+                {this.props.match.url == "/tvdetails"
+                  ? this.props.movie.name
+                  : this.props.movie.title}
+              </h1>
               <div className="details">
                 <div className="rating">
                   <h2>Rating {this.props.movie.vote_average}</h2>
@@ -139,51 +228,20 @@ class MovieDetails extends Component {
                       : ""}
                   </h2>
                   <h2>
-                    {this.props.movie.runtime ? this.props.movie.runtime : ""}
+                    {this.props.match.url == "/tvdetails"
+                      ? this.props.movie.episode_run_time
+                      : this.props.movie.runtime}
                     min
                   </h2>
                   <h2>{this.props.movie.release_date}</h2>
                 </div>
               </div>
               <p>{this.props.movie.overview}</p>
-              <div className="cast">{this.renderCastMembers()}</div>
+              <div className="cast">{this.renderCast()}</div>
             </div>
           </div>
         </div>
-
-        <div className="video-container">
-          <div className="section-title-header">
-            <div className="mid-navigation">
-              <Link to="/">
-                <h1 style={{ border: "1px solid orange" }}>Movies</h1>
-              </Link>
-              <Link to="/tv">
-                <h1>TV Shows</h1>
-              </Link>
-              <SearchField history={this.props.history} />
-            </div>
-          </div>
-          <Carousel
-            selectedItem={this.selectedItem}
-            movie={this.props.upcoming}
-            title="Upcoming "
-          />
-          <Carousel
-            selectedItem={this.selectedItem}
-            movie={this.props.popular}
-            title="Popular "
-          />
-          <Carousel
-            selectedItem={this.selectedItem}
-            movie={this.props.nowplaying}
-            title="Now Playing "
-          />
-          <Carousel
-            selectedItem={this.selectedItem}
-            movie={this.props.toprated}
-            title="Top Rated "
-          />
-        </div>
+        {this.videoSelection()}
       </section>
     );
   }
@@ -192,6 +250,11 @@ class MovieDetails extends Component {
 function mapStatetoProps(state) {
   return {
     movie: state.selectedItem,
+    popularTv: state.tv.popularTv.results,
+    topratedTv: state.tv.topRatedTv.results,
+    airingtodayTv: state.tv.airingTodayTv.results,
+    thisweekTv: state.tv.airingThisWeekTv.results,
+    genresTv: state.tv.genreTv.genres,
     upcoming: state.movies.upComingMovies.results,
     popular: state.movies.popularMovies.results,
     toprated: state.movies.topRatedMovies.results,
@@ -202,4 +265,4 @@ function mapStatetoProps(state) {
 export default connect(
   mapStatetoProps,
   { fetchSearchDetails, fetchSearchAll }
-)(MovieDetails);
+)(SelectionDetails);

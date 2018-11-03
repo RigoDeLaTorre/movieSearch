@@ -34,7 +34,7 @@ export default class MainImageCarousel extends Component {
             className="img"
             style={{
               backgroundImage: `linear-gradient(0deg, rgb(0, 0, 0) 5%, rgba(0, 0, 0, 0) 55%), url(https://image.tmdb.org/t/p/original${
-                item.backdrop_path
+                item.backdrop_path ? item.backdrop_path : item.poster_path
               }) `,
               backgroundSize: "cover",
               backgroundPosition: "center ",
@@ -82,7 +82,7 @@ export default class MainImageCarousel extends Component {
     }
 
     return (
-      <section id="home-mainpic">
+      <section id="main-image-carousel">
         <Swiper {...params}>{this.getVideos()}</Swiper>
       </section>
     );
