@@ -7,7 +7,7 @@ webpackJsonp([0],{
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -20,11 +20,11 @@ var _reactDom = __webpack_require__(30);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRouterDom = __webpack_require__(44);
 
-var _selected = __webpack_require__(67);
+var _selected = __webpack_require__(66);
 
-var _reactRedux = __webpack_require__(35);
+var _reactRedux = __webpack_require__(45);
 
 var _reactIdSwiper = __webpack_require__(242);
 
@@ -43,141 +43,141 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Carousel = function (_Component) {
-  _inherits(Carousel, _Component);
+	_inherits(Carousel, _Component);
 
-  function Carousel(props) {
-    _classCallCheck(this, Carousel);
+	function Carousel(props) {
+		_classCallCheck(this, Carousel);
 
-    var _this = _possibleConstructorReturn(this, (Carousel.__proto__ || Object.getPrototypeOf(Carousel)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (Carousel.__proto__ || Object.getPrototypeOf(Carousel)).call(this, props));
 
-    _this.filterGenre = function (id) {
-      var genre = _this.props.genres.filter(function (item) {
-        return item.id === id[0] || item.id == id[1];
-      }).map(function (item) {
-        return item.name;
-      });
-      return _react2.default.createElement(
-        "h2",
-        null,
-        genre[0],
-        " ",
-        genre[1] ? "/" + genre[1] : ""
-      );
-    };
+		_this.filterGenre = function (id) {
+			var genre = _this.props.genres.filter(function (item) {
+				return item.id === id[0] || item.id == id[1];
+			}).map(function (item) {
+				return item.name;
+			});
+			return _react2.default.createElement(
+				'h2',
+				null,
+				genre[0],
+				' ',
+				genre[1] ? '/' + genre[1] : ''
+			);
+		};
 
-    _this.renderVideos = function () {
-      console.log(_this.props.movie);
-      return _this.props.movie.map(function (movie) {
-        return _react2.default.createElement(_VideoForCarousel2.default, {
-          key: movie.id,
-          id: movie.id,
-          img: movie.poster_path,
-          title: movie.title ? movie.title : movie.name,
-          genre: _this.filterGenre(movie.genre_ids),
-          selectedItem: _this.props.selectedItem
-        });
-      });
-    };
+		_this.renderVideos = function () {
+			console.log(_this.props.movie);
+			return _this.props.movie.map(function (movie) {
+				return _react2.default.createElement(_VideoForCarousel2.default, {
+					key: movie.id,
+					id: movie.id,
+					img: movie.poster_path,
+					title: movie.title ? movie.title : movie.name,
+					genre: _this.filterGenre(movie.genre_ids),
+					selectedItem: _this.props.selectedItem
+				});
+			});
+		};
 
-    _this.selectedItem = function (id) {
-      _this.props.fetchMovieDetails(id);
-    };
+		_this.selectedItem = function (id) {
+			var url = _this.props.match.url;
+			if (url === '/tvdetails' || url === 'tv/') {
+				_this.props.fetchSearchDetails(id, 'tv');
+				_this.props.history.push('/tvdetails');
+			} else {
+				_this.props.fetchSearchDetails(id, 'movie');
+				_this.props.history.push('/moviedetails');
+			}
+		};
 
-    _this.goNext = _this.goNext.bind(_this);
-    _this.goPrev = _this.goPrev.bind(_this);
-    _this.swiper = null;
-    return _this;
-  }
+		_this.goNext = _this.goNext.bind(_this);
+		_this.goPrev = _this.goPrev.bind(_this);
+		_this.swiper = null;
+		return _this;
+	}
 
-  // Navigation for movies/tv
-
-
-  _createClass(Carousel, [{
-    key: "goNext",
-    value: function goNext() {
-      if (this.swiper) this.swiper.slideNext();
-    }
-    // Navigation for movies/tv
-
-  }, {
-    key: "goPrev",
-    value: function goPrev() {
-      if (this.swiper) this.swiper.slidePrev();
-    }
-
-    // compares genre ids to the genre list in state and returns the name associated.
+	// Navigation for movies/tv
 
 
-    // Renders a movie for each upcmoming movie in state.
+	_createClass(Carousel, [{
+		key: 'goNext',
+		value: function goNext() {
+			if (this.swiper) this.swiper.slideNext();
+		}
+		// Navigation for movies/tv
+
+	}, {
+		key: 'goPrev',
+		value: function goPrev() {
+			if (this.swiper) this.swiper.slidePrev();
+		}
+
+		// compares genre ids to the genre list in state and returns the name associated.
 
 
-    // Fetches Movie Details by passing in the id, then dispatching the method to retrieve the details by movie id.
+		// Renders a movie for each upcmoming movie in state.
 
-  }, {
-    key: "render",
-    value: function render() {
-      var params = {
-        setWrapperSize: true,
-        init: true,
-        slidesPerView: 7,
-        loop: true,
-        spaceBetween: 15,
-        observer: true,
-        direction: "horizontal",
-        pagination: {
-          type: "bullets",
-          clickable: true
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev"
-        },
-        breakpoints: {
-          1145: { slidesPerView: 5 },
-          699: { slidesPerView: 3 }
-        }
-      };
 
-      if (!this.props.movie) {
-        return _react2.default.createElement(
-          "div",
-          { className: !this.props.movie ? "loading-screen" : "gone" },
-          "Loading"
-        );
-      }
+		// Fetches Movie Details by passing in the id, then dispatching the method to retrieve the details by movie id.
 
-      return _react2.default.createElement(
-        "section",
-        { id: "carousel" },
-        _react2.default.createElement(
-          "div",
-          { className: "title-sub-header" },
-          _react2.default.createElement(
-            "h2",
-            null,
-            this.props.title
-          )
-        ),
-        _react2.default.createElement(
-          _reactIdSwiper2.default,
-          params,
-          this.renderVideos()
-        )
-      );
-    }
-  }]);
+	}, {
+		key: 'render',
+		value: function render() {
+			var params = {
+				setWrapperSize: true,
+				init: true,
+				slidesPerView: 7,
+				loop: true,
+				spaceBetween: 15,
+				observer: true,
+				direction: 'horizontal',
+				pagination: {
+					type: 'bullets',
+					clickable: true
+				},
+				navigation: {
+					nextEl: '.swiper-button-next',
+					prevEl: '.swiper-button-prev'
+				},
+				breakpoints: {
+					1145: { slidesPerView: 5 },
+					699: { slidesPerView: 3 }
+				}
+			};
 
-  return Carousel;
+			if (!this.props.movie) {
+				return _react2.default.createElement(
+					'div',
+					{ className: !this.props.movie ? 'loading-screen' : 'gone' },
+					'Loading'
+				);
+			}
+
+			return _react2.default.createElement(
+				'section',
+				{ id: 'carousel' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'title-sub-header' },
+					_react2.default.createElement(
+						'h2',
+						null,
+						this.props.title
+					)
+				),
+				_react2.default.createElement(
+					_reactIdSwiper2.default,
+					params,
+					this.renderVideos()
+				)
+			);
+		}
+	}]);
+
+	return Carousel;
 }(_react.Component);
 
-function mapStatetoProps(state) {
-  return {
-    genres: state.movies.genreMovies.genres
-  };
-}
-exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
-  fetchMovieDetails: _selected.fetchMovieDetails
-})(Carousel);
+exports.default = Carousel;
 
 /***/ }),
 
@@ -192,7 +192,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchMovieTrailers = exports.fetchMovieCredits = exports.fetchMovieDetails = exports.fetchNowPlayingMovies = exports.fetchTopRatedMovies = exports.fetchUpcomingMovies = exports.fetchPopularMovies = exports.fetchGenreMovie = exports.FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_CREDITS = exports.FETCH_MOVIE_DETAILS = exports.FETCH_TOPRATED_MOVIES = exports.FETCH_NOWPLAYING_MOVIES = exports.FETCH_UPCOMING_MOVIES = exports.FETCH_POPULAR_MOVIES = exports.FETCH_GENRE_MOVIES = undefined;
 
-var _axios = __webpack_require__(77);
+var _axios = __webpack_require__(76);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -313,7 +313,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchTvTrailers = exports.fetchTvCredits = exports.fetchTvDetails = exports.fetchTvThisWeek = exports.fetchAiringToday = exports.fetchTopRatedTv = exports.fetchLatestTv = exports.fetchPopularTv = exports.fetchGenreTv = exports.FETCH_TV_TRAILERS = exports.FETCH_TV_DETAILS = exports.FETCH_TV_CREDITS = exports.FETCH_THISWEEK_TV = exports.FETCH_AIRINGTODAY_TV = exports.FETCH_TOPRATED_TV = exports.FETCH_LATEST_TV = exports.FETCH_POPULAR_TV = exports.FETCH_GENRE_TV = undefined;
 
-var _axios = __webpack_require__(77);
+var _axios = __webpack_require__(76);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -453,9 +453,9 @@ var _reactDom = __webpack_require__(30);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRouterDom = __webpack_require__(44);
 
-var _reactRedux = __webpack_require__(35);
+var _reactRedux = __webpack_require__(45);
 
 var _reactIdSwiper = __webpack_require__(242);
 
@@ -594,7 +594,7 @@ exports.default = MainImageCarousel;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -607,25 +607,25 @@ var _reactDom = __webpack_require__(30);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRouterDom = __webpack_require__(44);
 
 var _movies = __webpack_require__(174);
 
 var _tv = __webpack_require__(175);
 
-var _selected = __webpack_require__(67);
+var _selected = __webpack_require__(66);
 
-var _search = __webpack_require__(66);
+var _search = __webpack_require__(78);
 
-var _reactRedux = __webpack_require__(35);
+var _reactRedux = __webpack_require__(45);
 
 var _MainImageCarousel = __webpack_require__(176);
 
 var _MainImageCarousel2 = _interopRequireDefault(_MainImageCarousel);
 
-var _searchfield = __webpack_require__(88);
+var _MiddleNavigation = __webpack_require__(88);
 
-var _searchfield2 = _interopRequireDefault(_searchfield);
+var _MiddleNavigation2 = _interopRequireDefault(_MiddleNavigation);
 
 var _carousel = __webpack_require__(118);
 
@@ -640,176 +640,172 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var HomePage = function (_Component) {
-  _inherits(HomePage, _Component);
+	_inherits(HomePage, _Component);
 
-  function HomePage(props) {
-    _classCallCheck(this, HomePage);
+	function HomePage(props) {
+		_classCallCheck(this, HomePage);
 
-    var _this = _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).call(this, props));
 
-    _this.filterGenre = function (id) {
-      var genre = _this.props.genres.filter(function (item) {
-        return item.id === id[0] || item.id == id[1];
-      }).map(function (item) {
-        return item.name;
-      });
-      return _react2.default.createElement(
-        "h2",
-        null,
-        genre[0],
-        " / ",
-        genre[1] ? genre[1] : ""
-      );
-    };
+		_this.filterGenre = function (id) {
+			var genre = _this.props.genres.filter(function (item) {
+				return item.id === id[0] || item.id == id[1];
+			}).map(function (item) {
+				return item.name;
+			});
+			return _react2.default.createElement(
+				'h2',
+				null,
+				genre[0],
+				' / ',
+				genre[1] ? genre[1] : ''
+			);
+		};
 
-    _this.handlePopularPage = function () {
-      _this.setState(function (prevState) {
-        return {
-          popular: prevState.popular + 1
-        };
-      }, function () {
-        return _this.props.fetchPopularMovies(_this.state.popular);
-      });
-    };
+		_this.handlePopularPage = function () {
+			_this.setState(function (prevState) {
+				return {
+					popular: prevState.popular + 1
+				};
+			}, function () {
+				return _this.props.fetchPopularMovies(_this.state.popular);
+			});
+		};
 
-    _this.selectedItem = function (id) {
-      _this.props.fetchSearchDetails(id, "movie");
-      _this.props.history.push("/moviedetails");
-    };
+		_this.selectedItem = function (id) {
+			var url = _this.props.match.url;
+			if (url === '/tvdetails' || url === 'tv/') {
+				_this.props.fetchSearchDetails(id, 'tv');
+				_this.props.history.push('/tvdetails');
+			} else {
+				_this.props.fetchSearchDetails(id, 'movie');
+				_this.props.history.push('/moviedetails');
+			}
+		};
 
-    _this.state = {
-      popular: 1,
-      upcoming: 1,
-      movieIndex: 0,
-      searchTerm: ""
-    };
-    return _this;
-  }
+		_this.state = {
+			popular: 1,
+			upcoming: 1,
+			movieIndex: 0,
+			searchTerm: ''
+		};
+		return _this;
+	}
 
-  _createClass(HomePage, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      this.props.fetchGenreMovie();
-      this.props.fetchPopularMovies(this.state.popular);
-      this.props.fetchUpcomingMovies();
-      this.props.fetchNowPlayingMovies();
-      this.props.fetchTopRatedMovies();
-      this.props.fetchPopularTv();
-      this.props.fetchTopRatedTv();
-      this.props.fetchAiringToday();
-      this.props.fetchTvThisWeek();
-      this.props.fetchGenreTv();
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      window.scrollTo(0, 0);
-    }
+	_createClass(HomePage, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			this.props.fetchGenreMovie();
+			this.props.fetchPopularMovies(this.state.popular);
+			this.props.fetchUpcomingMovies();
+			this.props.fetchNowPlayingMovies();
+			this.props.fetchTopRatedMovies();
+			this.props.fetchPopularTv();
+			this.props.fetchTopRatedTv();
+			this.props.fetchAiringToday();
+			this.props.fetchTvThisWeek();
+			this.props.fetchGenreTv();
+		}
+	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate() {
+			window.scrollTo(0, 0);
+		}
 
-    //TESTING THIS, not yet complete.....eventually I want to fetch a new page when the user swipes to the end of page 1.
+		//TESTING THIS, not yet complete.....eventually I want to fetch a new page when the user swipes to the end of page 1.
 
-  }, {
-    key: "render",
-    value: function render() {
-      console.log(this.props.match);
-      if (!this.props.upcoming) {
-        return _react2.default.createElement(
-          "div",
-          { className: !this.props.upcoming ? "loading-screen" : "gone" },
-          "Loading"
-        );
-      }
+	}, {
+		key: 'render',
+		value: function render() {
+			console.log(this.props.match);
+			if (!this.props.upcoming) {
+				return _react2.default.createElement(
+					'div',
+					{ className: !this.props.upcoming ? 'loading-screen' : 'gone' },
+					'Loading'
+				);
+			}
 
-      return _react2.default.createElement(
-        "section",
-        { className: "home-page" },
-        _react2.default.createElement(
-          "div",
-          { className: "main-image" },
-          _react2.default.createElement(_MainImageCarousel2.default, {
-            selectedItem: this.selectedItem,
-            data: this.props.upcoming,
-            genres: this.props.genres,
-            filterGenre: this.filterGenre,
-            type: this.props.match.url
-          })
-        ),
-        _react2.default.createElement(
-          "div",
-          { className: "video-container" },
-          _react2.default.createElement(
-            "div",
-            { className: "section-title-header" },
-            _react2.default.createElement(
-              "div",
-              { className: "mid-navigation" },
-              _react2.default.createElement(
-                "h1",
-                { style: { border: "1px solid orange" } },
-                "Movies"
-              ),
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: "/tv" },
-                _react2.default.createElement(
-                  "h1",
-                  null,
-                  "TV Shows"
-                )
-              ),
-              _react2.default.createElement(_searchfield2.default, { history: this.props.history })
-            )
-          ),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: this.selectedItem,
-            movie: this.props.upcoming,
-            title: "Upcoming "
-          }),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: this.selectedItem,
-            movie: this.props.popular,
-            title: "Popular "
-          }),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: this.selectedItem,
-            movie: this.props.nowplaying,
-            title: "Now Playing "
-          }),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: this.selectedItem,
-            movie: this.props.toprated,
-            title: "Top Rated "
-          })
-        )
-      );
-    }
-  }]);
+			return _react2.default.createElement(
+				'section',
+				{ className: 'home-page' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'main-image' },
+					_react2.default.createElement(_MainImageCarousel2.default, {
+						selectedItem: this.selectedItem,
+						data: this.props.upcoming,
+						genres: this.props.genres,
+						filterGenre: this.filterGenre,
+						type: this.props.match.url
+					})
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'video-container' },
+					_react2.default.createElement(_MiddleNavigation2.default, {
+						history: this.props.history,
+						fetchSearchAll: this.props.fetchSearchAll,
+						page: 'movie'
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: this.selectedItem,
+						fetchSearchDetails: this.props.fetchSearchDetails,
+						movie: this.props.upcoming,
+						genres: this.props.genres,
+						title: 'Upcoming '
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: this.selectedItem,
+						fetchSearchDetails: this.props.fetchSearchDetails,
+						movie: this.props.popular,
+						genres: this.props.genres,
+						title: 'Popular '
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: this.selectedItem,
+						fetchSearchDetails: this.props.fetchSearchDetails,
+						movie: this.props.nowplaying,
+						genres: this.props.genres,
+						title: 'Now Playing '
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: this.selectedItem,
+						fetchSearchDetails: this.props.fetchSearchDetails,
+						movie: this.props.toprated,
+						genres: this.props.genres,
+						title: 'Top Rated '
+					})
+				)
+			);
+		}
+	}]);
 
-  return HomePage;
+	return HomePage;
 }(_react.Component);
 
 function mapStatetoProps(state) {
-  return {
-    upcoming: state.movies.upComingMovies.results,
-    popular: state.movies.popularMovies.results,
-    toprated: state.movies.topRatedMovies.results,
-    nowplaying: state.movies.nowPlayingMovies.results,
-    genres: state.movies.genreMovies.genres
-  };
+	return {
+		upcoming: state.movies.upComingMovies.results,
+		popular: state.movies.popularMovies.results,
+		toprated: state.movies.topRatedMovies.results,
+		nowplaying: state.movies.nowPlayingMovies.results,
+		genres: state.movies.genreMovies.genres
+	};
 }
 exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
-  fetchUpcomingMovies: _movies.fetchUpcomingMovies,
-  fetchPopularMovies: _movies.fetchPopularMovies,
-  fetchNowPlayingMovies: _movies.fetchNowPlayingMovies,
-  fetchTopRatedMovies: _movies.fetchTopRatedMovies,
-  fetchGenreMovie: _movies.fetchGenreMovie,
-  fetchSearchDetails: _selected.fetchSearchDetails,
-  fetchSearchAll: _search.fetchSearchAll,
-  fetchPopularTv: _tv.fetchPopularTv,
-  fetchTopRatedTv: _tv.fetchTopRatedTv,
-  fetchAiringToday: _tv.fetchAiringToday,
-  fetchTvThisWeek: _tv.fetchTvThisWeek,
-  fetchGenreTv: _tv.fetchGenreTv
+	fetchUpcomingMovies: _movies.fetchUpcomingMovies,
+	fetchPopularMovies: _movies.fetchPopularMovies,
+	fetchNowPlayingMovies: _movies.fetchNowPlayingMovies,
+	fetchTopRatedMovies: _movies.fetchTopRatedMovies,
+	fetchGenreMovie: _movies.fetchGenreMovie,
+	fetchSearchDetails: _selected.fetchSearchDetails,
+	fetchSearchAll: _search.fetchSearchAll,
+	fetchPopularTv: _tv.fetchPopularTv,
+	fetchTopRatedTv: _tv.fetchTopRatedTv,
+	fetchAiringToday: _tv.fetchAiringToday,
+	fetchTvThisWeek: _tv.fetchTvThisWeek,
+	fetchGenreTv: _tv.fetchGenreTv
 })(HomePage);
 
 /***/ }),
@@ -821,7 +817,7 @@ exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -834,17 +830,17 @@ var _reactDom = __webpack_require__(30);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _selected = __webpack_require__(67);
+var _selected = __webpack_require__(66);
 
-var _search = __webpack_require__(66);
+var _search = __webpack_require__(78);
 
-var _reactRedux = __webpack_require__(35);
+var _reactRedux = __webpack_require__(45);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRouterDom = __webpack_require__(44);
 
-var _searchfield = __webpack_require__(88);
+var _MiddleNavigation = __webpack_require__(88);
 
-var _searchfield2 = _interopRequireDefault(_searchfield);
+var _MiddleNavigation2 = _interopRequireDefault(_MiddleNavigation);
 
 var _carousel = __webpack_require__(118);
 
@@ -859,315 +855,286 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SelectionDetails = function (_Component) {
-  _inherits(SelectionDetails, _Component);
+	_inherits(SelectionDetails, _Component);
 
-  function SelectionDetails() {
-    var _ref;
+	function SelectionDetails() {
+		var _ref;
 
-    var _temp, _this, _ret;
+		var _temp, _this, _ret;
 
-    _classCallCheck(this, SelectionDetails);
+		_classCallCheck(this, SelectionDetails);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SelectionDetails.__proto__ || Object.getPrototypeOf(SelectionDetails)).call.apply(_ref, [this].concat(args))), _this), _this.selectedItem = function (id) {
-      var url = _this.props.match.url;
-      if (url === "/tvdetails" || url === "tv/") {
-        _this.props.fetchSearchDetails(id, "tv");
-        _this.props.history.push("/tvdetails");
-      } else {
-        _this.props.fetchSearchDetails(id, "movie");
-        _this.props.history.push("/moviedetails");
-      }
-    }, _this.renderCast = function () {
-      if (!_this.props.movie.cast) {
-        return "loading";
-      } else {
-        return _this.props.movie.cast.map(function (person, i) {
-          while (i < 5) {
-            return _react2.default.createElement(
-              "div",
-              { className: "member", key: i },
-              _react2.default.createElement("img", {
-                src: "https://image.tmdb.org/t/p/w500/" + person.profile_path
-              }),
-              _react2.default.createElement(
-                "h3",
-                null,
-                person.name
-              )
-            );
-          }
-        });
-      }
-    }, _this.showYoutubeClip = function () {
-      if (_this.props.movie.results == undefined || _this.props.movie.results[0] === null || _this.props.movie.results[0] === undefined) {
-        return _react2.default.createElement(
-          "h2",
-          null,
-          "Cant find the clip"
-        );
-      } else {
-        return _react2.default.createElement("iframe", {
-          src: "http://www.youtube.com/embed/" + _this.props.movie.results[0].key,
-          allowFullScreen: "allowFullScreen",
-          frameBorder: "0"
-        });
-      }
-    }, _this.videoSelection = function () {
-      var url = _this.props.match.url;
-      if (url === "/tvdetails" || url === "tv/") {
-        return _react2.default.createElement(
-          "div",
-          { className: "video-container" },
-          _react2.default.createElement(
-            "div",
-            { className: "section-title-header" },
-            _react2.default.createElement(
-              "div",
-              { className: "mid-navigation" },
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: "/" },
-                _react2.default.createElement(
-                  "h1",
-                  null,
-                  "Movies"
-                )
-              ),
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: "/tv" },
-                _react2.default.createElement(
-                  "h1",
-                  { style: { border: "1px solid orange" } },
-                  "TV Shows"
-                )
-              ),
-              _react2.default.createElement(_searchfield2.default, { history: _this.props.history })
-            )
-          ),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: _this.selectedItem,
-            movie: _this.props.popularTv,
-            title: "popular"
-          }),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: _this.selectedItem,
-            movie: _this.props.topratedTv,
-            title: "top rated"
-          }),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: _this.selectedItem,
-            movie: _this.props.airingtodayTv,
-            title: "airing today"
-          }),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: _this.selectedItem,
-            movie: _this.props.thisweekTv,
-            title: "airing this week "
-          })
-        );
-      } else {
-        return _react2.default.createElement(
-          "div",
-          { className: "video-container" },
-          _react2.default.createElement(
-            "div",
-            { className: "section-title-header" },
-            _react2.default.createElement(
-              "div",
-              { className: "mid-navigation" },
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: "/" },
-                _react2.default.createElement(
-                  "h1",
-                  { style: { border: "1px solid orange" } },
-                  "Movies"
-                )
-              ),
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: "/tv" },
-                _react2.default.createElement(
-                  "h1",
-                  null,
-                  "TV Shows"
-                )
-              ),
-              _react2.default.createElement(_searchfield2.default, { history: _this.props.history })
-            )
-          ),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: _this.selectedItem,
-            movie: _this.props.upcoming,
-            title: "Upcoming "
-          }),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: _this.selectedItem,
-            movie: _this.props.popular,
-            title: "Popular "
-          }),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: _this.selectedItem,
-            movie: _this.props.nowplaying,
-            title: "Now Playing "
-          }),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: _this.selectedItem,
-            movie: _this.props.toprated,
-            title: "Top Rated "
-          })
-        );
-      }
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SelectionDetails.__proto__ || Object.getPrototypeOf(SelectionDetails)).call.apply(_ref, [this].concat(args))), _this), _this.selectedItem = function (id) {
+			var url = _this.props.match.url;
+			if (url === '/tvdetails' || url === '/tv') {
+				_this.props.fetchSearchDetails(id, 'tv');
+				_this.props.history.push('/tvdetails');
+			} else {
+				_this.props.fetchSearchDetails(id, 'movie');
+				_this.props.history.push('/moviedetails');
+			}
+		}, _this.renderCast = function () {
+			if (!_this.props.movie.cast) {
+				return 'loading';
+			} else {
+				return _this.props.movie.cast.map(function (person, i) {
+					while (i < 5) {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'member', key: i },
+							_react2.default.createElement('img', {
+								src: 'https://image.tmdb.org/t/p/w500/' + person.profile_path
+							}),
+							_react2.default.createElement(
+								'h3',
+								null,
+								person.name
+							)
+						);
+					}
+				});
+			}
+		}, _this.showYoutubeClip = function () {
+			if (_this.props.movie.results == undefined || _this.props.movie.results[0] === null || _this.props.movie.results[0] === undefined) {
+				return _react2.default.createElement(
+					'h2',
+					null,
+					'Cant find the clip'
+				);
+			} else {
+				return _react2.default.createElement('iframe', {
+					src: 'http://www.youtube.com/embed/' + _this.props.movie.results[0].key,
+					allowFullScreen: 'allowFullScreen',
+					frameBorder: '0'
+				});
+			}
+		}, _this.videoSelection = function () {
+			var url = _this.props.match.url;
+			if (url === '/tvdetails' || url === '/tv') {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'video-container' },
+					_react2.default.createElement(_MiddleNavigation2.default, {
+						history: _this.props.history,
+						fetchSearchAll: _this.props.fetchSearchAll,
+						page: 'tv'
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: _this.selectedItem,
+						fetchSearchDetails: _this.props.fetchSearchDetails,
+						genres: _this.props.genresTv,
+						movie: _this.props.popularTv,
+						title: 'popular'
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: _this.selectedItem,
+						fetchSearchDetails: _this.props.fetchSearchDetails,
+						genres: _this.props.genresTv,
+						movie: _this.props.topratedTv,
+						title: 'top rated'
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: _this.selectedItem,
+						fetchSearchDetails: _this.props.fetchSearchDetails,
+						genres: _this.props.genresTv,
+						movie: _this.props.airingtodayTv,
+						title: 'airing today'
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: _this.selectedItem,
+						fetchSearchDetails: _this.props.fetchSearchDetails,
+						genres: _this.props.genresTv,
+						movie: _this.props.thisweekTv,
+						title: 'airing this week '
+					})
+				);
+			} else {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'video-container' },
+					_react2.default.createElement(_MiddleNavigation2.default, {
+						history: _this.props.history,
+						fetchSearchAll: _this.props.fetchSearchAll,
+						page: 'movie'
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: _this.selectedItem,
+						fetchSearchDetails: _this.props.fetchSearchDetails,
+						movie: _this.props.upcoming,
+						title: 'Upcoming ',
+						genres: _this.props.genres
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: _this.selectedItem,
+						fetchSearchDetails: _this.props.fetchSearchDetails,
+						movie: _this.props.popular,
+						title: 'Popular ',
+						genres: _this.props.genres
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: _this.selectedItem,
+						fetchSearchDetails: _this.props.fetchSearchDetails,
+						movie: _this.props.nowplaying,
+						title: 'Now Playing ',
+						genres: _this.props.genres
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: _this.selectedItem,
+						fetchSearchDetails: _this.props.fetchSearchDetails,
+						movie: _this.props.toprated,
+						title: 'Top Rated ',
+						genres: _this.props.genres
+					})
+				);
+			}
+		}, _temp), _possibleConstructorReturn(_this, _ret);
+	}
 
-  _createClass(SelectionDetails, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      window.scrollTo(0, 0);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      console.log(this.props.match.url);
-      if (this.props === undefined) {
-        return _react2.default.createElement(
-          "h1",
-          null,
-          "loading"
-        );
-      }
+	_createClass(SelectionDetails, [{
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate() {
+			window.scrollTo(0, 0);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			console.log(this.props.match.url);
+			if (this.props === undefined) {
+				return _react2.default.createElement(
+					'h1',
+					null,
+					'loading'
+				);
+			}
 
-      return _react2.default.createElement(
-        "section",
-        { id: "selection-details-page" },
-        _react2.default.createElement(
-          "div",
-          {
-            className: "movie-container",
-            style: {
-              backgroundImage: "linear-gradient(0deg, rgb(0, 0, 0) 5%, rgba(0, 0, 0, 0) 55%), url(https://image.tmdb.org/t/p/original" + (this.props.movie.backdrop_path ? this.props.movie.backdrop_path : this.props.movie.poster_path) + ") ",
-              backgroundSize: "cover",
-              backgroundPosition: "center center no-repeat"
-            }
-          },
-          _react2.default.createElement(
-            "div",
-            { className: "movie-container" },
-            _react2.default.createElement("div", { className: "youtube-section" }),
-            this.showYoutubeClip(),
-            _react2.default.createElement(
-              "div",
-              { className: "movie-info" },
-              _react2.default.createElement(
-                "h1",
-                null,
-                this.props.match.url == "/tvdetails" ? this.props.movie.name : this.props.movie.title
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "details" },
-                _react2.default.createElement(
-                  "div",
-                  { className: "rating" },
-                  _react2.default.createElement(
-                    "h2",
-                    null,
-                    "Rating ",
-                    this.props.movie.vote_average
-                  ),
-                  _react2.default.createElement("span", {
-                    className: "fa fa-star " + (this.props.movie.vote_average > 0 ? "checked" : "") + " "
-                  }),
-                  _react2.default.createElement("span", {
-                    className: "fa fa-star " + (this.props.movie.vote_average > 1 ? "checked" : "") + " "
-                  }),
-                  _react2.default.createElement("span", {
-                    className: "fa fa-star " + (this.props.movie.vote_average > 2 ? "checked" : "") + " "
-                  }),
-                  _react2.default.createElement("span", {
-                    className: "fa fa-star " + (this.props.movie.vote_average > 3 ? "checked" : "") + " "
-                  }),
-                  _react2.default.createElement("span", {
-                    className: "fa fa-star " + (this.props.movie.vote_average > 4 ? "checked" : "") + " "
-                  }),
-                  _react2.default.createElement("span", {
-                    className: "fa fa-star " + (this.props.movie.vote_average > 5 ? "checked" : "") + " "
-                  }),
-                  _react2.default.createElement("span", {
-                    className: "fa fa-star " + (this.props.movie.vote_average > 6 ? "checked" : "") + " "
-                  }),
-                  _react2.default.createElement("span", {
-                    className: "fa fa-star " + (this.props.movie.vote_average > 7 ? "checked" : "") + " "
-                  }),
-                  _react2.default.createElement("span", {
-                    className: "fa fa-star " + (this.props.movie.vote_average > 8 ? "checked" : "") + " "
-                  }),
-                  _react2.default.createElement("span", {
-                    className: "fa fa-star " + (this.props.movie.vote_average > 9 ? "checked" : "") + " "
-                  })
-                ),
-                _react2.default.createElement(
-                  "div",
-                  { className: "runtime" },
-                  _react2.default.createElement(
-                    "h2",
-                    null,
-                    this.props.movie.genres ? this.props.movie.genres[0].name : ""
-                  ),
-                  _react2.default.createElement(
-                    "h2",
-                    null,
-                    this.props.match.url == "/tvdetails" ? this.props.movie.episode_run_time : this.props.movie.runtime,
-                    "min"
-                  ),
-                  _react2.default.createElement(
-                    "h2",
-                    null,
-                    this.props.movie.release_date
-                  )
-                )
-              ),
-              _react2.default.createElement(
-                "p",
-                null,
-                this.props.movie.overview
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "cast" },
-                this.renderCast()
-              )
-            )
-          )
-        ),
-        this.videoSelection()
-      );
-    }
-  }]);
+			return _react2.default.createElement(
+				'section',
+				{ id: 'selection-details-page' },
+				_react2.default.createElement(
+					'div',
+					{
+						className: 'movie-container',
+						style: {
+							backgroundImage: 'linear-gradient(0deg, rgb(0, 0, 0) 5%, rgba(0, 0, 0, 0) 55%), url(https://image.tmdb.org/t/p/original' + (this.props.movie.backdrop_path ? this.props.movie.backdrop_path : this.props.movie.poster_path) + ') ',
+							backgroundSize: 'cover',
+							backgroundPosition: 'center center no-repeat'
+						} },
+					_react2.default.createElement(
+						'div',
+						{ className: 'movie-container' },
+						_react2.default.createElement('div', { className: 'youtube-section' }),
+						this.showYoutubeClip(),
+						_react2.default.createElement(
+							'div',
+							{ className: 'movie-info' },
+							_react2.default.createElement(
+								'h1',
+								null,
+								this.props.match.url == '/tvdetails' ? this.props.movie.name : this.props.movie.title
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'details' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'rating' },
+									_react2.default.createElement(
+										'h2',
+										null,
+										'Rating ',
+										this.props.movie.vote_average
+									),
+									_react2.default.createElement('span', {
+										className: 'fa fa-star ' + (this.props.movie.vote_average > 0 ? 'checked' : '') + ' '
+									}),
+									_react2.default.createElement('span', {
+										className: 'fa fa-star ' + (this.props.movie.vote_average > 1 ? 'checked' : '') + ' '
+									}),
+									_react2.default.createElement('span', {
+										className: 'fa fa-star ' + (this.props.movie.vote_average > 2 ? 'checked' : '') + ' '
+									}),
+									_react2.default.createElement('span', {
+										className: 'fa fa-star ' + (this.props.movie.vote_average > 3 ? 'checked' : '') + ' '
+									}),
+									_react2.default.createElement('span', {
+										className: 'fa fa-star ' + (this.props.movie.vote_average > 4 ? 'checked' : '') + ' '
+									}),
+									_react2.default.createElement('span', {
+										className: 'fa fa-star ' + (this.props.movie.vote_average > 5 ? 'checked' : '') + ' '
+									}),
+									_react2.default.createElement('span', {
+										className: 'fa fa-star ' + (this.props.movie.vote_average > 6 ? 'checked' : '') + ' '
+									}),
+									_react2.default.createElement('span', {
+										className: 'fa fa-star ' + (this.props.movie.vote_average > 7 ? 'checked' : '') + ' '
+									}),
+									_react2.default.createElement('span', {
+										className: 'fa fa-star ' + (this.props.movie.vote_average > 8 ? 'checked' : '') + ' '
+									}),
+									_react2.default.createElement('span', {
+										className: 'fa fa-star ' + (this.props.movie.vote_average > 9 ? 'checked' : '') + ' '
+									})
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'runtime' },
+									_react2.default.createElement(
+										'h2',
+										null,
+										this.props.movie.genres && this.props.movie.genres[0] !== undefined ? this.props.movie.genres[0].name : ''
+									),
+									_react2.default.createElement(
+										'h2',
+										null,
+										this.props.match.url == '/tvdetails' ? this.props.movie.episode_run_time : this.props.movie.runtime,
+										'min'
+									),
+									_react2.default.createElement(
+										'h2',
+										null,
+										this.props.movie.release_date
+									)
+								)
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								this.props.movie.overview
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'cast' },
+								this.renderCast()
+							)
+						)
+					)
+				),
+				this.videoSelection()
+			);
+		}
+	}]);
 
-  return SelectionDetails;
+	return SelectionDetails;
 }(_react.Component);
 
 function mapStatetoProps(state) {
-  return {
-    movie: state.selectedItem,
-    popularTv: state.tv.popularTv.results,
-    topratedTv: state.tv.topRatedTv.results,
-    airingtodayTv: state.tv.airingTodayTv.results,
-    thisweekTv: state.tv.airingThisWeekTv.results,
-    genresTv: state.tv.genreTv.genres,
-    upcoming: state.movies.upComingMovies.results,
-    popular: state.movies.popularMovies.results,
-    toprated: state.movies.topRatedMovies.results,
-    nowplaying: state.movies.nowPlayingMovies.results,
-    genres: state.movies.genreMovies.genres
-  };
+	return {
+		movie: state.selectedItem,
+		popularTv: state.tv.popularTv.results,
+		topratedTv: state.tv.topRatedTv.results,
+		airingtodayTv: state.tv.airingTodayTv.results,
+		thisweekTv: state.tv.airingThisWeekTv.results,
+		genresTv: state.tv.genreTv.genres,
+		upcoming: state.movies.upComingMovies.results,
+		popular: state.movies.popularMovies.results,
+		toprated: state.movies.topRatedMovies.results,
+		nowplaying: state.movies.nowPlayingMovies.results,
+		genres: state.movies.genreMovies.genres
+	};
 }
 exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchSearchDetails: _selected.fetchSearchDetails, fetchSearchAll: _search.fetchSearchAll })(SelectionDetails);
 
@@ -1180,7 +1147,7 @@ exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchSearchDetails
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1193,21 +1160,21 @@ var _reactDom = __webpack_require__(30);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRouterDom = __webpack_require__(44);
 
-var _selected = __webpack_require__(67);
+var _selected = __webpack_require__(66);
 
-var _search = __webpack_require__(66);
+var _search = __webpack_require__(78);
 
-var _reactRedux = __webpack_require__(35);
+var _reactRedux = __webpack_require__(45);
 
 var _MainImageCarousel = __webpack_require__(176);
 
 var _MainImageCarousel2 = _interopRequireDefault(_MainImageCarousel);
 
-var _searchfield = __webpack_require__(88);
+var _MiddleNavigation = __webpack_require__(88);
 
-var _searchfield2 = _interopRequireDefault(_searchfield);
+var _MiddleNavigation2 = _interopRequireDefault(_MiddleNavigation);
 
 var _carousel = __webpack_require__(118);
 
@@ -1222,173 +1189,165 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var TvPage = function (_Component) {
-  _inherits(TvPage, _Component);
+	_inherits(TvPage, _Component);
 
-  function TvPage(props) {
-    _classCallCheck(this, TvPage);
+	function TvPage(props) {
+		_classCallCheck(this, TvPage);
 
-    var _this = _possibleConstructorReturn(this, (TvPage.__proto__ || Object.getPrototypeOf(TvPage)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (TvPage.__proto__ || Object.getPrototypeOf(TvPage)).call(this, props));
 
-    _this.filterGenre = function (id) {
-      if (!_this.props.genres) {
-        return _react2.default.createElement(
-          "h2",
-          null,
-          "' '"
-        );
-      }
-      var genre = _this.props.genres.filter(function (item) {
-        return item.id === id[0] || item.id == id[1];
-      }).map(function (item) {
-        return item.name;
-      });
-      return _react2.default.createElement(
-        "h2",
-        null,
-        genre[0],
-        " / ",
-        genre[1] ? genre[1] : ""
-      );
-    };
+		_this.filterGenre = function (id) {
+			if (!_this.props.genres) {
+				return _react2.default.createElement(
+					'h2',
+					null,
+					'\' \''
+				);
+			}
+			var genre = _this.props.genres.filter(function (item) {
+				return item.id === id[0] || item.id == id[1];
+			}).map(function (item) {
+				return item.name;
+			});
+			return _react2.default.createElement(
+				'h2',
+				null,
+				genre[0],
+				' / ',
+				genre[1] ? genre[1] : ''
+			);
+		};
 
-    _this.selectedItem = function (id) {
-      _this.props.fetchSearchDetails(id, "tv");
-      _this.props.history.push("/tvdetails");
-    };
+		_this.selectedItem = function (id) {
+			var url = _this.props.match.url;
+			if (url === '/tvdetails' || url === '/tv') {
+				_this.props.fetchSearchDetails(id, 'tv');
+				_this.props.history.push('/tvdetails');
+			} else {
+				_this.props.fetchSearchDetails(id, 'movie');
+				_this.props.history.push('/moviedetails');
+			}
+		};
 
-    _this.state = {
-      popular: 1,
-      upcoming: 1,
-      movieIndex: 0
-    };
-    return _this;
-  }
+		_this.state = {
+			popular: 1,
+			upcoming: 1,
+			movieIndex: 0
+		};
+		return _this;
+	}
 
-  _createClass(TvPage, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      window.scrollTo(0, 0);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      if (!this.props.popular) {
-        return _react2.default.createElement(
-          "div",
-          { className: !this.props.popular ? "loading-screen" : "gone" },
-          "Loading"
-        );
-      }
+	_createClass(TvPage, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			window.scrollTo(0, 0);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			if (!this.props.popular) {
+				return _react2.default.createElement(
+					'div',
+					{ className: !this.props.popular ? 'loading-screen' : 'gone' },
+					'Loading'
+				);
+			}
 
-      return _react2.default.createElement(
-        "section",
-        { className: "home-page" },
-        _react2.default.createElement(
-          "div",
-          { className: "main-image" },
-          _react2.default.createElement(_MainImageCarousel2.default, {
-            selectedItem: this.selectedItem,
-            data: this.props.popular,
-            genres: this.props.genres,
-            filterGenre: this.filterGenre,
-            type: this.props.match.url
-          }),
-          _react2.default.createElement(
-            "div",
-            { className: "main-details" },
-            _react2.default.createElement(
-              "h1",
-              null,
-              this.props.popular[this.state.movieIndex].name
-            ),
-            this.filterGenre(this.props.popular[this.state.movieIndex].genre_ids),
-            _react2.default.createElement(
-              "h3",
-              null,
-              "Rating ***** "
-            )
-          )
-        ),
-        _react2.default.createElement(
-          "div",
-          { className: "video-container" },
-          _react2.default.createElement(
-            "div",
-            { className: "section-title-header" },
-            _react2.default.createElement(
-              "div",
-              { className: "mid-navigation" },
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: "/" },
-                _react2.default.createElement(
-                  "h1",
-                  null,
-                  "Movies"
-                )
-              ),
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: "/tv" },
-                _react2.default.createElement(
-                  "h1",
-                  { style: { border: "1px solid orange" } },
-                  "TV Shows"
-                )
-              ),
-              _react2.default.createElement(_searchfield2.default, { history: this.props.history })
-            )
-          ),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: this.selectedItem,
-            movie: this.props.popular,
-            title: "popular"
-          }),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: this.selectedItem,
-            movie: this.props.toprated,
-            title: "top rated"
-          }),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: this.selectedItem,
-            movie: this.props.airingtoday,
-            title: "airing today"
-          }),
-          _react2.default.createElement(_carousel2.default, {
-            selectedItem: this.selectedItem,
-            movie: this.props.thisweek,
-            title: "airing this week "
-          })
-        ),
-        _react2.default.createElement(
-          "div",
-          { className: "section-title-header" },
-          _react2.default.createElement(
-            "h1",
-            null,
-            "TV Shows"
-          )
-        )
-      );
-    }
-  }]);
+			return _react2.default.createElement(
+				'section',
+				{ className: 'home-page' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'main-image' },
+					_react2.default.createElement(_MainImageCarousel2.default, {
+						selectedItem: this.selectedItem,
+						data: this.props.popular,
+						genres: this.props.genres,
+						filterGenre: this.filterGenre,
+						type: this.props.match.url
+					}),
+					_react2.default.createElement(
+						'div',
+						{ className: 'main-details' },
+						_react2.default.createElement(
+							'h1',
+							null,
+							this.props.popular[this.state.movieIndex].name
+						),
+						this.filterGenre(this.props.popular[this.state.movieIndex].genre_ids),
+						_react2.default.createElement(
+							'h3',
+							null,
+							'Rating ***** '
+						)
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'video-container' },
+					_react2.default.createElement(_MiddleNavigation2.default, {
+						history: this.props.history,
+						fetchSearchAll: this.props.fetchSearchAll,
+						page: 'tv'
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: this.selectedItem,
+						fetchSearchDetails: this.props.fetchSearchDetails,
+						genres: this.props.genres,
+						movie: this.props.popular,
+						title: 'popular'
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: this.selectedItem,
+						fetchSearchDetails: this.props.fetchSearchDetails,
+						genres: this.props.genres,
+						movie: this.props.toprated,
+						title: 'top rated'
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: this.selectedItem,
+						fetchSearchDetails: this.props.fetchSearchDetails,
+						genres: this.props.genres,
+						movie: this.props.airingtoday,
+						title: 'airing today'
+					}),
+					_react2.default.createElement(_carousel2.default, {
+						selectedItem: this.selectedItem,
+						fetchSearchDetails: this.props.fetchSearchDetails,
+						genres: this.props.genres,
+						movie: this.props.thisweek,
+						title: 'airing this week '
+					})
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'section-title-header' },
+					_react2.default.createElement(
+						'h1',
+						null,
+						'TV Shows'
+					)
+				)
+			);
+		}
+	}]);
 
-  return TvPage;
+	return TvPage;
 }(_react.Component);
 
 function mapStatetoProps(state) {
-  return {
-    movie: state.selectedItem,
-    popular: state.tv.popularTv.results,
-    toprated: state.tv.topRatedTv.results,
-    airingtoday: state.tv.airingTodayTv.results,
-    thisweek: state.tv.airingThisWeekTv.results,
-    genres: state.tv.genreTv.genres
-  };
+	return {
+		movie: state.selectedItem,
+		popular: state.tv.popularTv.results,
+		toprated: state.tv.topRatedTv.results,
+		airingtoday: state.tv.airingTodayTv.results,
+		thisweek: state.tv.airingThisWeekTv.results,
+		genres: state.tv.genreTv.genres
+	};
 }
 exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
-  fetchSearchDetails: _selected.fetchSearchDetails,
-  fetchSearchAll: _search.fetchSearchAll
+	fetchSearchDetails: _selected.fetchSearchDetails,
+	fetchSearchAll: _search.fetchSearchAll
 })(TvPage);
 
 /***/ }),
@@ -1400,7 +1359,7 @@ exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1413,17 +1372,17 @@ var _reactDom = __webpack_require__(30);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _searchfield = __webpack_require__(88);
+var _search = __webpack_require__(78);
 
-var _searchfield2 = _interopRequireDefault(_searchfield);
+var _selected = __webpack_require__(66);
 
-var _search = __webpack_require__(66);
+var _reactRedux = __webpack_require__(45);
 
-var _selected = __webpack_require__(67);
+var _reactRouterDom = __webpack_require__(44);
 
-var _reactRedux = __webpack_require__(35);
+var _MiddleNavigation = __webpack_require__(88);
 
-var _reactRouterDom = __webpack_require__(45);
+var _MiddleNavigation2 = _interopRequireDefault(_MiddleNavigation);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1434,119 +1393,99 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SearchResults = function (_Component) {
-  _inherits(SearchResults, _Component);
+	_inherits(SearchResults, _Component);
 
-  function SearchResults() {
-    var _ref;
+	function SearchResults() {
+		var _ref;
 
-    var _temp, _this, _ret;
+		var _temp, _this, _ret;
 
-    _classCallCheck(this, SearchResults);
+		_classCallCheck(this, SearchResults);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SearchResults.__proto__ || Object.getPrototypeOf(SearchResults)).call.apply(_ref, [this].concat(args))), _this), _this.selectedItem = function (item) {
-      var id = item.id;
-      var type = item.media_type;
-      _this.props.fetchSearchDetails(id, type);
-      if (type == "tv") {
-        _this.props.history.push("/tvdetails");
-      }
-      if (type == "movie") {
-        _this.props.history.push("/moviedetails");
-      }
-    }, _this.showResults = function () {
-      if (!_this.props.searchResults.results) {
-        _react2.default.createElement(
-          "div",
-          { className: "loading-screen" },
-          "Loading..."
-        );
-      } else if (_this.props.searchResults.results) {
-        return _this.props.searchResults.results.map(function (item, i) {
-          return _react2.default.createElement(
-            "div",
-            {
-              className: "search-item",
-              key: i,
-              onClick: function onClick() {
-                return _this.selectedItem(item);
-              }
-            },
-            _react2.default.createElement("img", {
-              src: item.poster_path ? "https://image.tmdb.org/t/p/w500" + item.poster_path : "/img/notfoundImage.jpg"
-            }),
-            _react2.default.createElement(
-              "h2",
-              null,
-              item.title ? item.title : item.name
-            )
-          );
-        });
-      }
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SearchResults.__proto__ || Object.getPrototypeOf(SearchResults)).call.apply(_ref, [this].concat(args))), _this), _this.selectedItem = function (item) {
+			var id = item.id;
+			var type = item.media_type;
+			_this.props.fetchSearchDetails(id, type);
+			if (type == 'tv') {
+				_this.props.history.push('/tvdetails');
+			}
+			if (type == 'movie') {
+				_this.props.history.push('/moviedetails');
+			}
+		}, _this.showResults = function () {
+			if (!_this.props.searchResults.results) {
+				;_react2.default.createElement(
+					'div',
+					{ className: 'loading-screen' },
+					'Loading...'
+				);
+			} else if (_this.props.searchResults.results) {
+				return _this.props.searchResults.results.map(function (item, i) {
+					return _react2.default.createElement(
+						'div',
+						{
+							className: 'search-item',
+							key: i,
+							onClick: function onClick() {
+								return _this.selectedItem(item);
+							} },
+						_react2.default.createElement('img', {
+							src: item.poster_path ? 'https://image.tmdb.org/t/p/w500' + item.poster_path : '/img/blankPerson.png'
+						}),
+						_react2.default.createElement(
+							'h2',
+							null,
+							item.title ? item.title : item.name
+						)
+					);
+				});
+			}
+		}, _temp), _possibleConstructorReturn(_this, _ret);
+	}
 
-  _createClass(SearchResults, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      window.scrollTo(0, 0);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      if (this.props.searchResults === undefined) {
-        return _react2.default.createElement(
-          "h1",
-          null,
-          "loading"
-        );
-      }
+	_createClass(SearchResults, [{
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate() {
+			window.scrollTo(0, 0);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			if (this.props.searchResults === undefined) {
+				return _react2.default.createElement(
+					'h1',
+					null,
+					'loading'
+				);
+			}
 
-      return _react2.default.createElement(
-        "section",
-        { id: "search-results" },
-        _react2.default.createElement(
-          "div",
-          { className: "section-title-header" },
-          _react2.default.createElement(
-            "div",
-            { className: "mid-navigation" },
-            _react2.default.createElement(
-              "h1",
-              { style: { border: "1px solid orange" } },
-              "Movies"
-            ),
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: "/tv" },
-              _react2.default.createElement(
-                "h1",
-                null,
-                "TV Shows"
-              )
-            ),
-            _react2.default.createElement(_searchfield2.default, { history: this.props.history })
-          )
-        ),
-        _react2.default.createElement(
-          "div",
-          { className: "search-container" },
-          this.showResults()
-        )
-      );
-    }
-  }]);
+			return _react2.default.createElement(
+				'section',
+				{ id: 'search-results' },
+				_react2.default.createElement(_MiddleNavigation2.default, {
+					history: this.props.history,
+					fetchSearchAll: this.props.fetchSearchAll
+				}),
+				_react2.default.createElement(
+					'div',
+					{ className: 'search-container' },
+					this.showResults()
+				)
+			);
+		}
+	}]);
 
-  return SearchResults;
+	return SearchResults;
 }(_react.Component);
 
 function mapStatetoProps(state) {
-  return {
-    searchResults: state.searchResults
-  };
+	return {
+		searchResults: state.searchResults
+	};
 }
 exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchSearchAll: _search.fetchSearchAll, fetchSearchDetails: _selected.fetchSearchDetails })(SearchResults);
 
@@ -1562,7 +1501,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(78);
+var _redux = __webpack_require__(77);
 
 var _movieReducer = __webpack_require__(287);
 
@@ -1607,7 +1546,7 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRouterDom = __webpack_require__(44);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1659,21 +1598,21 @@ var _reactDom = __webpack_require__(30);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRedux = __webpack_require__(35);
+var _reactRedux = __webpack_require__(45);
 
-var _redux = __webpack_require__(78);
+var _redux = __webpack_require__(77);
 
 var _reduxThunk = __webpack_require__(266);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reactRouterDom = __webpack_require__(45);
+var _reactRouterDom = __webpack_require__(44);
 
 var _reducers = __webpack_require__(264);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _axios = __webpack_require__(77);
+var _axios = __webpack_require__(76);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -1801,7 +1740,7 @@ exports.default = function () {
   }
 };
 
-var _search = __webpack_require__(66);
+var _search = __webpack_require__(78);
 
 var initialState = {
   searchResults: {}
@@ -1846,7 +1785,7 @@ exports.default = function () {
   }
 };
 
-var _selected = __webpack_require__(67);
+var _selected = __webpack_require__(66);
 
 var initialState = {
   selectedItem: {}
@@ -1918,43 +1857,9 @@ var initialState = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchSearchAll = exports.FETCH_SEARCH_ALL = undefined;
-
-var _axios = __webpack_require__(77);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _config = __webpack_require__(87);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var FETCH_SEARCH_ALL = exports.FETCH_SEARCH_ALL = "fetch_search_all";
-
-var fetchSearchAll = exports.fetchSearchAll = function fetchSearchAll(searchTerm) {
-  return function (dispatch) {
-    _axios2.default.get("https://api.themoviedb.org/3/search/multi?" + _config.API_KEY + "&query=" + searchTerm).then(function (res) {
-      return dispatch({
-        type: FETCH_SEARCH_ALL,
-        payload: res.data
-      });
-    });
-  };
-};
-
-/***/ }),
-
-/***/ 67:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 exports.fetchMovieTrailers = exports.fetchMovieCredits = exports.fetchTvTrailers = exports.fetchTvCredits = exports.fetchSearchDetails = exports.FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_CREDITS = exports.FETCH_TV_TRAILERS = exports.FETCH_TV_CREDITS = exports.FETCH_SELECTED_DETAILS = undefined;
 
-var _axios = __webpack_require__(77);
+var _axios = __webpack_require__(76);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -2037,6 +1942,40 @@ var fetchMovieTrailers = exports.fetchMovieTrailers = function fetchMovieTrailer
 
 /***/ }),
 
+/***/ 78:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchSearchAll = exports.FETCH_SEARCH_ALL = undefined;
+
+var _axios = __webpack_require__(76);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _config = __webpack_require__(87);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FETCH_SEARCH_ALL = exports.FETCH_SEARCH_ALL = "fetch_search_all";
+
+var fetchSearchAll = exports.fetchSearchAll = function fetchSearchAll(searchTerm) {
+  return function (dispatch) {
+    _axios2.default.get("https://api.themoviedb.org/3/search/multi?" + _config.API_KEY + "&query=" + searchTerm).then(function (res) {
+      return dispatch({
+        type: FETCH_SEARCH_ALL,
+        payload: res.data
+      });
+    });
+  };
+};
+
+/***/ }),
+
 /***/ 87:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2057,7 +1996,7 @@ var API_KEY = exports.API_KEY = 'api_key=198b9ddcfd3755ac7a132d98b8f8fda2';
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -2070,11 +2009,7 @@ var _reactDom = __webpack_require__(30);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRedux = __webpack_require__(35);
-
-var _reactRouterDom = __webpack_require__(45);
-
-var _search = __webpack_require__(66);
+var _reactRouterDom = __webpack_require__(44);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2084,52 +2019,80 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var SearchField = function (_Component) {
-  _inherits(SearchField, _Component);
+var MiddleNavigation = function (_Component) {
+	_inherits(MiddleNavigation, _Component);
 
-  function SearchField(props) {
-    _classCallCheck(this, SearchField);
+	function MiddleNavigation(props) {
+		_classCallCheck(this, MiddleNavigation);
 
-    var _this = _possibleConstructorReturn(this, (SearchField.__proto__ || Object.getPrototypeOf(SearchField)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (MiddleNavigation.__proto__ || Object.getPrototypeOf(MiddleNavigation)).call(this, props));
 
-    _this.handleChange = function (event) {
-      _this.setState({ searchTerm: event.target.value });
-    };
+		_this.handleChange = function (event) {
+			_this.setState({ searchTerm: event.target.value });
+		};
 
-    _this.handleSubmit = function (event) {
-      event.preventDefault();
-      _this.props.fetchSearchAll(_this.state.searchTerm);
-      _this.props.history.push("/searchResults");
-    };
+		_this.handleSubmit = function (event) {
+			event.preventDefault();
+			_this.props.fetchSearchAll(_this.state.searchTerm);
+			_this.props.history.push('/searchResults');
+		};
 
-    _this.state = {
-      searchTerm: ""
-    };
-    return _this;
-  }
+		_this.state = {
+			searchTerm: ''
+		};
+		return _this;
+	}
 
-  _createClass(SearchField, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "form",
-        { onSubmit: this.handleSubmit },
-        _react2.default.createElement("input", {
-          type: "text",
-          name: "name",
-          placeholder: "Search your favorite Movie, TV Show, or Actor",
-          value: this.state.searchTerm,
-          onChange: this.handleChange
-        }),
-        _react2.default.createElement("input", { type: "submit", value: "Submit" })
-      );
-    }
-  }]);
+	_createClass(MiddleNavigation, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'section',
+				{ id: 'section-title-header' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'mid-navigation' },
+					_react2.default.createElement(
+						_reactRouterDom.Link,
+						{ to: '/' },
+						_react2.default.createElement(
+							'h1',
+							{
+								style: this.props.page === 'movie' ? { border: '1px solid orange' } : { border: '' } },
+							'Movies'
+						)
+					),
+					_react2.default.createElement(
+						_reactRouterDom.Link,
+						{ to: '/tv' },
+						_react2.default.createElement(
+							'h1',
+							{
+								style: this.props.page === 'tv' ? { border: '1px solid orange' } : { border: '' } },
+							'Tv Shows'
+						)
+					),
+					_react2.default.createElement(
+						'form',
+						{ onSubmit: this.handleSubmit },
+						_react2.default.createElement('input', {
+							type: 'text',
+							name: 'name',
+							placeholder: 'Search your favorite Movie, TV Show, or Actor',
+							value: this.state.searchTerm,
+							onChange: this.handleChange
+						}),
+						_react2.default.createElement('input', { type: 'submit', value: 'Submit' })
+					)
+				)
+			);
+		}
+	}]);
 
-  return SearchField;
+	return MiddleNavigation;
 }(_react.Component);
 
-exports.default = (0, _reactRedux.connect)(null, { fetchSearchAll: _search.fetchSearchAll })(SearchField);
+exports.default = MiddleNavigation;
 
 /***/ })
 

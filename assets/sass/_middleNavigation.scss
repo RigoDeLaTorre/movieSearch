@@ -1,0 +1,47 @@
+#section-title-header {
+	padding: 2rem 0;
+	.mid-navigation {
+		display: flex;
+		justify-content: center;
+		h1 {
+			text-align: center;
+			font-size: 1rem;
+			letter-spacing: 2px;
+			color: orange;
+			font-weight: 900;
+			text-shadow: 4px 4px 22px #141414;
+			margin-right: 2em;
+			border: 1px solid white;
+			padding: 10px 20px;
+			border-radius: 5px;
+			cursor: pointer;
+			&:hover {
+				box-shadow: 0px 0px 25px -1px rgba(232, 226, 226, 0.75);
+			}
+		}
+		form {
+			font-size: 16px;
+			display: flex;
+			flex-direction: row;
+			input[type='text'] {
+				width: 450px;
+				text-align: center;
+				border: none;
+				margin-right: 0.5rem;
+				border-radius: 5px;
+			}
+			input[type='submit'] {
+				width: 100px;
+				color: black;
+				font-weight: 500;
+				background: #f7a503;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				&:hover {
+					background: #fab834;
+				}
+			}
+		}
+	}
+}
