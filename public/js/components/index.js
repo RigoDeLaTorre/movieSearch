@@ -188,7 +188,7 @@ exports.default = Carousel;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 exports.fetchMovieTrailers = exports.fetchMovieCredits = exports.fetchMovieDetails = exports.fetchNowPlayingMovies = exports.fetchTopRatedMovies = exports.fetchUpcomingMovies = exports.fetchPopularMovies = exports.fetchGenreMovie = exports.FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_CREDITS = exports.FETCH_MOVIE_DETAILS = exports.FETCH_TOPRATED_MOVIES = exports.FETCH_NOWPLAYING_MOVIES = exports.FETCH_UPCOMING_MOVIES = exports.FETCH_POPULAR_MOVIES = exports.FETCH_GENRE_MOVIES = undefined;
 
@@ -200,104 +200,104 @@ var _config = __webpack_require__(87);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var FETCH_GENRE_MOVIES = exports.FETCH_GENRE_MOVIES = 'fetch_genre_movies';
-var FETCH_POPULAR_MOVIES = exports.FETCH_POPULAR_MOVIES = 'fetch_popular_movies';
-var FETCH_UPCOMING_MOVIES = exports.FETCH_UPCOMING_MOVIES = 'fetch_upcoming_movies';
-var FETCH_NOWPLAYING_MOVIES = exports.FETCH_NOWPLAYING_MOVIES = 'fetch_nowplaying_movies';
-var FETCH_TOPRATED_MOVIES = exports.FETCH_TOPRATED_MOVIES = 'fetch_toprated_movies';
-var FETCH_MOVIE_DETAILS = exports.FETCH_MOVIE_DETAILS = 'fetch_movie_details';
-var FETCH_MOVIE_CREDITS = exports.FETCH_MOVIE_CREDITS = 'fetch_movie_credits';
-var FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_TRAILERS = 'fetch_movie_trailers';
+var FETCH_GENRE_MOVIES = exports.FETCH_GENRE_MOVIES = "fetch_genre_movies";
+var FETCH_POPULAR_MOVIES = exports.FETCH_POPULAR_MOVIES = "fetch_popular_movies";
+var FETCH_UPCOMING_MOVIES = exports.FETCH_UPCOMING_MOVIES = "fetch_upcoming_movies";
+var FETCH_NOWPLAYING_MOVIES = exports.FETCH_NOWPLAYING_MOVIES = "fetch_nowplaying_movies";
+var FETCH_TOPRATED_MOVIES = exports.FETCH_TOPRATED_MOVIES = "fetch_toprated_movies";
+var FETCH_MOVIE_DETAILS = exports.FETCH_MOVIE_DETAILS = "fetch_movie_details";
+var FETCH_MOVIE_CREDITS = exports.FETCH_MOVIE_CREDITS = "fetch_movie_credits";
+var FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_TRAILERS = "fetch_movie_trailers";
 
 var fetchGenreMovie = exports.fetchGenreMovie = function fetchGenreMovie() {
-	return function (dispatch) {
-		_axios2.default.get('https://api.themoviedb.org/3/genre/movie/list?' + _config.API_KEY).then(function (res) {
-			return dispatch({
-				type: FETCH_GENRE_MOVIES,
-				payload: res.data
-			});
-		});
-	};
+  return function (dispatch) {
+    _axios2.default.get("https://api.themoviedb.org/3/genre/movie/list?" + _config.API_KEY).then(function (res) {
+      return dispatch({
+        type: FETCH_GENRE_MOVIES,
+        payload: res.data
+      });
+    });
+  };
 };
 
-var fetchPopularMovies = exports.fetchPopularMovies = function fetchPopularMovies(page) {
-	return function (dispatch) {
-		_axios2.default.get('https://api.themoviedb.org/3/movie/popular?' + _config.API_KEY + '&language=en-US&page=' + page).then(function (res) {
-			return dispatch({
-				type: FETCH_POPULAR_MOVIES,
-				payload: res.data
-			});
-		});
-	};
+var fetchPopularMovies = exports.fetchPopularMovies = function fetchPopularMovies() {
+  return function (dispatch) {
+    _axios2.default.get("https://api.themoviedb.org/3/movie/popular?" + _config.API_KEY).then(function (res) {
+      return dispatch({
+        type: FETCH_POPULAR_MOVIES,
+        payload: res.data
+      });
+    });
+  };
 };
 
 var fetchUpcomingMovies = exports.fetchUpcomingMovies = function fetchUpcomingMovies() {
-	return function (dispatch) {
-		_axios2.default.get('https://api.themoviedb.org/3/movie/upcoming?' + _config.API_KEY).then(function (res) {
-			return dispatch({
-				type: FETCH_UPCOMING_MOVIES,
-				payload: res.data
-			});
-		});
-	};
+  return function (dispatch) {
+    _axios2.default.get("https://api.themoviedb.org/3/movie/upcoming?" + _config.API_KEY).then(function (res) {
+      return dispatch({
+        type: FETCH_UPCOMING_MOVIES,
+        payload: res.data
+      });
+    });
+  };
 };
 var fetchTopRatedMovies = exports.fetchTopRatedMovies = function fetchTopRatedMovies() {
-	return function (dispatch) {
-		_axios2.default.get('https://api.themoviedb.org/3/movie/top_rated?' + _config.API_KEY).then(function (res) {
-			return dispatch({
-				type: FETCH_TOPRATED_MOVIES,
-				payload: res.data
-			});
-		});
-	};
+  return function (dispatch) {
+    _axios2.default.get("https://api.themoviedb.org/3/movie/top_rated?" + _config.API_KEY).then(function (res) {
+      return dispatch({
+        type: FETCH_TOPRATED_MOVIES,
+        payload: res.data
+      });
+    });
+  };
 };
 
 var fetchNowPlayingMovies = exports.fetchNowPlayingMovies = function fetchNowPlayingMovies() {
-	return function (dispatch) {
-		_axios2.default.get('https://api.themoviedb.org/3/movie/now_playing?' + _config.API_KEY).then(function (res) {
-			return dispatch({
-				type: FETCH_NOWPLAYING_MOVIES,
-				payload: res.data
-			});
-		});
-	};
+  return function (dispatch) {
+    _axios2.default.get("https://api.themoviedb.org/3/movie/now_playing?" + _config.API_KEY).then(function (res) {
+      return dispatch({
+        type: FETCH_NOWPLAYING_MOVIES,
+        payload: res.data
+      });
+    });
+  };
 };
 
 var fetchMovieDetails = exports.fetchMovieDetails = function fetchMovieDetails(id) {
-	return function (dispatch) {
-		_axios2.default.get('https://api.themoviedb.org/3/movie/' + id + '?' + _config.API_KEY).then(function (res) {
-			return dispatch({
-				type: FETCH_MOVIE_DETAILS,
-				payload: res.data
-			});
-		});
-		dispatch(fetchMovieCredits(id));
-		dispatch(fetchMovieTrailers(id));
-	};
+  return function (dispatch) {
+    _axios2.default.get("https://api.themoviedb.org/3/movie/" + id + "?" + _config.API_KEY).then(function (res) {
+      return dispatch({
+        type: FETCH_MOVIE_DETAILS,
+        payload: res.data
+      });
+    });
+    dispatch(fetchMovieCredits(id));
+    dispatch(fetchMovieTrailers(id));
+  };
 };
 
 var fetchMovieCredits = exports.fetchMovieCredits = function fetchMovieCredits(id) {
-	return function (dispatch) {
-		console.log('clicked movie credis');
-		_axios2.default.get('https://api.themoviedb.org/3/movie/' + id + '/credits?' + _config.API_KEY).then(function (res) {
-			return dispatch({
-				type: FETCH_MOVIE_CREDITS,
-				payload: res.data
-			});
-		});
-	};
+  return function (dispatch) {
+    console.log("clicked movie credis");
+    _axios2.default.get("https://api.themoviedb.org/3/movie/" + id + "/credits?" + _config.API_KEY).then(function (res) {
+      return dispatch({
+        type: FETCH_MOVIE_CREDITS,
+        payload: res.data
+      });
+    });
+  };
 };
 
 var fetchMovieTrailers = exports.fetchMovieTrailers = function fetchMovieTrailers(id) {
-	return function (dispatch) {
-		console.log('clicked movie credis');
-		_axios2.default.get('https://api.themoviedb.org/3/movie/' + id + '/videos?' + _config.API_KEY).then(function (res) {
-			return dispatch({
-				type: FETCH_MOVIE_TRAILERS,
-				payload: res.data
-			});
-		});
-	};
+  return function (dispatch) {
+    console.log("clicked movie credis");
+    _axios2.default.get("https://api.themoviedb.org/3/movie/" + id + "/videos?" + _config.API_KEY).then(function (res) {
+      return dispatch({
+        type: FETCH_MOVIE_TRAILERS,
+        payload: res.data
+      });
+    });
+  };
 };
 
 /***/ }),
@@ -594,7 +594,7 @@ exports.default = MainImageCarousel;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -640,172 +640,166 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var HomePage = function (_Component) {
-	_inherits(HomePage, _Component);
+  _inherits(HomePage, _Component);
 
-	function HomePage(props) {
-		_classCallCheck(this, HomePage);
+  function HomePage() {
+    var _ref;
 
-		var _this = _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).call(this, props));
+    var _temp, _this, _ret;
 
-		_this.filterGenre = function (id) {
-			var genre = _this.props.genres.filter(function (item) {
-				return item.id === id[0] || item.id == id[1];
-			}).map(function (item) {
-				return item.name;
-			});
-			return _react2.default.createElement(
-				'h2',
-				null,
-				genre[0],
-				' / ',
-				genre[1] ? genre[1] : ''
-			);
-		};
+    _classCallCheck(this, HomePage);
 
-		_this.handlePopularPage = function () {
-			_this.setState(function (prevState) {
-				return {
-					popular: prevState.popular + 1
-				};
-			}, function () {
-				return _this.props.fetchPopularMovies(_this.state.popular);
-			});
-		};
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-		_this.selectedItem = function (id) {
-			var url = _this.props.match.url;
-			if (url === '/tvdetails' || url === 'tv/') {
-				_this.props.fetchSearchDetails(id, 'tv');
-				_this.props.history.push('/tvdetails');
-			} else {
-				_this.props.fetchSearchDetails(id, 'movie');
-				_this.props.history.push('/moviedetails');
-			}
-		};
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = HomePage.__proto__ || Object.getPrototypeOf(HomePage)).call.apply(_ref, [this].concat(args))), _this), _this.filterGenre = function (id) {
+      var genre = _this.props.genres.filter(function (item) {
+        return item.id === id[0] || item.id == id[1];
+      }).map(function (item) {
+        return item.name;
+      });
+      return _react2.default.createElement(
+        "h2",
+        null,
+        genre[0],
+        " / ",
+        genre[1] ? genre[1] : ""
+      );
+    }, _this.handlePopularPage = function () {
+      _this.setState(function (prevState) {
+        return {
+          popular: prevState.popular + 1
+        };
+      }, function () {
+        return _this.props.fetchPopularMovies();
+      });
+    }, _this.selectedItem = function (id) {
+      var url = _this.props.match.url;
+      if (url === "/tvdetails" || url === "tv/") {
+        _this.props.fetchSearchDetails(id, "tv");
+        _this.props.history.push("/tvdetails");
+      } else {
+        _this.props.fetchSearchDetails(id, "movie");
+        _this.props.history.push("/moviedetails");
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
 
-		_this.state = {
-			popular: 1,
-			upcoming: 1,
-			movieIndex: 0,
-			searchTerm: ''
-		};
-		return _this;
-	}
+  _createClass(HomePage, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      this.props.fetchGenreMovie();
+      this.props.fetchPopularMovies();
+      this.props.fetchUpcomingMovies();
+      this.props.fetchNowPlayingMovies();
+      this.props.fetchTopRatedMovies();
+      this.props.fetchPopularTv();
+      this.props.fetchTopRatedTv();
+      this.props.fetchAiringToday();
+      this.props.fetchTvThisWeek();
+      this.props.fetchGenreTv();
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      window.scrollTo(0, 0);
+    }
 
-	_createClass(HomePage, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
-			this.props.fetchGenreMovie();
-			this.props.fetchPopularMovies(this.state.popular);
-			this.props.fetchUpcomingMovies();
-			this.props.fetchNowPlayingMovies();
-			this.props.fetchTopRatedMovies();
-			this.props.fetchPopularTv();
-			this.props.fetchTopRatedTv();
-			this.props.fetchAiringToday();
-			this.props.fetchTvThisWeek();
-			this.props.fetchGenreTv();
-		}
-	}, {
-		key: 'componentDidUpdate',
-		value: function componentDidUpdate() {
-			window.scrollTo(0, 0);
-		}
+    //TESTING THIS, not yet complete.....eventually I want to fetch a new page when the user swipes to the end of page 1.
 
-		//TESTING THIS, not yet complete.....eventually I want to fetch a new page when the user swipes to the end of page 1.
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.props.match);
+      if (!this.props.upcoming) {
+        return _react2.default.createElement(
+          "div",
+          { className: !this.props.upcoming ? "loading-screen" : "gone" },
+          "Loading"
+        );
+      }
 
-	}, {
-		key: 'render',
-		value: function render() {
-			console.log(this.props.match);
-			if (!this.props.upcoming) {
-				return _react2.default.createElement(
-					'div',
-					{ className: !this.props.upcoming ? 'loading-screen' : 'gone' },
-					'Loading'
-				);
-			}
+      return _react2.default.createElement(
+        "section",
+        { className: "home-page " },
+        _react2.default.createElement(
+          "div",
+          { className: "main-image" },
+          _react2.default.createElement(_MainImageCarousel2.default, {
+            selectedItem: this.selectedItem,
+            data: this.props.upcoming,
+            genres: this.props.genres,
+            filterGenre: this.filterGenre,
+            type: this.props.match.url
+          })
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "video-container" },
+          _react2.default.createElement(_MiddleNavigation2.default, {
+            history: this.props.history,
+            fetchSearchAll: this.props.fetchSearchAll,
+            page: "movie"
+          }),
+          _react2.default.createElement(_carousel2.default, {
+            selectedItem: this.selectedItem,
+            fetchSearchDetails: this.props.fetchSearchDetails,
+            movie: this.props.upcoming,
+            genres: this.props.genres,
+            title: "Upcoming "
+          }),
+          _react2.default.createElement(_carousel2.default, {
+            selectedItem: this.selectedItem,
+            fetchSearchDetails: this.props.fetchSearchDetails,
+            movie: this.props.popular,
+            genres: this.props.genres,
+            title: "Popular "
+          }),
+          _react2.default.createElement(_carousel2.default, {
+            selectedItem: this.selectedItem,
+            fetchSearchDetails: this.props.fetchSearchDetails,
+            movie: this.props.nowplaying,
+            genres: this.props.genres,
+            title: "Now Playing "
+          }),
+          _react2.default.createElement(_carousel2.default, {
+            selectedItem: this.selectedItem,
+            fetchSearchDetails: this.props.fetchSearchDetails,
+            movie: this.props.toprated,
+            genres: this.props.genres,
+            title: "Top Rated "
+          })
+        )
+      );
+    }
+  }]);
 
-			return _react2.default.createElement(
-				'section',
-				{ className: 'home-page' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'main-image' },
-					_react2.default.createElement(_MainImageCarousel2.default, {
-						selectedItem: this.selectedItem,
-						data: this.props.upcoming,
-						genres: this.props.genres,
-						filterGenre: this.filterGenre,
-						type: this.props.match.url
-					})
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'video-container' },
-					_react2.default.createElement(_MiddleNavigation2.default, {
-						history: this.props.history,
-						fetchSearchAll: this.props.fetchSearchAll,
-						page: 'movie'
-					}),
-					_react2.default.createElement(_carousel2.default, {
-						selectedItem: this.selectedItem,
-						fetchSearchDetails: this.props.fetchSearchDetails,
-						movie: this.props.upcoming,
-						genres: this.props.genres,
-						title: 'Upcoming '
-					}),
-					_react2.default.createElement(_carousel2.default, {
-						selectedItem: this.selectedItem,
-						fetchSearchDetails: this.props.fetchSearchDetails,
-						movie: this.props.popular,
-						genres: this.props.genres,
-						title: 'Popular '
-					}),
-					_react2.default.createElement(_carousel2.default, {
-						selectedItem: this.selectedItem,
-						fetchSearchDetails: this.props.fetchSearchDetails,
-						movie: this.props.nowplaying,
-						genres: this.props.genres,
-						title: 'Now Playing '
-					}),
-					_react2.default.createElement(_carousel2.default, {
-						selectedItem: this.selectedItem,
-						fetchSearchDetails: this.props.fetchSearchDetails,
-						movie: this.props.toprated,
-						genres: this.props.genres,
-						title: 'Top Rated '
-					})
-				)
-			);
-		}
-	}]);
-
-	return HomePage;
+  return HomePage;
 }(_react.Component);
 
 function mapStatetoProps(state) {
-	return {
-		upcoming: state.movies.upComingMovies.results,
-		popular: state.movies.popularMovies.results,
-		toprated: state.movies.topRatedMovies.results,
-		nowplaying: state.movies.nowPlayingMovies.results,
-		genres: state.movies.genreMovies.genres
-	};
+  return {
+    upcoming: state.movies.upComingMovies.results,
+    popular: state.movies.popularMovies.results,
+    toprated: state.movies.topRatedMovies.results,
+    nowplaying: state.movies.nowPlayingMovies.results,
+    genres: state.movies.genreMovies.genres
+  };
 }
 exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
-	fetchUpcomingMovies: _movies.fetchUpcomingMovies,
-	fetchPopularMovies: _movies.fetchPopularMovies,
-	fetchNowPlayingMovies: _movies.fetchNowPlayingMovies,
-	fetchTopRatedMovies: _movies.fetchTopRatedMovies,
-	fetchGenreMovie: _movies.fetchGenreMovie,
-	fetchSearchDetails: _selected.fetchSearchDetails,
-	fetchSearchAll: _search.fetchSearchAll,
-	fetchPopularTv: _tv.fetchPopularTv,
-	fetchTopRatedTv: _tv.fetchTopRatedTv,
-	fetchAiringToday: _tv.fetchAiringToday,
-	fetchTvThisWeek: _tv.fetchTvThisWeek,
-	fetchGenreTv: _tv.fetchGenreTv
+  fetchUpcomingMovies: _movies.fetchUpcomingMovies,
+  fetchPopularMovies: _movies.fetchPopularMovies,
+  fetchNowPlayingMovies: _movies.fetchNowPlayingMovies,
+  fetchTopRatedMovies: _movies.fetchTopRatedMovies,
+  fetchGenreMovie: _movies.fetchGenreMovie,
+  fetchSearchDetails: _selected.fetchSearchDetails,
+  fetchSearchAll: _search.fetchSearchAll,
+  fetchPopularTv: _tv.fetchPopularTv,
+  fetchTopRatedTv: _tv.fetchTopRatedTv,
+  fetchAiringToday: _tv.fetchAiringToday,
+  fetchTvThisWeek: _tv.fetchTvThisWeek,
+  fetchGenreTv: _tv.fetchGenreTv
 })(HomePage);
 
 /***/ }),
@@ -1359,7 +1353,7 @@ exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1393,99 +1387,172 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SearchResults = function (_Component) {
-	_inherits(SearchResults, _Component);
+  _inherits(SearchResults, _Component);
 
-	function SearchResults() {
-		var _ref;
+  function SearchResults(props) {
+    _classCallCheck(this, SearchResults);
 
-		var _temp, _this, _ret;
+    var _this = _possibleConstructorReturn(this, (SearchResults.__proto__ || Object.getPrototypeOf(SearchResults)).call(this, props));
 
-		_classCallCheck(this, SearchResults);
+    _this.selectedItem = function (item) {
+      var id = item.id;
+      var type = item.media_type;
+      _this.props.fetchSearchDetails(id, type);
+      if (type == "tv") {
+        _this.props.history.push("/tvdetails");
+      }
+      if (type == "movie") {
+        _this.props.history.push("/moviedetails");
+      }
+    };
 
-		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-			args[_key] = arguments[_key];
-		}
+    _this.showResults = function () {
+      if (!_this.props.searchResults.results) {
+        _react2.default.createElement(
+          "div",
+          { className: "loading-screen" },
+          "Loading..."
+        );
+      } else if (_this.props.searchResults.results) {
+        return _this.props.searchResults.results.map(function (item, i) {
+          return _react2.default.createElement(
+            "div",
+            {
+              className: "search-item",
+              key: i,
+              onClick: function onClick() {
+                return _this.selectedItem(item);
+              }
+            },
+            _react2.default.createElement("img", {
+              src: item.poster_path ? "https://image.tmdb.org/t/p/w500" + item.poster_path : "/img/blankPerson.png"
+            }),
+            _react2.default.createElement(
+              "h2",
+              null,
+              item.title ? item.title : item.name
+            )
+          );
+        });
+      }
+    };
 
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SearchResults.__proto__ || Object.getPrototypeOf(SearchResults)).call.apply(_ref, [this].concat(args))), _this), _this.selectedItem = function (item) {
-			var id = item.id;
-			var type = item.media_type;
-			_this.props.fetchSearchDetails(id, type);
-			if (type == 'tv') {
-				_this.props.history.push('/tvdetails');
-			}
-			if (type == 'movie') {
-				_this.props.history.push('/moviedetails');
-			}
-		}, _this.showResults = function () {
-			if (!_this.props.searchResults.results) {
-				;_react2.default.createElement(
-					'div',
-					{ className: 'loading-screen' },
-					'Loading...'
-				);
-			} else if (_this.props.searchResults.results) {
-				return _this.props.searchResults.results.map(function (item, i) {
-					return _react2.default.createElement(
-						'div',
-						{
-							className: 'search-item',
-							key: i,
-							onClick: function onClick() {
-								return _this.selectedItem(item);
-							} },
-						_react2.default.createElement('img', {
-							src: item.poster_path ? 'https://image.tmdb.org/t/p/w500' + item.poster_path : '/img/blankPerson.png'
-						}),
-						_react2.default.createElement(
-							'h2',
-							null,
-							item.title ? item.title : item.name
-						)
-					);
-				});
-			}
-		}, _temp), _possibleConstructorReturn(_this, _ret);
-	}
+    _this.handleNextPage = function () {
+      var searchTerm = _this.props.searchResults.searchTerm;
+      var currentPage = _this.props.searchResults.page;
+      var totalpages = _this.props.searchResults.total_pages;
+      if (currentPage < totalpages) {
+        var page = currentPage + 1;
+        _this.props.fetchSearchAll(searchTerm, page);
+      }
+    };
 
-	_createClass(SearchResults, [{
-		key: 'componentDidUpdate',
-		value: function componentDidUpdate() {
-			window.scrollTo(0, 0);
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			if (this.props.searchResults === undefined) {
-				return _react2.default.createElement(
-					'h1',
-					null,
-					'loading'
-				);
-			}
+    _this.handlePreviousPage = function () {
+      var searchTerm = _this.props.searchResults.searchTerm;
+      var currentPage = _this.props.searchResults.page;
+      var totalpages = _this.props.searchResults.total_pages;
+      if (currentPage <= totalpages && currentPage > 1) {
+        var page = currentPage - 1;
+        _this.props.fetchSearchAll(searchTerm, page);
+      }
+    };
 
-			return _react2.default.createElement(
-				'section',
-				{ id: 'search-results' },
-				_react2.default.createElement(_MiddleNavigation2.default, {
-					history: this.props.history,
-					fetchSearchAll: this.props.fetchSearchAll
-				}),
-				_react2.default.createElement(
-					'div',
-					{ className: 'search-container' },
-					this.showResults()
-				)
-			);
-		}
-	}]);
+    return _this;
+  }
 
-	return SearchResults;
+  _createClass(SearchResults, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      window.scrollTo(0, 0);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.props.searchResults === undefined) {
+        return _react2.default.createElement(
+          "h1",
+          null,
+          "loading"
+        );
+      }
+
+      return _react2.default.createElement(
+        "section",
+        { id: "search-results" },
+        _react2.default.createElement(_MiddleNavigation2.default, {
+          history: this.props.history,
+          fetchSearchAll: this.props.fetchSearchAll
+        }),
+        _react2.default.createElement(
+          "div",
+          { className: "pagination-container" },
+          _react2.default.createElement(
+            "h1",
+            null,
+            "Page ",
+            this.props.searchResults.page,
+            " /",
+            " ",
+            this.props.searchResults.total_pages
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "pagination" },
+            _react2.default.createElement(
+              "button",
+              { onClick: this.handlePreviousPage },
+              "Previous"
+            ),
+            _react2.default.createElement(
+              "button",
+              { onClick: this.handleNextPage },
+              "Next"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "search-container" },
+          this.showResults()
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "pagination-container" },
+          _react2.default.createElement(
+            "h1",
+            null,
+            "Page ",
+            this.props.searchResults.page,
+            " /",
+            " ",
+            this.props.searchResults.total_pages
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "pagination" },
+            _react2.default.createElement(
+              "button",
+              { onClick: this.handlePreviousPage },
+              "Previous"
+            ),
+            _react2.default.createElement(
+              "button",
+              { onClick: this.handleNextPage },
+              "Next"
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return SearchResults;
 }(_react.Component);
 
 function mapStatetoProps(state) {
-	return {
-		searchResults: state.searchResults
-	};
+  return {
+    searchResults: state.searchResults
+  };
 }
 exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchSearchAll: _search.fetchSearchAll, fetchSearchDetails: _selected.fetchSearchDetails })(SearchResults);
 
@@ -1728,13 +1795,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments[1];
 
   switch (action.type) {
     case _search.FETCH_SEARCH_ALL:
-      return action.payload;
+      return _extends({}, action.payload, { searchTerm: action.searchTerm });
     default:
       return state;
   }
@@ -1964,11 +2033,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var FETCH_SEARCH_ALL = exports.FETCH_SEARCH_ALL = "fetch_search_all";
 
 var fetchSearchAll = exports.fetchSearchAll = function fetchSearchAll(searchTerm) {
+  var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
   return function (dispatch) {
-    _axios2.default.get("https://api.themoviedb.org/3/search/multi?" + _config.API_KEY + "&query=" + searchTerm).then(function (res) {
+    _axios2.default.get("https://api.themoviedb.org/3/search/multi?" + _config.API_KEY + "&query=" + searchTerm + "&language=en-US&page=" + page).then(function (res) {
       return dispatch({
         type: FETCH_SEARCH_ALL,
-        payload: res.data
+        payload: res.data,
+        searchTerm: searchTerm
       });
     });
   };
