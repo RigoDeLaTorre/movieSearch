@@ -45,7 +45,7 @@ class HomePage extends Component {
       .map(item => item.name);
     return (
       <h2>
-        {genre[0]} / {genre[1] ? genre[1] : ""}
+        {genre[0]} {genre[1] ? "/ " + genre[1] : ""}
       </h2>
     );
   };

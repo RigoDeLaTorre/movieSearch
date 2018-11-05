@@ -23,6 +23,12 @@ a {
 }
 
 #home {
+  @media only screen and (max-width: 767px) {
+    .img {
+      background-size: 100% !important;
+      background-repeat: no-repeat;
+    }
+  }
   .video-container {
     padding-top: 5rem;
     background: linear-gradient(135deg, #280684 0%, #21bdb8 100%);

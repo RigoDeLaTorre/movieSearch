@@ -948,8 +948,8 @@ var HomePage = function (_Component) {
         "h2",
         null,
         genre[0],
-        " / ",
-        genre[1] ? genre[1] : ""
+        " ",
+        genre[1] ? "/ " + genre[1] : ""
       );
     }, _this.handlePopularPage = function () {
       _this.setState(function (prevState) {

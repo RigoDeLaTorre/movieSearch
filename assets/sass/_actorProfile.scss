@@ -1,6 +1,26 @@
 #actor-details {
   background: linear-gradient(135deg, #280684 0%, #21bdb8 100%);
   padding: 5rem 0;
+  @media only screen and (max-width: 767px) {
+    .actor-profile {
+      margin: 0;
+      flex-direction: column;
+      align-items: center;
+    }
+    .actor-img {
+      margin-bottom: 2rem;
+      margin-bottom img {
+        display: flex;
+        margin: 0 auto;
+      }
+    }
+    .actor-bio {
+      margin: 2rem;
+    }
+    p {
+      font-size: 0.8rem;
+    }
+  }
   .container {
     max-width: 856px;
     margin: 0 auto;
