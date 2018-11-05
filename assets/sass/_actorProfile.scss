@@ -1,120 +1,120 @@
 #actor-details {
-  background: linear-gradient(135deg, #280684 0%, #21bdb8 100%);
-  padding: 5rem 0;
-  @media only screen and (max-width: 767px) {
-    .actor-profile {
-      margin: 0;
-      flex-direction: column;
-      align-items: center;
-    }
-    .actor-img {
-      margin-bottom: 2rem;
-      margin-bottom img {
-        display: flex;
-        margin: 0 auto;
-      }
-    }
-    .actor-bio {
-      margin: 2rem;
-    }
-    p {
-      font-size: 0.8rem;
-    }
-  }
-  .container {
-    max-width: 856px;
-    margin: 0 auto;
-    @media only screen and (min-width: 768px) and (max-width: 1200px) {
-      max-width: 100%;
-      padding: 0 2rem;
-      .actor-bio {
-        margin: 0;
-      }
-    }
-    .actor-profile {
-      display: flex;
-      margin: 5rem 0;
+	background: linear-gradient(135deg, #280684 0%, #21bdb8 100%);
 
-      .actor-img {
-        flex: 1;
-        img {
-          max-width: 100%;
-          max-height: 250px;
-          border-radius: 5px;
-        }
-      }
-      .details {
-        line-height: 1.2;
-        h1 {
-          font-size: 1.2rem;
-          font-weight: 300;
-          margin-bottom: 1rem;
-        }
-        h2 {
-          font-size: 0.9rem;
-          font-weight: 100;
-        }
-      }
-      .actor-bio {
-        flex: 2;
-        font-size: 1rem;
-        letter-spacing: 1px;
-        color: white;
-        line-height: 1.5;
-        margin-left: 5rem;
-      }
-    }
-    .sectionTitle {
-      margin-bottom: 5rem;
-      h1 {
-        text-align: center;
-        font-size: 2rem;
-        color: white;
-      }
-    }
-    .actor-roles-container {
-      display: flex;
-      justify-content: center;
+	@media only screen and (max-width: 767px) {
+		.actor-profile {
+			margin: 0;
+			flex-direction: column;
+			align-items: center;
+		}
+		.actor-img {
+			margin-bottom: 2rem;
+			margin-bottom img {
+				display: flex;
+				margin: 0 auto;
+			}
+		}
+		.actor-bio {
+			margin: 2rem;
+		}
+		p {
+			font-size: 0.8rem;
+		}
+	}
+	.container {
+		max-width: 856px;
+		margin: 0 auto;
+		@media only screen and (min-width: 768px) and (max-width: 1200px) {
+			max-width: 100%;
+			padding: 0 2rem;
+			.actor-bio {
+				margin: 0;
+			}
+		}
+		.actor-profile {
+			display: flex;
+			margin: 5rem 0;
 
-      flex-flow: row wrap;
-      .search-item {
-        flex-basis: 10%;
-        margin-right: 1rem;
-        margin-bottom: 2rem;
-        position: relative;
-        text-align: center;
-        cursor: pointer;
-        &:hover {
-          opacity: 1;
-          transform: scale(1.1);
-          transition: all 0.3s ease-in-out;
-          box-shadow: 0px 0px 25px -1px rgb(247, 165, 3);
-        }
-        img {
-          max-width: 100%;
-          border-radius: 5px;
-        }
-        h1 {
-          font-size: 0.8rem;
-          color: #e8961e;
-          font-weight: 400;
-          margin-bottom: 2px;
-        }
-        h2 {
-          font-size: 0.8rem;
-          font-weight: 100;
-        }
-        h3 {
-          position: absolute;
-          top: 0;
-          font-size: 0.7rem;
-          background: #ffa500;
-          color: black;
-          right: 0;
-          font-weight: 400;
-          padding: 3px;
-        }
-      }
-    }
-  }
+			.actor-img {
+				flex: 1;
+				img {
+					max-width: 100%;
+					max-height: 250px;
+					border-radius: 5px;
+				}
+			}
+			.details {
+				line-height: 1.2;
+				h1 {
+					font-size: 1.2rem;
+					font-weight: 300;
+					margin-bottom: 1rem;
+				}
+				h2 {
+					font-size: 0.9rem;
+					font-weight: 100;
+				}
+			}
+			.actor-bio {
+				flex: 2;
+				font-size: 1rem;
+				letter-spacing: 1px;
+				color: white;
+				line-height: 1.5;
+				margin-left: 5rem;
+			}
+		}
+		.sectionTitle {
+			margin-bottom: 5rem;
+			h1 {
+				text-align: center;
+				font-size: 2rem;
+				color: white;
+			}
+		}
+		.actor-roles-container {
+			display: flex;
+			justify-content: center;
+
+			flex-flow: row wrap;
+			.search-item {
+				flex-basis: 10%;
+				margin-right: 1rem;
+				margin-bottom: 2rem;
+				position: relative;
+				text-align: center;
+				cursor: pointer;
+				&:hover {
+					opacity: 1;
+					transform: scale(1.1);
+					transition: all 0.3s ease-in-out;
+					box-shadow: 0px 0px 25px -1px rgb(247, 165, 3);
+				}
+				img {
+					max-width: 100%;
+					border-radius: 5px;
+				}
+				h1 {
+					font-size: 0.8rem;
+					color: #e8961e;
+					font-weight: 400;
+					margin-bottom: 2px;
+				}
+				h2 {
+					font-size: 0.8rem;
+					font-weight: 100;
+				}
+				h3 {
+					position: absolute;
+					top: 0;
+					font-size: 0.7rem;
+					background: #ffa500;
+					color: black;
+					right: 0;
+					font-weight: 400;
+					padding: 3px;
+				}
+			}
+		}
+	}
 }

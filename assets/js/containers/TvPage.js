@@ -56,6 +56,9 @@ class TvPage extends Component {
 
 		return (
 			<section className="home-page">
+				<div className="logo">
+					<img src="./img/logo.png" />
+				</div>
 				<div className="main-image">
 					<MainImageCarousel
 						selectedItem={this.selectedItem}
