@@ -18,6 +18,7 @@ import TvPage from "./containers/TvPage.js";
 
 import SearchResults from "./containers/searchresults";
 import SelectionDetails from "./containers/SelectionDetails";
+import ActorProfile from "./containers/ActorProfile";
 
 const initialState = {};
 const middleware = [thunk];
@@ -40,6 +41,7 @@ ReactDOM.render(
           <Route path="/moviedetails" component={SelectionDetails} />
           <Route path="/tv" component={TvPage} />
           <Route path="/searchResults" component={SearchResults} />
+          <Route path="/actorProfile" component={ActorProfile} />
           <Route path="/" component={HomePage} />
         </Switch>
       </div>

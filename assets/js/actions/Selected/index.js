@@ -9,7 +9,7 @@ export const FETCH_TV_TRAILERS = "fetch_trailers_tv";
 export const FETCH_MOVIE_CREDITS = "fetch_credits_movies";
 export const FETCH_MOVIE_TRAILERS = "fetch_trailers_movies";
 
-export const fetchSearchDetails = (id, type) => dispatch => {
+export const fetchSearchDetails = (id, type = "movie") => dispatch => {
   axios
     .get(`https://api.themoviedb.org/3/${type}/${id}?${API_KEY}`)
     .then(res =>

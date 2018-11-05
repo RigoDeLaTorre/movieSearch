@@ -1,29 +1,30 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
-@import 'reset';
-@import 'homepage';
-@import 'mainImageCarousel';
-@import 'selectionDetailsPage';
-@import 'carouselSelection';
-@import 'searchResults';
-@import 'MiddleNavigation';
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700");
+@import "reset";
+@import "homepage";
+@import "mainImageCarousel";
+@import "selectionDetailsPage";
+@import "carouselSelection";
+@import "searchResults";
+@import "MiddleNavigation";
+@import "actorProfile";
 
 body {
-	font-family: 'Roboto', sans-serif;
-	color: white;
-	background: black;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  background: black;
 }
 
 h1 {
-	font-weight: 100;
-	font-size: 50px;
+  font-weight: 100;
+  font-size: 50px;
 }
 a {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 #home {
-	.video-container {
-		padding-top: 5rem;
-		background: linear-gradient(135deg, #280684 0%, #21bdb8 100%);
-	}
+  .video-container {
+    padding-top: 5rem;
+    background: linear-gradient(135deg, #280684 0%, #21bdb8 100%);
+  }
 }

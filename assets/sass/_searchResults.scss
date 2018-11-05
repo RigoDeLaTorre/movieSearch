@@ -1,6 +1,25 @@
 #search-results {
   background: linear-gradient(135deg, #280684 0%, #21bdb8 100%);
   padding: 5rem 0;
+  @media only screen and (max-width: 767px) {
+    .search-item {
+      justify-content: flex-start !important;
+      flex-basis: 20%;
+      margin: 0.5rem;
+    }
+    img {
+      max-width: 60px !important;
+    }
+    h1 {
+      font-size: 1rem !important;
+    }
+    h2 {
+      font-size: 0.9rem !important;
+    }
+    button {
+      font-size: 0.7rem !important;
+    }
+  }
   .pagination-container {
     text-align: center;
     h1 {

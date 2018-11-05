@@ -7,6 +7,54 @@ webpackJsonp([0],{
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchPersonMovieCredits = exports.fetchActorDetails = exports.FETCH_ACTOR_DETAILS = exports.FETCH_ACTOR_MOVIECREDITS = undefined;
+
+var _axios = __webpack_require__(67);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _config = __webpack_require__(79);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FETCH_ACTOR_MOVIECREDITS = exports.FETCH_ACTOR_MOVIECREDITS = "fetch_actor_moviecredits";
+var FETCH_ACTOR_DETAILS = exports.FETCH_ACTOR_DETAILS = "fetch_actor_details";
+
+var fetchActorDetails = exports.fetchActorDetails = function fetchActorDetails(id) {
+  return function (dispatch) {
+    _axios2.default.get("https://api.themoviedb.org/3/person/" + id + "?" + _config.API_KEY + "&language=en-US").then(function (res) {
+      return dispatch({
+        type: FETCH_ACTOR_DETAILS,
+        payload: res.data
+      });
+    }).then(function () {
+      dispatch(fetchPersonMovieCredits(id));
+    });
+  };
+};
+
+var fetchPersonMovieCredits = exports.fetchPersonMovieCredits = function fetchPersonMovieCredits(id) {
+  return function (dispatch) {
+    _axios2.default.get("https://api.themoviedb.org/3/person/" + id + "/movie_credits?" + _config.API_KEY + "&language=en-US").then(function (res) {
+      return dispatch({
+        type: FETCH_ACTOR_MOVIECREDITS,
+        payload: res.data
+      });
+    });
+  };
+};
+
+/***/ }),
+
+/***/ 119:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
@@ -16,21 +64,21 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(44);
+var _reactRouterDom = __webpack_require__(35);
 
-var _selected = __webpack_require__(66);
+var _selected = __webpack_require__(54);
 
-var _reactRedux = __webpack_require__(45);
+var _reactRedux = __webpack_require__(36);
 
-var _reactIdSwiper = __webpack_require__(242);
+var _reactIdSwiper = __webpack_require__(243);
 
 var _reactIdSwiper2 = _interopRequireDefault(_reactIdSwiper);
 
-var _VideoForCarousel = __webpack_require__(285);
+var _VideoForCarousel = __webpack_require__(287);
 
 var _VideoForCarousel2 = _interopRequireDefault(_VideoForCarousel);
 
@@ -181,7 +229,7 @@ exports.default = Carousel;
 
 /***/ }),
 
-/***/ 174:
+/***/ 175:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -192,11 +240,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchMovieTrailers = exports.fetchMovieCredits = exports.fetchMovieDetails = exports.fetchNowPlayingMovies = exports.fetchTopRatedMovies = exports.fetchUpcomingMovies = exports.fetchPopularMovies = exports.fetchGenreMovie = exports.FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_CREDITS = exports.FETCH_MOVIE_DETAILS = exports.FETCH_TOPRATED_MOVIES = exports.FETCH_NOWPLAYING_MOVIES = exports.FETCH_UPCOMING_MOVIES = exports.FETCH_POPULAR_MOVIES = exports.FETCH_GENRE_MOVIES = undefined;
 
-var _axios = __webpack_require__(76);
+var _axios = __webpack_require__(67);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _config = __webpack_require__(87);
+var _config = __webpack_require__(79);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -302,7 +350,7 @@ var fetchMovieTrailers = exports.fetchMovieTrailers = function fetchMovieTrailer
 
 /***/ }),
 
-/***/ 175:
+/***/ 176:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -313,11 +361,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchTvTrailers = exports.fetchTvCredits = exports.fetchTvDetails = exports.fetchTvThisWeek = exports.fetchAiringToday = exports.fetchTopRatedTv = exports.fetchLatestTv = exports.fetchPopularTv = exports.fetchGenreTv = exports.FETCH_TV_TRAILERS = exports.FETCH_TV_DETAILS = exports.FETCH_TV_CREDITS = exports.FETCH_THISWEEK_TV = exports.FETCH_AIRINGTODAY_TV = exports.FETCH_TOPRATED_TV = exports.FETCH_LATEST_TV = exports.FETCH_POPULAR_TV = exports.FETCH_GENRE_TV = undefined;
 
-var _axios = __webpack_require__(76);
+var _axios = __webpack_require__(67);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _config = __webpack_require__(87);
+var _config = __webpack_require__(79);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -433,7 +481,7 @@ var fetchTvTrailers = exports.fetchTvTrailers = function fetchTvTrailers(id) {
 
 /***/ }),
 
-/***/ 176:
+/***/ 177:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -449,15 +497,15 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(44);
+var _reactRouterDom = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(45);
+var _reactRedux = __webpack_require__(36);
 
-var _reactIdSwiper = __webpack_require__(242);
+var _reactIdSwiper = __webpack_require__(243);
 
 var _reactIdSwiper2 = _interopRequireDefault(_reactIdSwiper);
 
@@ -587,7 +635,7 @@ exports.default = MainImageCarousel;
 
 /***/ }),
 
-/***/ 260:
+/***/ 261:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -603,31 +651,268 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(44);
+var _search = __webpack_require__(68);
 
-var _movies = __webpack_require__(174);
+var _selected = __webpack_require__(54);
 
-var _tv = __webpack_require__(175);
+var _reactRedux = __webpack_require__(36);
 
-var _selected = __webpack_require__(66);
+var _reactRouterDom = __webpack_require__(35);
 
-var _search = __webpack_require__(78);
-
-var _reactRedux = __webpack_require__(45);
-
-var _MainImageCarousel = __webpack_require__(176);
-
-var _MainImageCarousel2 = _interopRequireDefault(_MainImageCarousel);
-
-var _MiddleNavigation = __webpack_require__(88);
+var _MiddleNavigation = __webpack_require__(80);
 
 var _MiddleNavigation2 = _interopRequireDefault(_MiddleNavigation);
 
-var _carousel = __webpack_require__(118);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ActorProfile = function (_Component) {
+  _inherits(ActorProfile, _Component);
+
+  function ActorProfile(props) {
+    _classCallCheck(this, ActorProfile);
+
+    var _this = _possibleConstructorReturn(this, (ActorProfile.__proto__ || Object.getPrototypeOf(ActorProfile)).call(this, props));
+
+    _this.selectedItem = function (item) {
+      var id = item.id;
+      _this.props.fetchSearchDetails(id);
+      _this.props.history.push("/moviedetails");
+    };
+
+    _this.showResults = function () {
+      if (!_this.props.actor.movies) {
+        _react2.default.createElement(
+          "div",
+          { className: "loading-screen" },
+          "Loading..."
+        );
+      } else if (_this.props.actor.movies.cast) {
+        return _this.props.actor.movies.cast.map(function (item, i) {
+          return _react2.default.createElement(
+            "div",
+            {
+              className: "search-item",
+              key: i,
+              onClick: function onClick() {
+                return _this.selectedItem(item);
+              }
+            },
+            _react2.default.createElement("img", {
+              src: item.poster_path ? "https://image.tmdb.org/t/p/w500" + item.poster_path : "/img/blankPerson.png"
+            }),
+            _react2.default.createElement(
+              "h1",
+              null,
+              item.title ? item.title : item.name
+            ),
+            _react2.default.createElement(
+              "h2",
+              null,
+              item.character
+            ),
+            _react2.default.createElement(
+              "h3",
+              null,
+              item.release_date ? item.release_date.slice(0, 4) : ""
+            )
+          );
+        });
+      }
+    };
+
+    _this.actorAge = function (birthday) {
+      var today = new Date();
+      var birthDate = new Date(birthday);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || m === 0 && today.getDate() < birthDate.getDate()) {
+        age--;
+      }
+      return age;
+    };
+
+    return _this;
+  }
+
+  _createClass(ActorProfile, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      window.scrollTo(0, 0);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.props.actor === undefined) {
+        return _react2.default.createElement(
+          "h1",
+          null,
+          "loading"
+        );
+      }
+
+      return _react2.default.createElement(
+        "section",
+        { id: "actor-details" },
+        _react2.default.createElement(_MiddleNavigation2.default, {
+          history: this.props.history,
+          fetchSearchAll: this.props.fetchSearchAll
+        }),
+        _react2.default.createElement(
+          "div",
+          { className: "container" },
+          _react2.default.createElement(
+            "div",
+            { className: "actor-profile" },
+            _react2.default.createElement(
+              "div",
+              { className: "actor-img" },
+              _react2.default.createElement("img", {
+                src: this.props.actor.profile_path !== null ? "https://image.tmdb.org/t/p/w500" + this.props.actor.profile_path : "/img/blankPerson.png"
+              }),
+              _react2.default.createElement(
+                "div",
+                { className: "details" },
+                _react2.default.createElement(
+                  "h1",
+                  null,
+                  this.props.actor.name
+                ),
+                _react2.default.createElement(
+                  "h2",
+                  null,
+                  _react2.default.createElement(
+                    "span",
+                    { style: { color: "orange" } },
+                    "Born: "
+                  ),
+                  this.props.actor.place_of_birth
+                ),
+                _react2.default.createElement(
+                  "h2",
+                  null,
+                  _react2.default.createElement(
+                    "span",
+                    { style: { color: "orange" } },
+                    "Gender: "
+                  ),
+                  this.props.actor.gender == 1 ? "Female" : " Male",
+                  " "
+                ),
+                _react2.default.createElement(
+                  "h2",
+                  null,
+                  _react2.default.createElement(
+                    "span",
+                    { style: { color: "orange" } },
+                    "Age: "
+                  ),
+                  " ",
+                  this.actorAge(this.props.actor.birthday)
+                ),
+                _react2.default.createElement(
+                  "h2",
+                  null,
+                  _react2.default.createElement(
+                    "span",
+                    { style: { color: "orange" } },
+                    "Birthdate: "
+                  ),
+                  this.props.actor.birthday
+                )
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "actor-bio" },
+              _react2.default.createElement(
+                "p",
+                null,
+                this.props.actor.biography ? this.props.actor.biography : "No Biography Found"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "sectionTitle" },
+            _react2.default.createElement(
+              "h1",
+              null,
+              "Movies Known for"
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "actor-roles-container" },
+            this.showResults()
+          )
+        )
+      );
+    }
+  }]);
+
+  return ActorProfile;
+}(_react.Component);
+
+function mapStatetoProps(state) {
+  return {
+    actor: state.actor
+  };
+}
+exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchSearchAll: _search.fetchSearchAll, fetchSearchDetails: _selected.fetchSearchDetails })(ActorProfile);
+
+/***/ }),
+
+/***/ 262:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(9);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(24);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactRouterDom = __webpack_require__(35);
+
+var _movies = __webpack_require__(175);
+
+var _tv = __webpack_require__(176);
+
+var _selected = __webpack_require__(54);
+
+var _search = __webpack_require__(68);
+
+var _reactRedux = __webpack_require__(36);
+
+var _MainImageCarousel = __webpack_require__(177);
+
+var _MainImageCarousel2 = _interopRequireDefault(_MainImageCarousel);
+
+var _MiddleNavigation = __webpack_require__(80);
+
+var _MiddleNavigation2 = _interopRequireDefault(_MiddleNavigation);
+
+var _carousel = __webpack_require__(119);
 
 var _carousel2 = _interopRequireDefault(_carousel);
 
@@ -804,14 +1089,14 @@ exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
 
 /***/ }),
 
-/***/ 261:
+/***/ 263:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -820,23 +1105,25 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _selected = __webpack_require__(66);
+var _selected = __webpack_require__(54);
 
-var _search = __webpack_require__(78);
+var _search = __webpack_require__(68);
 
-var _reactRedux = __webpack_require__(45);
+var _actor = __webpack_require__(118);
 
-var _reactRouterDom = __webpack_require__(44);
+var _reactRedux = __webpack_require__(36);
 
-var _MiddleNavigation = __webpack_require__(88);
+var _reactRouterDom = __webpack_require__(35);
+
+var _MiddleNavigation = __webpack_require__(80);
 
 var _MiddleNavigation2 = _interopRequireDefault(_MiddleNavigation);
 
-var _carousel = __webpack_require__(118);
+var _carousel = __webpack_require__(119);
 
 var _carousel2 = _interopRequireDefault(_carousel);
 
@@ -849,292 +1136,392 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SelectionDetails = function (_Component) {
-	_inherits(SelectionDetails, _Component);
+  _inherits(SelectionDetails, _Component);
 
-	function SelectionDetails() {
-		var _ref;
+  function SelectionDetails() {
+    var _ref;
 
-		var _temp, _this, _ret;
+    var _temp, _this, _ret;
 
-		_classCallCheck(this, SelectionDetails);
+    _classCallCheck(this, SelectionDetails);
 
-		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-			args[_key] = arguments[_key];
-		}
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SelectionDetails.__proto__ || Object.getPrototypeOf(SelectionDetails)).call.apply(_ref, [this].concat(args))), _this), _this.selectedItem = function (id) {
-			var url = _this.props.match.url;
-			if (url === '/tvdetails' || url === '/tv') {
-				_this.props.fetchSearchDetails(id, 'tv');
-				_this.props.history.push('/tvdetails');
-			} else {
-				_this.props.fetchSearchDetails(id, 'movie');
-				_this.props.history.push('/moviedetails');
-			}
-		}, _this.renderCast = function () {
-			if (!_this.props.movie.cast) {
-				return 'loading';
-			} else {
-				return _this.props.movie.cast.map(function (person, i) {
-					while (i < 5) {
-						return _react2.default.createElement(
-							'div',
-							{ className: 'member', key: i },
-							_react2.default.createElement('img', {
-								src: 'https://image.tmdb.org/t/p/w500/' + person.profile_path
-							}),
-							_react2.default.createElement(
-								'h3',
-								null,
-								person.name
-							)
-						);
-					}
-				});
-			}
-		}, _this.showYoutubeClip = function () {
-			if (_this.props.movie.results == undefined || _this.props.movie.results[0] === null || _this.props.movie.results[0] === undefined) {
-				return _react2.default.createElement(
-					'h2',
-					null,
-					'Cant find the clip'
-				);
-			} else {
-				return _react2.default.createElement('iframe', {
-					src: 'http://www.youtube.com/embed/' + _this.props.movie.results[0].key,
-					allowFullScreen: 'allowFullScreen',
-					frameBorder: '0'
-				});
-			}
-		}, _this.videoSelection = function () {
-			var url = _this.props.match.url;
-			if (url === '/tvdetails' || url === '/tv') {
-				return _react2.default.createElement(
-					'div',
-					{ className: 'video-container' },
-					_react2.default.createElement(_MiddleNavigation2.default, {
-						history: _this.props.history,
-						fetchSearchAll: _this.props.fetchSearchAll,
-						page: 'tv'
-					}),
-					_react2.default.createElement(_carousel2.default, {
-						selectedItem: _this.selectedItem,
-						fetchSearchDetails: _this.props.fetchSearchDetails,
-						genres: _this.props.genresTv,
-						movie: _this.props.popularTv,
-						title: 'popular'
-					}),
-					_react2.default.createElement(_carousel2.default, {
-						selectedItem: _this.selectedItem,
-						fetchSearchDetails: _this.props.fetchSearchDetails,
-						genres: _this.props.genresTv,
-						movie: _this.props.topratedTv,
-						title: 'top rated'
-					}),
-					_react2.default.createElement(_carousel2.default, {
-						selectedItem: _this.selectedItem,
-						fetchSearchDetails: _this.props.fetchSearchDetails,
-						genres: _this.props.genresTv,
-						movie: _this.props.airingtodayTv,
-						title: 'airing today'
-					}),
-					_react2.default.createElement(_carousel2.default, {
-						selectedItem: _this.selectedItem,
-						fetchSearchDetails: _this.props.fetchSearchDetails,
-						genres: _this.props.genresTv,
-						movie: _this.props.thisweekTv,
-						title: 'airing this week '
-					})
-				);
-			} else {
-				return _react2.default.createElement(
-					'div',
-					{ className: 'video-container' },
-					_react2.default.createElement(_MiddleNavigation2.default, {
-						history: _this.props.history,
-						fetchSearchAll: _this.props.fetchSearchAll,
-						page: 'movie'
-					}),
-					_react2.default.createElement(_carousel2.default, {
-						selectedItem: _this.selectedItem,
-						fetchSearchDetails: _this.props.fetchSearchDetails,
-						movie: _this.props.upcoming,
-						title: 'Upcoming ',
-						genres: _this.props.genres
-					}),
-					_react2.default.createElement(_carousel2.default, {
-						selectedItem: _this.selectedItem,
-						fetchSearchDetails: _this.props.fetchSearchDetails,
-						movie: _this.props.popular,
-						title: 'Popular ',
-						genres: _this.props.genres
-					}),
-					_react2.default.createElement(_carousel2.default, {
-						selectedItem: _this.selectedItem,
-						fetchSearchDetails: _this.props.fetchSearchDetails,
-						movie: _this.props.nowplaying,
-						title: 'Now Playing ',
-						genres: _this.props.genres
-					}),
-					_react2.default.createElement(_carousel2.default, {
-						selectedItem: _this.selectedItem,
-						fetchSearchDetails: _this.props.fetchSearchDetails,
-						movie: _this.props.toprated,
-						title: 'Top Rated ',
-						genres: _this.props.genres
-					})
-				);
-			}
-		}, _temp), _possibleConstructorReturn(_this, _ret);
-	}
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SelectionDetails.__proto__ || Object.getPrototypeOf(SelectionDetails)).call.apply(_ref, [this].concat(args))), _this), _this.selectedItem = function (id) {
+      var url = _this.props.match.url;
+      if (url === "/tvdetails" || url === "/tv") {
+        _this.props.fetchSearchDetails(id, "tv");
+        _this.props.history.push("/tvdetails");
+      } else {
+        _this.props.fetchSearchDetails(id, "movie");
+        _this.props.history.push("/moviedetails");
+      }
+    }, _this.getActorBio = function (id) {
+      _this.props.fetchActorDetails(id);
+      _this.props.history.push("/actorProfile");
+    }, _this.renderCast = function () {
+      if (!_this.props.movie.cast) {
+        return "loading";
+      } else {
+        return _this.props.movie.cast.map(function (person, i) {
+          while (i < 5) {
+            return _react2.default.createElement(
+              "div",
+              {
+                className: "member",
+                key: i,
+                onClick: function onClick() {
+                  return _this.getActorBio(person.id);
+                }
+              },
+              _react2.default.createElement("img", {
+                src: person.profile_path !== null ? "https://image.tmdb.org/t/p/w500/" + person.profile_path : "/img/blankPerson.png"
+              }),
+              _react2.default.createElement(
+                "h3",
+                null,
+                person.name
+              )
+            );
+          }
+        });
+      }
+    }, _this.showYoutubeClip = function () {
+      if (_this.props.movie.results == undefined || _this.props.movie.results[0] === null || _this.props.movie.results[0] === undefined) {
+        return _react2.default.createElement(
+          "h2",
+          null,
+          "Cant find the clip"
+        );
+      } else {
+        return _react2.default.createElement("iframe", {
+          src: "http://www.youtube.com/embed/" + _this.props.movie.results[0].key,
+          allowFullScreen: "allowFullScreen",
+          frameBorder: "0"
+        });
+      }
+    }, _this.videoSelection = function () {
+      var url = _this.props.match.url;
+      if (url === "/tvdetails" || url === "/tv") {
+        return _react2.default.createElement(
+          "div",
+          { className: "video-container" },
+          _react2.default.createElement(_MiddleNavigation2.default, {
+            history: _this.props.history,
+            fetchSearchAll: _this.props.fetchSearchAll,
+            page: "tv"
+          }),
+          _react2.default.createElement(_carousel2.default, {
+            selectedItem: _this.selectedItem,
+            fetchSearchDetails: _this.props.fetchSearchDetails,
+            genres: _this.props.genresTv,
+            movie: _this.props.popularTv,
+            title: "popular"
+          }),
+          _react2.default.createElement(_carousel2.default, {
+            selectedItem: _this.selectedItem,
+            fetchSearchDetails: _this.props.fetchSearchDetails,
+            genres: _this.props.genresTv,
+            movie: _this.props.topratedTv,
+            title: "top rated"
+          }),
+          _react2.default.createElement(_carousel2.default, {
+            selectedItem: _this.selectedItem,
+            fetchSearchDetails: _this.props.fetchSearchDetails,
+            genres: _this.props.genresTv,
+            movie: _this.props.airingtodayTv,
+            title: "airing today"
+          }),
+          _react2.default.createElement(_carousel2.default, {
+            selectedItem: _this.selectedItem,
+            fetchSearchDetails: _this.props.fetchSearchDetails,
+            genres: _this.props.genresTv,
+            movie: _this.props.thisweekTv,
+            title: "airing this week "
+          })
+        );
+      } else {
+        return _react2.default.createElement(
+          "div",
+          { className: "video-container" },
+          _react2.default.createElement(_MiddleNavigation2.default, {
+            history: _this.props.history,
+            fetchSearchAll: _this.props.fetchSearchAll,
+            page: "movie"
+          }),
+          _react2.default.createElement(_carousel2.default, {
+            selectedItem: _this.selectedItem,
+            fetchSearchDetails: _this.props.fetchSearchDetails,
+            movie: _this.props.upcoming,
+            title: "Upcoming ",
+            genres: _this.props.genres
+          }),
+          _react2.default.createElement(_carousel2.default, {
+            selectedItem: _this.selectedItem,
+            fetchSearchDetails: _this.props.fetchSearchDetails,
+            movie: _this.props.popular,
+            title: "Popular ",
+            genres: _this.props.genres
+          }),
+          _react2.default.createElement(_carousel2.default, {
+            selectedItem: _this.selectedItem,
+            fetchSearchDetails: _this.props.fetchSearchDetails,
+            movie: _this.props.nowplaying,
+            title: "Now Playing ",
+            genres: _this.props.genres
+          }),
+          _react2.default.createElement(_carousel2.default, {
+            selectedItem: _this.selectedItem,
+            fetchSearchDetails: _this.props.fetchSearchDetails,
+            movie: _this.props.toprated,
+            title: "Top Rated ",
+            genres: _this.props.genres
+          })
+        );
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
 
-	_createClass(SelectionDetails, [{
-		key: 'componentDidUpdate',
-		value: function componentDidUpdate() {
-			window.scrollTo(0, 0);
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			console.log(this.props.match.url);
-			if (this.props === undefined) {
-				return _react2.default.createElement(
-					'h1',
-					null,
-					'loading'
-				);
-			}
+  _createClass(SelectionDetails, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      window.scrollTo(0, 0);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.props.match.url);
+      if (this.props === undefined) {
+        return _react2.default.createElement(
+          "h1",
+          null,
+          "loading"
+        );
+      }
 
-			return _react2.default.createElement(
-				'section',
-				{ id: 'selection-details-page' },
-				_react2.default.createElement(
-					'div',
-					{
-						className: 'movie-container',
-						style: {
-							backgroundImage: 'linear-gradient(0deg, rgb(0, 0, 0) 5%, rgba(0, 0, 0, 0) 55%), url(https://image.tmdb.org/t/p/original' + (this.props.movie.backdrop_path ? this.props.movie.backdrop_path : this.props.movie.poster_path) + ') ',
-							backgroundSize: 'cover',
-							backgroundPosition: 'center center no-repeat'
-						} },
-					_react2.default.createElement(
-						'div',
-						{ className: 'movie-container' },
-						_react2.default.createElement('div', { className: 'youtube-section' }),
-						this.showYoutubeClip(),
-						_react2.default.createElement(
-							'div',
-							{ className: 'movie-info' },
-							_react2.default.createElement(
-								'h1',
-								null,
-								this.props.match.url == '/tvdetails' ? this.props.movie.name : this.props.movie.title
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'details' },
-								_react2.default.createElement(
-									'div',
-									{ className: 'rating' },
-									_react2.default.createElement(
-										'h2',
-										null,
-										'Rating ',
-										this.props.movie.vote_average
-									),
-									_react2.default.createElement('span', {
-										className: 'fa fa-star ' + (this.props.movie.vote_average > 0 ? 'checked' : '') + ' '
-									}),
-									_react2.default.createElement('span', {
-										className: 'fa fa-star ' + (this.props.movie.vote_average > 1 ? 'checked' : '') + ' '
-									}),
-									_react2.default.createElement('span', {
-										className: 'fa fa-star ' + (this.props.movie.vote_average > 2 ? 'checked' : '') + ' '
-									}),
-									_react2.default.createElement('span', {
-										className: 'fa fa-star ' + (this.props.movie.vote_average > 3 ? 'checked' : '') + ' '
-									}),
-									_react2.default.createElement('span', {
-										className: 'fa fa-star ' + (this.props.movie.vote_average > 4 ? 'checked' : '') + ' '
-									}),
-									_react2.default.createElement('span', {
-										className: 'fa fa-star ' + (this.props.movie.vote_average > 5 ? 'checked' : '') + ' '
-									}),
-									_react2.default.createElement('span', {
-										className: 'fa fa-star ' + (this.props.movie.vote_average > 6 ? 'checked' : '') + ' '
-									}),
-									_react2.default.createElement('span', {
-										className: 'fa fa-star ' + (this.props.movie.vote_average > 7 ? 'checked' : '') + ' '
-									}),
-									_react2.default.createElement('span', {
-										className: 'fa fa-star ' + (this.props.movie.vote_average > 8 ? 'checked' : '') + ' '
-									}),
-									_react2.default.createElement('span', {
-										className: 'fa fa-star ' + (this.props.movie.vote_average > 9 ? 'checked' : '') + ' '
-									})
-								),
-								_react2.default.createElement(
-									'div',
-									{ className: 'runtime' },
-									_react2.default.createElement(
-										'h2',
-										null,
-										this.props.movie.genres && this.props.movie.genres[0] !== undefined ? this.props.movie.genres[0].name : ''
-									),
-									_react2.default.createElement(
-										'h2',
-										null,
-										this.props.match.url == '/tvdetails' ? this.props.movie.episode_run_time : this.props.movie.runtime,
-										'min'
-									),
-									_react2.default.createElement(
-										'h2',
-										null,
-										this.props.movie.release_date
-									)
-								)
-							),
-							_react2.default.createElement(
-								'p',
-								null,
-								this.props.movie.overview
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'cast' },
-								this.renderCast()
-							)
-						)
-					)
-				),
-				this.videoSelection()
-			);
-		}
-	}]);
+      return _react2.default.createElement(
+        "section",
+        { id: "selection-details-page" },
+        _react2.default.createElement(
+          "div",
+          {
+            className: "movie-container",
+            style: {
+              backgroundImage: "linear-gradient(0deg, rgb(0, 0, 0) 5%, rgba(0, 0, 0, 0) 55%), url(https://image.tmdb.org/t/p/original" + (this.props.movie.backdrop_path ? this.props.movie.backdrop_path : this.props.movie.poster_path) + ") ",
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center center"
+            }
+          },
+          _react2.default.createElement(
+            "div",
+            { className: "movie-info-container desktop" },
+            _react2.default.createElement("div", { className: "youtube-section" }),
+            this.showYoutubeClip(),
+            _react2.default.createElement(
+              "div",
+              { className: "movie-info" },
+              _react2.default.createElement(
+                "h1",
+                null,
+                this.props.match.url == "/tvdetails" ? this.props.movie.name : this.props.movie.title
+              ),
+              _react2.default.createElement(
+                "div",
+                { className: "details" },
+                _react2.default.createElement(
+                  "div",
+                  { className: "rating" },
+                  _react2.default.createElement(
+                    "h2",
+                    null,
+                    "Rating ",
+                    this.props.movie.vote_average
+                  ),
+                  _react2.default.createElement("span", {
+                    className: "fa fa-star " + (this.props.movie.vote_average > 0 ? "checked" : "") + " "
+                  }),
+                  _react2.default.createElement("span", {
+                    className: "fa fa-star " + (this.props.movie.vote_average > 1 ? "checked" : "") + " "
+                  }),
+                  _react2.default.createElement("span", {
+                    className: "fa fa-star " + (this.props.movie.vote_average > 2 ? "checked" : "") + " "
+                  }),
+                  _react2.default.createElement("span", {
+                    className: "fa fa-star " + (this.props.movie.vote_average > 3 ? "checked" : "") + " "
+                  }),
+                  _react2.default.createElement("span", {
+                    className: "fa fa-star " + (this.props.movie.vote_average > 4 ? "checked" : "") + " "
+                  }),
+                  _react2.default.createElement("span", {
+                    className: "fa fa-star " + (this.props.movie.vote_average > 5 ? "checked" : "") + " "
+                  }),
+                  _react2.default.createElement("span", {
+                    className: "fa fa-star " + (this.props.movie.vote_average > 6 ? "checked" : "") + " "
+                  }),
+                  _react2.default.createElement("span", {
+                    className: "fa fa-star " + (this.props.movie.vote_average > 7 ? "checked" : "") + " "
+                  }),
+                  _react2.default.createElement("span", {
+                    className: "fa fa-star " + (this.props.movie.vote_average > 8 ? "checked" : "") + " "
+                  }),
+                  _react2.default.createElement("span", {
+                    className: "fa fa-star " + (this.props.movie.vote_average > 9 ? "checked" : "") + " "
+                  })
+                ),
+                _react2.default.createElement(
+                  "div",
+                  { className: "runtime" },
+                  _react2.default.createElement(
+                    "h2",
+                    null,
+                    this.props.movie.genres && this.props.movie.genres[0] !== undefined ? this.props.movie.genres[0].name : ""
+                  ),
+                  _react2.default.createElement(
+                    "h2",
+                    null,
+                    this.props.match.url == "/tvdetails" ? this.props.movie.episode_run_time : this.props.movie.runtime,
+                    "min"
+                  ),
+                  _react2.default.createElement(
+                    "h2",
+                    null,
+                    this.props.movie.release_date
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                "p",
+                null,
+                this.props.movie.overview
+              ),
+              _react2.default.createElement(
+                "div",
+                { className: "cast" },
+                this.renderCast()
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "movie-info-container mobile" },
+          _react2.default.createElement("div", { className: "youtube-section" }),
+          this.showYoutubeClip(),
+          _react2.default.createElement(
+            "div",
+            { className: "movie-info" },
+            _react2.default.createElement(
+              "h1",
+              null,
+              this.props.match.url == "/tvdetails" ? this.props.movie.name : this.props.movie.title
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "details" },
+              _react2.default.createElement(
+                "div",
+                { className: "rating" },
+                _react2.default.createElement(
+                  "h2",
+                  null,
+                  "Rating ",
+                  this.props.movie.vote_average
+                ),
+                _react2.default.createElement("span", {
+                  className: "fa fa-star " + (this.props.movie.vote_average > 0 ? "checked" : "") + " "
+                }),
+                _react2.default.createElement("span", {
+                  className: "fa fa-star " + (this.props.movie.vote_average > 1 ? "checked" : "") + " "
+                }),
+                _react2.default.createElement("span", {
+                  className: "fa fa-star " + (this.props.movie.vote_average > 2 ? "checked" : "") + " "
+                }),
+                _react2.default.createElement("span", {
+                  className: "fa fa-star " + (this.props.movie.vote_average > 3 ? "checked" : "") + " "
+                }),
+                _react2.default.createElement("span", {
+                  className: "fa fa-star " + (this.props.movie.vote_average > 4 ? "checked" : "") + " "
+                }),
+                _react2.default.createElement("span", {
+                  className: "fa fa-star " + (this.props.movie.vote_average > 5 ? "checked" : "") + " "
+                }),
+                _react2.default.createElement("span", {
+                  className: "fa fa-star " + (this.props.movie.vote_average > 6 ? "checked" : "") + " "
+                }),
+                _react2.default.createElement("span", {
+                  className: "fa fa-star " + (this.props.movie.vote_average > 7 ? "checked" : "") + " "
+                }),
+                _react2.default.createElement("span", {
+                  className: "fa fa-star " + (this.props.movie.vote_average > 8 ? "checked" : "") + " "
+                }),
+                _react2.default.createElement("span", {
+                  className: "fa fa-star " + (this.props.movie.vote_average > 9 ? "checked" : "") + " "
+                })
+              ),
+              _react2.default.createElement(
+                "div",
+                { className: "runtime" },
+                _react2.default.createElement(
+                  "h2",
+                  null,
+                  this.props.movie.genres && this.props.movie.genres[0] !== undefined ? this.props.movie.genres[0].name : ""
+                ),
+                _react2.default.createElement(
+                  "h2",
+                  null,
+                  this.props.match.url == "/tvdetails" ? this.props.movie.episode_run_time : this.props.movie.runtime,
+                  "min"
+                ),
+                _react2.default.createElement(
+                  "h2",
+                  null,
+                  this.props.movie.release_date
+                )
+              )
+            ),
+            _react2.default.createElement(
+              "p",
+              null,
+              this.props.movie.overview
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "cast" },
+              this.renderCast()
+            )
+          )
+        ),
+        this.videoSelection()
+      );
+    }
+  }]);
 
-	return SelectionDetails;
+  return SelectionDetails;
 }(_react.Component);
 
 function mapStatetoProps(state) {
-	return {
-		movie: state.selectedItem,
-		popularTv: state.tv.popularTv.results,
-		topratedTv: state.tv.topRatedTv.results,
-		airingtodayTv: state.tv.airingTodayTv.results,
-		thisweekTv: state.tv.airingThisWeekTv.results,
-		genresTv: state.tv.genreTv.genres,
-		upcoming: state.movies.upComingMovies.results,
-		popular: state.movies.popularMovies.results,
-		toprated: state.movies.topRatedMovies.results,
-		nowplaying: state.movies.nowPlayingMovies.results,
-		genres: state.movies.genreMovies.genres
-	};
+  return {
+    movie: state.selectedItem,
+    popularTv: state.tv.popularTv.results,
+    topratedTv: state.tv.topRatedTv.results,
+    airingtodayTv: state.tv.airingTodayTv.results,
+    thisweekTv: state.tv.airingThisWeekTv.results,
+    genresTv: state.tv.genreTv.genres,
+    upcoming: state.movies.upComingMovies.results,
+    popular: state.movies.popularMovies.results,
+    toprated: state.movies.topRatedMovies.results,
+    nowplaying: state.movies.nowPlayingMovies.results,
+    genres: state.movies.genreMovies.genres
+  };
 }
-exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchSearchDetails: _selected.fetchSearchDetails, fetchSearchAll: _search.fetchSearchAll })(SelectionDetails);
+exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchSearchDetails: _selected.fetchSearchDetails, fetchSearchAll: _search.fetchSearchAll, fetchActorDetails: _actor.fetchActorDetails })(SelectionDetails);
 
 /***/ }),
 
-/***/ 262:
+/***/ 264:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1150,27 +1537,27 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(44);
+var _reactRouterDom = __webpack_require__(35);
 
-var _selected = __webpack_require__(66);
+var _selected = __webpack_require__(54);
 
-var _search = __webpack_require__(78);
+var _search = __webpack_require__(68);
 
-var _reactRedux = __webpack_require__(45);
+var _reactRedux = __webpack_require__(36);
 
-var _MainImageCarousel = __webpack_require__(176);
+var _MainImageCarousel = __webpack_require__(177);
 
 var _MainImageCarousel2 = _interopRequireDefault(_MainImageCarousel);
 
-var _MiddleNavigation = __webpack_require__(88);
+var _MiddleNavigation = __webpack_require__(80);
 
 var _MiddleNavigation2 = _interopRequireDefault(_MiddleNavigation);
 
-var _carousel = __webpack_require__(118);
+var _carousel = __webpack_require__(119);
 
 var _carousel2 = _interopRequireDefault(_carousel);
 
@@ -1346,7 +1733,7 @@ exports.default = (0, _reactRedux.connect)(mapStatetoProps, {
 
 /***/ }),
 
-/***/ 263:
+/***/ 265:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1362,19 +1749,21 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _search = __webpack_require__(78);
+var _search = __webpack_require__(68);
 
-var _selected = __webpack_require__(66);
+var _selected = __webpack_require__(54);
 
-var _reactRedux = __webpack_require__(45);
+var _actor = __webpack_require__(118);
 
-var _reactRouterDom = __webpack_require__(44);
+var _reactRedux = __webpack_require__(36);
 
-var _MiddleNavigation = __webpack_require__(88);
+var _reactRouterDom = __webpack_require__(35);
+
+var _MiddleNavigation = __webpack_require__(80);
 
 var _MiddleNavigation2 = _interopRequireDefault(_MiddleNavigation);
 
@@ -1397,12 +1786,18 @@ var SearchResults = function (_Component) {
     _this.selectedItem = function (item) {
       var id = item.id;
       var type = item.media_type;
-      _this.props.fetchSearchDetails(id, type);
+
       if (type == "tv") {
+        _this.props.fetchSearchDetails(id, type);
         _this.props.history.push("/tvdetails");
       }
       if (type == "movie") {
+        _this.props.fetchSearchDetails(id, type);
         _this.props.history.push("/moviedetails");
+      }
+      if (type == "person") {
+        _this.props.fetchActorDetails(id);
+        _this.props.history.push("/actorProfile");
       }
     };
 
@@ -1425,7 +1820,7 @@ var SearchResults = function (_Component) {
               }
             },
             _react2.default.createElement("img", {
-              src: item.poster_path ? "https://image.tmdb.org/t/p/w500" + item.poster_path : "/img/blankPerson.png"
+              src: item.poster_path ? "https://image.tmdb.org/t/p/w500" + item.poster_path : item.profile_path ? "https://image.tmdb.org/t/p/w500" + item.profile_path : "/img/blankPerson.png"
             }),
             _react2.default.createElement(
               "h2",
@@ -1554,11 +1949,11 @@ function mapStatetoProps(state) {
     searchResults: state.searchResults
   };
 }
-exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchSearchAll: _search.fetchSearchAll, fetchSearchDetails: _selected.fetchSearchDetails })(SearchResults);
+exports.default = (0, _reactRedux.connect)(mapStatetoProps, { fetchSearchAll: _search.fetchSearchAll, fetchSearchDetails: _selected.fetchSearchDetails, fetchActorDetails: _actor.fetchActorDetails })(SearchResults);
 
 /***/ }),
 
-/***/ 264:
+/***/ 266:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1568,23 +1963,27 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(77);
+var _redux = __webpack_require__(78);
 
-var _movieReducer = __webpack_require__(287);
+var _movieReducer = __webpack_require__(290);
 
 var _movieReducer2 = _interopRequireDefault(_movieReducer);
 
-var _tvReducer = __webpack_require__(290);
+var _tvReducer = __webpack_require__(293);
 
 var _tvReducer2 = _interopRequireDefault(_tvReducer);
 
-var _selectedItemReducer = __webpack_require__(289);
+var _selectedItemReducer = __webpack_require__(292);
 
 var _selectedItemReducer2 = _interopRequireDefault(_selectedItemReducer);
 
-var _searchReducer = __webpack_require__(288);
+var _searchReducer = __webpack_require__(291);
 
 var _searchReducer2 = _interopRequireDefault(_searchReducer);
+
+var _actorReducer = __webpack_require__(289);
+
+var _actorReducer2 = _interopRequireDefault(_actorReducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1592,14 +1991,15 @@ var rootReducer = (0, _redux.combineReducers)({
   movies: _movieReducer2.default,
   tv: _tvReducer2.default,
   selectedItem: _selectedItemReducer2.default,
-  searchResults: _searchReducer2.default
+  searchResults: _searchReducer2.default,
+  actor: _actorReducer2.default
 });
 
 exports.default = rootReducer;
 
 /***/ }),
 
-/***/ 285:
+/***/ 287:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1613,7 +2013,7 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(44);
+var _reactRouterDom = __webpack_require__(35);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1651,7 +2051,7 @@ exports.default = VideoForCarousel;
 
 /***/ }),
 
-/***/ 286:
+/***/ 288:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1661,43 +2061,47 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRedux = __webpack_require__(45);
+var _reactRedux = __webpack_require__(36);
 
-var _redux = __webpack_require__(77);
+var _redux = __webpack_require__(78);
 
-var _reduxThunk = __webpack_require__(266);
+var _reduxThunk = __webpack_require__(268);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reactRouterDom = __webpack_require__(44);
+var _reactRouterDom = __webpack_require__(35);
 
-var _reducers = __webpack_require__(264);
+var _reducers = __webpack_require__(266);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _axios = __webpack_require__(76);
+var _axios = __webpack_require__(67);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _HomePage = __webpack_require__(260);
+var _HomePage = __webpack_require__(262);
 
 var _HomePage2 = _interopRequireDefault(_HomePage);
 
-var _TvPage = __webpack_require__(262);
+var _TvPage = __webpack_require__(264);
 
 var _TvPage2 = _interopRequireDefault(_TvPage);
 
-var _searchresults = __webpack_require__(263);
+var _searchresults = __webpack_require__(265);
 
 var _searchresults2 = _interopRequireDefault(_searchresults);
 
-var _SelectionDetails = __webpack_require__(261);
+var _SelectionDetails = __webpack_require__(263);
 
 var _SelectionDetails2 = _interopRequireDefault(_SelectionDetails);
+
+var _ActorProfile = __webpack_require__(261);
+
+var _ActorProfile2 = _interopRequireDefault(_ActorProfile);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1722,6 +2126,7 @@ _reactDom2.default.render(_react2.default.createElement(
         _react2.default.createElement(_reactRouterDom.Route, { path: "/moviedetails", component: _SelectionDetails2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: "/tv", component: _TvPage2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: "/searchResults", component: _searchresults2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: "/actorProfile", component: _ActorProfile2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: "/", component: _HomePage2.default })
       )
     )
@@ -1730,7 +2135,39 @@ _reactDom2.default.render(_react2.default.createElement(
 
 /***/ }),
 
-/***/ 287:
+/***/ 289:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _actor.FETCH_ACTOR_DETAILS:
+      return action.payload;
+    case _actor.FETCH_ACTOR_MOVIECREDITS:
+      return _extends({}, state, { movies: action.payload });
+    default:
+      return state;
+  }
+};
+
+var _actor = __webpack_require__(118);
+
+var initialState = {};
+
+/***/ }),
+
+/***/ 290:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1773,7 +2210,7 @@ exports.default = function () {
   }
 };
 
-var _movies = __webpack_require__(174);
+var _movies = __webpack_require__(175);
 
 var initialState = {
   popularMovies: [],
@@ -1785,7 +2222,7 @@ var initialState = {
 
 /***/ }),
 
-/***/ 288:
+/***/ 291:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1809,7 +2246,7 @@ exports.default = function () {
   }
 };
 
-var _search = __webpack_require__(78);
+var _search = __webpack_require__(68);
 
 var initialState = {
   searchResults: {}
@@ -1817,7 +2254,7 @@ var initialState = {
 
 /***/ }),
 
-/***/ 289:
+/***/ 292:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1854,7 +2291,7 @@ exports.default = function () {
   }
 };
 
-var _selected = __webpack_require__(66);
+var _selected = __webpack_require__(54);
 
 var initialState = {
   selectedItem: {}
@@ -1862,7 +2299,7 @@ var initialState = {
 
 /***/ }),
 
-/***/ 290:
+/***/ 293:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1905,7 +2342,7 @@ exports.default = function () {
   }
 };
 
-var _tv = __webpack_require__(175);
+var _tv = __webpack_require__(176);
 
 var initialState = {
   popularTv: [],
@@ -1917,7 +2354,7 @@ var initialState = {
 
 /***/ }),
 
-/***/ 66:
+/***/ 54:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1928,11 +2365,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchMovieTrailers = exports.fetchMovieCredits = exports.fetchTvTrailers = exports.fetchTvCredits = exports.fetchSearchDetails = exports.FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_CREDITS = exports.FETCH_TV_TRAILERS = exports.FETCH_TV_CREDITS = exports.FETCH_SELECTED_DETAILS = undefined;
 
-var _axios = __webpack_require__(76);
+var _axios = __webpack_require__(67);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _config = __webpack_require__(87);
+var _config = __webpack_require__(79);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1944,7 +2381,8 @@ var FETCH_TV_TRAILERS = exports.FETCH_TV_TRAILERS = "fetch_trailers_tv";
 var FETCH_MOVIE_CREDITS = exports.FETCH_MOVIE_CREDITS = "fetch_credits_movies";
 var FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_TRAILERS = "fetch_trailers_movies";
 
-var fetchSearchDetails = exports.fetchSearchDetails = function fetchSearchDetails(id, type) {
+var fetchSearchDetails = exports.fetchSearchDetails = function fetchSearchDetails(id) {
+  var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "movie";
   return function (dispatch) {
     _axios2.default.get("https://api.themoviedb.org/3/" + type + "/" + id + "?" + _config.API_KEY).then(function (res) {
       return dispatch({
@@ -2011,7 +2449,7 @@ var fetchMovieTrailers = exports.fetchMovieTrailers = function fetchMovieTrailer
 
 /***/ }),
 
-/***/ 78:
+/***/ 68:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2022,11 +2460,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchSearchAll = exports.FETCH_SEARCH_ALL = undefined;
 
-var _axios = __webpack_require__(76);
+var _axios = __webpack_require__(67);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _config = __webpack_require__(87);
+var _config = __webpack_require__(79);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2047,7 +2485,7 @@ var fetchSearchAll = exports.fetchSearchAll = function fetchSearchAll(searchTerm
 
 /***/ }),
 
-/***/ 87:
+/***/ 79:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2060,7 +2498,7 @@ var API_KEY = exports.API_KEY = 'api_key=198b9ddcfd3755ac7a132d98b8f8fda2';
 
 /***/ }),
 
-/***/ 88:
+/***/ 80:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2076,11 +2514,11 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(44);
+var _reactRouterDom = __webpack_require__(35);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2167,4 +2605,4 @@ exports.default = MiddleNavigation;
 
 /***/ })
 
-},[286]);
+},[288]);

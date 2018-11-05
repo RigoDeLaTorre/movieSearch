@@ -1,4 +1,30 @@
 #carousel {
+  @media only screen and (min-width: 768px) {
+    .swiper-button-next {
+      right: 2px;
+      top: 110px !important;
+    }
+    .swiper-button-prev {
+      left: 0;
+      top: 100px !important;
+    }
+  }
+  @media only screen and (max-width: 767px) {
+    h2 {
+      font-size: 0.7rem !important;
+    }
+    img {
+      height: 100px !important;
+    }
+    .swiper-button-next {
+      height: 30px !important;
+      top: 100px !important;
+    }
+    .swiper-button-prev {
+      height: 30px !important;
+      top: 100px !important;
+    }
+  }
   .title-sub-header {
     max-width: 80%;
     margin: 2rem auto;

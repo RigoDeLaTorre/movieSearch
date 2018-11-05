@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ReactDom from "react-dom";
 import { fetchSearchAll } from "../actions/search";
 import { fetchSearchDetails } from "../actions/selected";
+import { fetchActorDetails } from "../actions/actor";
+
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import MiddleNavigation from "../components/MiddleNavigation.js";
@@ -17,12 +19,18 @@ class SearchResults extends Component {
   selectedItem = item => {
     let id = item.id;
     let type = item.media_type;
-    this.props.fetchSearchDetails(id, type);
+
     if (type == "tv") {
+      this.props.fetchSearchDetails(id, type);
       this.props.history.push("/tvdetails");
     }
     if (type == "movie") {
+      this.props.fetchSearchDetails(id, type);
       this.props.history.push("/moviedetails");
+    }
+    if (type == "person") {
+      this.props.fetchActorDetails(id);
+      this.props.history.push("/actorProfile");
     }
   };
 
@@ -41,7 +49,9 @@ class SearchResults extends Component {
               src={
                 item.poster_path
                   ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-                  : `/img/blankPerson.png`
+                  : item.profile_path
+                    ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
+                    : `/img/blankPerson.png`
               }
             />
             <h2>{item.title ? item.title : item.name}</h2>
@@ -114,5 +124,5 @@ function mapStatetoProps(state) {
 }
 export default connect(
   mapStatetoProps,
-  { fetchSearchAll, fetchSearchDetails }
+  { fetchSearchAll, fetchSearchDetails, fetchActorDetails }
 )(SearchResults);
