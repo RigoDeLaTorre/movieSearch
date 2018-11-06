@@ -66,7 +66,7 @@ class SelectionDetails extends Component {
     } else {
       return (
         <iframe
-          src={`http://www.youtube.com/embed/${
+          src={`https://www.youtube.com/embed/${
             this.props.movie.results[0].key
           }`}
           allowFullScreen="allowFullScreen"
