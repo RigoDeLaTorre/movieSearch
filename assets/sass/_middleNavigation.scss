@@ -1,70 +1,70 @@
 #section-title-header {
-  padding: 2rem 0;
-  .mid-navigation {
-    display: flex;
-    justify-content: center;
-    flex-flow: row wrap;
-    align-items: flex-end;
-    @media only screen and (min-width: 768px) and (max-width: 1200px) {
-      form {
-        margin-top: 1rem;
-      }
-    }
+	padding: 2rem 0;
+	.mid-navigation {
+		display: flex;
+		justify-content: center;
+		flex-flow: row wrap;
+		align-items: flex-end;
+		@media only screen and (min-width: 768px) and (max-width: 1200px) {
+			form {
+				margin-top: 1rem;
+			}
+		}
 
-    @media only screen and(max-width: 767px) {
-      form {
-        width: 90%;
-        margin-top: 1rem;
-      }
-      input[type="text"] {
-        font-size: 16px;
-        &::placeholder {
-          font-size: 0.7rem;
-        }
-      }
-    }
-    h1 {
-      text-align: center;
-      font-size: 1rem;
-      letter-spacing: 2px;
-      color: orange;
-      font-weight: 900;
-      text-shadow: 4px 4px 22px #141414;
-      margin-right: 2em;
-      border: 1px solid white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      &:hover {
-        box-shadow: 0px 0px 25px -1px rgba(232, 226, 226, 0.75);
-      }
-    }
-    form {
-      font-size: 16px;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
+		@media only screen and(max-width: 767px) {
+			form {
+				width: 90%;
+				margin-top: 1rem;
+			}
+			input[type='text'] {
+				font-size: 16px;
+				&::placeholder {
+					font-size: 0.7rem;
+				}
+			}
+		}
+		h1 {
+			text-align: center;
+			font-size: 1rem;
+			letter-spacing: 2px;
+			color: orange;
+			font-weight: 900;
+			text-shadow: 4px 4px 22px #141414;
+			margin-right: 2em;
+			border: 1px solid white;
+			padding: 10px 20px;
+			border-radius: 5px;
+			cursor: pointer;
+			&:hover {
+				box-shadow: 0px 0px 25px -1px rgba(232, 226, 226, 0.75);
+			}
+		}
+		form {
+			font-size: 16px;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
 
-      input[type="text"] {
-        width: 450px;
-        text-align: center;
-        border: none;
-        margin-right: 0.5rem;
-        border-radius: 5px;
-      }
-      input[type="submit"] {
-        width: 100px;
-        color: black;
-        font-weight: 500;
-        background: #f7a503;
-        border: none;
-        border-radius: 5px;
-        padding: 12px;
-        cursor: pointer;
-        &:hover {
-          background: #fab834;
-        }
-      }
-    }
-  }
+			input[type='text'] {
+				width: 450px;
+				text-align: center;
+				border: none;
+				margin-right: 0.5rem;
+				border-radius: 5px;
+			}
+			input[type='submit'] {
+				width: 100px;
+				color: black;
+				font-weight: 500;
+				background: #f7a503;
+				border: none;
+				border-radius: 5px;
+				padding: 12px;
+				cursor: pointer;
+				&:hover {
+					background: #fab834;
+				}
+			}
+		}
+	}
 }
