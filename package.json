@@ -55,8 +55,8 @@
     "startme": "node server.js"
   },
   "engines": {
-  "node": "10.13.0"
-},
+    "node": "10.13.0"
+  },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1"

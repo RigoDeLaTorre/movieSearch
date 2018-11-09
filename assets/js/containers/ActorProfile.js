@@ -5,7 +5,7 @@ import { fetchSearchDetails } from "../actions/selected";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import MiddleNavigation from "../components/MiddleNavigation.js";
-import Footer from "../components/Footer.js";
+
 import LoadingComp from "../components/LoadingComp.js";
 
 class ActorProfile extends Component {
@@ -122,7 +122,6 @@ class ActorProfile extends Component {
 
           <div className="actor-roles-container">{this.showResults()}</div>
         </div>
-        <Footer />
       </section>
     );
   }

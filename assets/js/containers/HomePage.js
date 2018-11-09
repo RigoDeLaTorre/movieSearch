@@ -21,7 +21,6 @@ import { connect } from "react-redux";
 import MainImageCarousel from "./MainImageCarousel.js";
 import MiddleNavigation from "../components/MiddleNavigation.js";
 import LoadingComp from "../components/LoadingComp.js";
-import Footer from "../components/Footer.js";
 import Carousel from "./carousel.js";
 
 class HomePage extends Component {
@@ -129,7 +128,6 @@ class HomePage extends Component {
             title="Top Rated "
           />
         </div>
-        <Footer />
       </section>
     );
   }

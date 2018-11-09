@@ -7,7 +7,7 @@ import { fetchActorDetails } from "../actions/actor";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import MiddleNavigation from "../components/MiddleNavigation.js";
-import Footer from "../components/Footer.js";
+
 
 class SearchResults extends Component {
   constructor(props) {
@@ -118,7 +118,6 @@ class SearchResults extends Component {
             <button onClick={this.handleNextPage}>Next</button>
           </div>
         </div>
-        <Footer />
       </section>
     );
   }

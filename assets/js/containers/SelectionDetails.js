@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import MiddleNavigation from "../components/MiddleNavigation.js";
 import LoadingComp from "../components/LoadingComp.js";
-import Footer from "../components/Footer.js";
 import Carousel from "./carousel.js";
 
 class SelectionDetails extends Component {
@@ -349,7 +348,6 @@ class SelectionDetails extends Component {
           </div>
         </div>
         {this.videoSelection()}
-        <Footer />
       </section>
     );
   }

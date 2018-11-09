@@ -19,6 +19,7 @@ import TvPage from './containers/TvPage.js'
 import SearchResults from './containers/searchresults'
 import SelectionDetails from './containers/SelectionDetails'
 import ActorProfile from './containers/ActorProfile'
+import Footer from "./components/Footer.js";
 
 const initialState = {}
 const middleware = [thunk]
@@ -44,6 +45,7 @@ ReactDOM.render(
 					<Route path="/actorProfile" component={ActorProfile} />
 					<Route path="/" component={HomePage} />
 				</Switch>
+				<Footer />
 			</div>
 		</Router>
 	</Provider>,
